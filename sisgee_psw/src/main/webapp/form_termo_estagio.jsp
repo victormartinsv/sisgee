@@ -6,8 +6,7 @@
 </head>
 <body>
 <%@include file="import_navbar.jspf"%>
-	<div class="container">	
-	<c:out value="${ msg }"/>
+	<div class="container">		
 	<p><h5> Registro de Termo de Estágio </h5></p>	
 	</div>
 <%@include file="import_finalbodyscripts.jspf"%>

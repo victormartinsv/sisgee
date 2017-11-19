@@ -9,7 +9,7 @@
 	<div class="container">
   		<br/>
   		<br/>
-  		<p>Ocorreu um erro na aplicação. Entre em contato com o suporte (21) 9999-9999.</p>
+  		<p>Ocorreu um erro na aplicação.</p>
   	</div>
 <%@include file="import_finalbodyscripts.jspf"%>
 </body>

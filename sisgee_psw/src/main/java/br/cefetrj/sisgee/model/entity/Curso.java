@@ -4,11 +4,17 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+/**
+ * 
+ * @author Paulo Cantuária
+ * @since 1.0
+ */
 @Entity
 public class Curso {
 	
@@ -22,15 +28,53 @@ public class Curso {
 	@Column(length=255, nullable=false)
 	private String nomeCurso;
 	
-	@ManyToMany(mappedBy="cursos")
-	private List<Campus> campi;
-	
-	//TODO verificar relacionamentos (Campus e Aluno) e seus atributos
-	
+	@ManyToOne(fetch=FetchType.EAGER)
+	private Campus campus;
+		
 	@OneToMany(mappedBy="curso")
 	private List<Aluno> alunos;
 
-	
+	public Curso() {}	
+
+	public Integer getIdCurso() {
+		return idCurso;
+	}
+
+	public void setIdCurso(Integer idCurso) {
+		this.idCurso = idCurso;
+	}
+
+	public String getCodigoCurso() {
+		return codigoCurso;
+	}
+
+	public void setCodigoCurso(String codigoCurso) {
+		this.codigoCurso = codigoCurso;
+	}
+
+	public String getNomeCurso() {
+		return nomeCurso;
+	}
+
+	public void setNomeCurso(String nomeCurso) {
+		this.nomeCurso = nomeCurso;
+	}
+
+	public Campus getCampus() {
+		return campus;
+	}
+
+	public void setCampus(Campus campus) {
+		this.campus = campus;
+	}
+
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
+	}
 
 	@Override
 	public int hashCode() {

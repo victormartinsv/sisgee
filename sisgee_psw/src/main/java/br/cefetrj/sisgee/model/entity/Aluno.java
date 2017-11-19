@@ -19,24 +19,64 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Aluno {
-	
+
 	@Id
 	@GeneratedValue
 	private Integer idAluno;
-	
+
 	@Column(length = 100, nullable = false, unique = true)
-	private String matricula;	
-			
-	@ManyToOne(fetch=FetchType.EAGER)
+	private String matricula;
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Pessoa pessoa;
-	
-	@OneToOne(fetch=FetchType.EAGER)
+
+	@OneToOne(fetch = FetchType.EAGER)
 	private Curso curso;
-	
-	@OneToMany(mappedBy="aluno")
+
+	@OneToMany(mappedBy = "aluno")
 	private List<TermoEstagio> termoEstagios;
 
-	
+	public Aluno() {}
+
+	public Integer getIdAluno() {
+		return idAluno;
+	}
+
+	public void setIdAluno(Integer idAluno) {
+		this.idAluno = idAluno;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
+	public List<TermoEstagio> getTermoEstagios() {
+		return termoEstagios;
+	}
+
+	public void setTermoEstagios(List<TermoEstagio> termoEstagios) {
+		this.termoEstagios = termoEstagios;
+	}
 
 	@Override
 	public int hashCode() {
@@ -67,9 +107,5 @@ public class Aluno {
 	public String toString() {
 		return matricula;
 	}
-	
-
-	
-	
 
 }

@@ -1,5 +1,7 @@
 package br.cefetrj.sisgee.model.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,7 +32,7 @@ public class Convenio {
 	private Empresa empresa;
 
 	@OneToMany(mappedBy = "convenio")
-	private TermoEstagio termoEstagio;
+	private List <TermoEstagio> termoEstagios;
 
 	public Convenio() {}
 
@@ -58,12 +60,12 @@ public class Convenio {
 		this.empresa = empresa;
 	}
 
-	public TermoEstagio getTermoEstagio() {
-		return termoEstagio;
+	public List<TermoEstagio> getTermoEstagio() {
+		return termoEstagios;
 	}
 
-	public void setTermoEstagio(TermoEstagio termoEstagio) {
-		this.termoEstagio = termoEstagio;
+	public void setTermoEstagio(List<TermoEstagio> termoEstagios) {
+		this.termoEstagios = termoEstagios;
 	}
 
 	@Override

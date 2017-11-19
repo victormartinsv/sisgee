@@ -1,5 +1,7 @@
 package br.cefetrj.sisgee.model.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,8 +32,8 @@ public class Empresa {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private AgenteIntegracao agenteIntegracao;
 
-	@OneToMany(mappedBy = "empresas")
-	private Convenio convenio;
+	@OneToMany(mappedBy = "empresa")
+	private List<Convenio> convenios;
 
 	public Empresa() {}
 	
@@ -67,12 +69,12 @@ public class Empresa {
 		this.agenteIntegracao = agenteIntegracao;
 	}
 
-	public Convenio getConvenio() {
-		return convenio;
+	public List<Convenio> getConvenios() {
+		return convenios;
 	}
 
-	public void setConvenio(Convenio convenio) {
-		this.convenio = convenio;
+	public void setConvenios(List<Convenio> convenios) {
+		this.convenios = convenios;
 	}
 
 	@Override

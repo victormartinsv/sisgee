@@ -1,10 +1,19 @@
 package br.cefetrj.sisgee.model.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+/**
+ * 
+ * @author Paulo Cantuária
+ * @since 1.0
+ *
+ */
 @Entity
 public class AgenteIntegracao {
 	
@@ -17,10 +26,44 @@ public class AgenteIntegracao {
 	
 	@Column(length=100, nullable=false)
 	private String nomeAgenteIntegracao;
+	
+	
+	@OneToMany(mappedBy="agenteIntegracao")
+	private List<Empresa> empresas;
+		
+	public AgenteIntegracao() {}
 
-	//TODO verificar relacionamento Agente x Empresa, criar o atributo que o representa.
-	
-	
+	public Integer getIdAgenteIntegracao() {
+		return idAgenteIntegracao;
+	}
+
+	public void setIdAgenteIntegracao(Integer idAgenteIntegracao) {
+		this.idAgenteIntegracao = idAgenteIntegracao;
+	}
+
+	public String getCnpjAgenteIntegracao() {
+		return cnpjAgenteIntegracao;
+	}
+
+	public void setCnpjAgenteIntegracao(String cnpjAgenteIntegracao) {
+		this.cnpjAgenteIntegracao = cnpjAgenteIntegracao;
+	}
+
+	public String getNomeAgenteIntegracao() {
+		return nomeAgenteIntegracao;
+	}
+
+	public void setNomeAgenteIntegracao(String nomeAgenteIntegracao) {
+		this.nomeAgenteIntegracao = nomeAgenteIntegracao;
+	}
+
+	public List<Empresa> getEmpresas() {
+		return empresas;
+	}
+
+	public void setEmpresas(List<Empresa> empresas) {
+		this.empresas = empresas;
+	}
 
 	@Override
 	public int hashCode() {

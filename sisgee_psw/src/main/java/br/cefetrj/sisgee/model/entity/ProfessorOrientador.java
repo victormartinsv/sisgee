@@ -17,11 +17,35 @@ public class ProfessorOrientador {
 	@Column(length = 80, nullable = false)
 	private String nomeProfessorOrientador;
 
-	// TODO Relacionamento com TermoEstagio	
-	@OneToMany(mappedBy="professorOrientador")
-	private List <TermoEstagio> termoEstagios;
+	// TODO Relacionamento com TermoEstagio
+	@OneToMany(mappedBy = "professorOrientador")
+	private List<TermoEstagio> termoEstagios;
 
+	public ProfessorOrientador() {}
 	
+	public Integer getIdProfessorOrientador() {
+		return idProfessorOrientador;
+	}
+
+	public void setIdProfessorOrientador(Integer idProfessorOrientador) {
+		this.idProfessorOrientador = idProfessorOrientador;
+	}
+
+	public String getNomeProfessorOrientador() {
+		return nomeProfessorOrientador;
+	}
+
+	public void setNomeProfessorOrientador(String nomeProfessorOrientador) {
+		this.nomeProfessorOrientador = nomeProfessorOrientador;
+	}
+
+	public List<TermoEstagio> getTermoEstagios() {
+		return termoEstagios;
+	}
+
+	public void setTermoEstagios(List<TermoEstagio> termoEstagios) {
+		this.termoEstagios = termoEstagios;
+	}
 
 	@Override
 	public int hashCode() {

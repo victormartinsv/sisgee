@@ -4,8 +4,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * 
@@ -14,33 +16,140 @@ import javax.persistence.Id;
  */
 @Entity
 public class TermoAditivo {
-	
+
 	@Id
 	@GeneratedValue
 	private Integer idTermoAditivo;
+
 	private Date dataFimTermoAditivo;
+
 	@Column(nullable = false)
 	private Integer cargaHorariaTermoAditivo;
-	@Column( nullable = false)
+
+	@Column(nullable = false)
 	private float valorBolsaTermoAditivo;
+
 	@Column(length = 255, nullable = false)
 	private String enderecoTermoAditivo;
+
 	@Column(length = 10, nullable = false)
 	private String numeroEnderecoTermoAditivo;
+
 	@Column(length = 150, nullable = false)
 	private String complementoEnderecoTermoAditivo;
+
 	@Column(length = 150, nullable = false)
 	private String bairroEnderecoTermoAditivo;
+
 	@Column(length = 15, nullable = false)
 	private String cepEnderecoTermoAditivo;
+
 	@Column(length = 150, nullable = false)
 	private String cidadeEnderecoTermoAditivo;
+
 	@Column(length = 2, nullable = false)
 	private String estadoEnderecoTermoAditivo;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	private TermoEstagio termoEstagio;
+
+	public TermoAditivo() {}
 	
-	//TODO relacionamento TermoEstagio
-	
-	
+	public Integer getIdTermoAditivo() {
+		return idTermoAditivo;
+	}
+
+	public void setIdTermoAditivo(Integer idTermoAditivo) {
+		this.idTermoAditivo = idTermoAditivo;
+	}
+
+	public Date getDataFimTermoAditivo() {
+		return dataFimTermoAditivo;
+	}
+
+	public void setDataFimTermoAditivo(Date dataFimTermoAditivo) {
+		this.dataFimTermoAditivo = dataFimTermoAditivo;
+	}
+
+	public Integer getCargaHorariaTermoAditivo() {
+		return cargaHorariaTermoAditivo;
+	}
+
+	public void setCargaHorariaTermoAditivo(Integer cargaHorariaTermoAditivo) {
+		this.cargaHorariaTermoAditivo = cargaHorariaTermoAditivo;
+	}
+
+	public float getValorBolsaTermoAditivo() {
+		return valorBolsaTermoAditivo;
+	}
+
+	public void setValorBolsaTermoAditivo(float valorBolsaTermoAditivo) {
+		this.valorBolsaTermoAditivo = valorBolsaTermoAditivo;
+	}
+
+	public String getEnderecoTermoAditivo() {
+		return enderecoTermoAditivo;
+	}
+
+	public void setEnderecoTermoAditivo(String enderecoTermoAditivo) {
+		this.enderecoTermoAditivo = enderecoTermoAditivo;
+	}
+
+	public String getNumeroEnderecoTermoAditivo() {
+		return numeroEnderecoTermoAditivo;
+	}
+
+	public void setNumeroEnderecoTermoAditivo(String numeroEnderecoTermoAditivo) {
+		this.numeroEnderecoTermoAditivo = numeroEnderecoTermoAditivo;
+	}
+
+	public String getComplementoEnderecoTermoAditivo() {
+		return complementoEnderecoTermoAditivo;
+	}
+
+	public void setComplementoEnderecoTermoAditivo(String complementoEnderecoTermoAditivo) {
+		this.complementoEnderecoTermoAditivo = complementoEnderecoTermoAditivo;
+	}
+
+	public String getBairroEnderecoTermoAditivo() {
+		return bairroEnderecoTermoAditivo;
+	}
+
+	public void setBairroEnderecoTermoAditivo(String bairroEnderecoTermoAditivo) {
+		this.bairroEnderecoTermoAditivo = bairroEnderecoTermoAditivo;
+	}
+
+	public String getCepEnderecoTermoAditivo() {
+		return cepEnderecoTermoAditivo;
+	}
+
+	public void setCepEnderecoTermoAditivo(String cepEnderecoTermoAditivo) {
+		this.cepEnderecoTermoAditivo = cepEnderecoTermoAditivo;
+	}
+
+	public String getCidadeEnderecoTermoAditivo() {
+		return cidadeEnderecoTermoAditivo;
+	}
+
+	public void setCidadeEnderecoTermoAditivo(String cidadeEnderecoTermoAditivo) {
+		this.cidadeEnderecoTermoAditivo = cidadeEnderecoTermoAditivo;
+	}
+
+	public String getEstadoEnderecoTermoAditivo() {
+		return estadoEnderecoTermoAditivo;
+	}
+
+	public void setEstadoEnderecoTermoAditivo(String estadoEnderecoTermoAditivo) {
+		this.estadoEnderecoTermoAditivo = estadoEnderecoTermoAditivo;
+	}
+
+	public TermoEstagio getTermoEstagio() {
+		return termoEstagio;
+	}
+
+	public void setTermoEstagio(TermoEstagio termoEstagio) {
+		this.termoEstagio = termoEstagio;
+	}
 
 	@Override
 	public int hashCode() {

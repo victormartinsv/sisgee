@@ -4,10 +4,9 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Campus {
@@ -15,16 +14,38 @@ public class Campus {
 	@Id
 	@GeneratedValue
 	private Integer idCampus;
-	
-	@Column(length=100, nullable=false, unique=true)
-	private String nomeCampus;
-	
-	@ManyToMany(fetch=FetchType.EAGER)
-	private List<Curso> cursos;
-	
-	//TODO Verificar relacionamentos
 
-	
+	@Column(length = 100, nullable = false, unique = true)
+	private String nomeCampus;
+
+	@OneToMany(mappedBy = "campus")
+	private List<Curso> cursos;
+
+	public Campus() {}
+
+	public Integer getIdCampus() {
+		return idCampus;
+	}
+
+	public void setIdCampus(Integer idCampus) {
+		this.idCampus = idCampus;
+	}
+
+	public String getNomeCampus() {
+		return nomeCampus;
+	}
+
+	public void setNomeCampus(String nomeCampus) {
+		this.nomeCampus = nomeCampus;
+	}
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
 
 	@Override
 	public int hashCode() {
@@ -56,5 +77,4 @@ public class Campus {
 		return nomeCampus;
 	}
 
-	
 }

@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 /**
  * Implementação do padrão DAO
  * conforme mostrado nas aulas
- * @author paducantuaria
+ * @author Paulo Cantuária
  * @since 1.0
  *
  * @param <T>

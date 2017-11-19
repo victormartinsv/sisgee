@@ -19,14 +19,38 @@ public class Pessoa {
 	@Id
 	@GeneratedValue
 	private Long idPessoa;
-	
+
 	@Column(length = 100, nullable = false)
 	private String nome;
-		
-	@OneToMany(mappedBy="pessoa")
+
+	@OneToMany(mappedBy = "pessoa")
 	private List<Aluno> alunos;
 
+	public Pessoa() {}
 	
+	public Long getIdPessoa() {
+		return idPessoa;
+	}
+
+	public void setIdPessoa(Long idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
+	}
 
 	@Override
 	public int hashCode() {

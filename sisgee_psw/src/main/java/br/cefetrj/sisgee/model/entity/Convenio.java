@@ -1,25 +1,72 @@
 package br.cefetrj.sisgee.model.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+/**
+ * 
+ * @author padu
+ * @since 1.0
+ * 
+ */
 @Entity
 public class Convenio {
-	
+
 	@Id
 	@GeneratedValue
 	private Integer idConvenio;
-	
-	@Column(length=10, nullable=false)
-	private String numeroConvenio;
-			
-	//TODO verificar relacionamentos e seus atributos (empresa e termoEstagio)
-	
-	
 
-	
+	@Column(length = 10, nullable = false)
+	private String numeroConvenio;
+
+	// TODO verificar relacionamentos e seus atributos (empresa e termoEstagio)
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Empresa empresa;
+
+	@OneToMany(mappedBy = "convenio")
+	private List <TermoEstagio> termoEstagios;
+
+	public Convenio() {}
+
+	public Integer getIdConvenio() {
+		return idConvenio;
+	}
+
+	public void setIdConvenio(Integer idConvenio) {
+		this.idConvenio = idConvenio;
+	}
+
+	public String getNumeroConvenio() {
+		return numeroConvenio;
+	}
+
+	public void setNumeroConvenio(String numeroConvenio) {
+		this.numeroConvenio = numeroConvenio;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public List<TermoEstagio> getTermoEstagio() {
+		return termoEstagios;
+	}
+
+	public void setTermoEstagio(List<TermoEstagio> termoEstagios) {
+		this.termoEstagios = termoEstagios;
+	}
 
 	@Override
 	public int hashCode() {
@@ -50,7 +97,5 @@ public class Convenio {
 	public String toString() {
 		return numeroConvenio;
 	}
-	
-	
 
 }

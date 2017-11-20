@@ -64,16 +64,16 @@ public class TermoEstagio {
 	private Boolean estagioObrigatorio;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	public Aluno aluno;
+	private Aluno aluno;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	public Convenio convenio;
+	private Convenio convenio;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	public ProfessorOrientador professorOrientador;
+	private ProfessorOrientador professorOrientador;
 
 	@OneToMany(mappedBy = "termoEstagio")
-	public List<TermoAditivo> termosAditivos;
+	private List<TermoAditivo> termosAditivos;
 
 	public TermoEstagio() {}
 	

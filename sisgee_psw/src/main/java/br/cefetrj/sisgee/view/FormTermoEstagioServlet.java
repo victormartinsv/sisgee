@@ -19,6 +19,14 @@ import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.view.utils.UF;
 
+/**
+ * Servlet para trazer os dados do banco para a tela de cadastro de Termo
+ * de Estágio.
+ * 
+ * @author Paulo Cantuária
+ * @since 1.0
+ *
+ */
 @WebServlet("/FormTermoEstagioServlet")
 public class FormTermoEstagioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

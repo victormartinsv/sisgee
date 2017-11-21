@@ -25,6 +25,10 @@ public class AlunoServices {
 		return alunoDao.buscarTodos();
 	}
 	
+	public static Aluno buscarAluno(Aluno aluno) {
+		GenericDAO<Aluno> alunoDao = PersistenceManager.createGenericDAO(Aluno.class);
+		return alunoDao.buscar(aluno.getIdAluno());
+	}
 	
 	public static void incluirAluno(Aluno aluno){
 		GenericDAO<Aluno> alunoDao = PersistenceManager.createGenericDAO(Aluno.class);		

@@ -1,7 +1,12 @@
 <footer class="footer">
-	<div class="container">
-		<span class="text-muted"> Desenvolvido pelos alunos de Programação de Software WEB - 2017/2:<br>
-			Augusto José Moreira, Diego Carlos de Oliveira, Marcos Eduardo Carvalho, Natália Nunes, Paulo Eduardo Cantuária e Pedro Parreira.
-		</span>
+	<div class="alert alert-info" role="alert">
+		<div class="container">
+			<span class="text-muted"> Desenvolvido pelos alunos da
+				disciplina Programação de Software WEB - 2017/2:<br> Augusto
+				José Moreira, Diego Carlos de Oliveira, Marcos Eduardo Carvalho,
+				Natália Nunes, Paulo Eduardo Cantuária e Pedro Parreira.<br>
+				Professor: Diogo Mendonça.
+			</span>
+		</div>
 	</div>
 </footer>

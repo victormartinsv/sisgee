@@ -105,7 +105,4 @@ public class Curso {
 	public String toString() {
 		return nomeCurso;
 	}
-	
-	
-
 }

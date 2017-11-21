@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 
 /**
  * 
- * @author paducantuaria
+ * @author Paulo Cantuaria
  * @since 1.0
  *
  */
@@ -37,6 +37,10 @@ public class Aluno {
 	private List<TermoEstagio> termoEstagios;
 
 	public Aluno() {}
+
+	public Aluno(Integer idAluno) {
+		this.idAluno = idAluno;
+	}
 
 	public Integer getIdAluno() {
 		return idAluno;

@@ -11,6 +11,7 @@
   		<br/>
   		<p>Ocorreu um erro na aplicação.</p>
   	</div>
+ <%@include file="import_footer.jspf"%> 
 <%@include file="import_finalbodyscripts.jspf"%>
 </body>
 </html>

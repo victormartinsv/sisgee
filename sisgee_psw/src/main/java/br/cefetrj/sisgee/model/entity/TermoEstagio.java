@@ -61,7 +61,7 @@ public class TermoEstagio {
 	private String estadoEnderecoTermoEstagio;
 
 	@Column(nullable = false)
-	private Boolean estagioObrigatorio;
+	private Boolean eEstagioObrigatorio;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Aluno aluno;
@@ -77,6 +77,33 @@ public class TermoEstagio {
 
 	public TermoEstagio() {}
 	
+	
+	
+	public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Integer cargaHorariaTermoEstagio,
+			Float valorBolsa, String enderecoTermoEstagio, String numeroEnderecoTermoEstagio,
+			String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio,
+			String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio,
+			Aluno aluno, Convenio convenio, ProfessorOrientador professorOrientador) {
+		
+		this.dataInicioTermoEstagio = dataInicioTermoEstagio;
+		this.dataFimTermoEstagio = dataFimTermoEstagio;
+		this.cargaHorariaTermoEstagio = cargaHorariaTermoEstagio;
+		this.valorBolsa = valorBolsa;
+		this.enderecoTermoEstagio = enderecoTermoEstagio;
+		this.numeroEnderecoTermoEstagio = numeroEnderecoTermoEstagio;
+		this.complementoEnderecoTermoEstagio = complementoEnderecoTermoEstagio;
+		this.bairroEnderecoTermoEstagio = bairroEnderecoTermoEstagio;
+		this.cepEnderecoTermoEstagio = cepEnderecoTermoEstagio;
+		this.cidadeEnderecoTermoEstagio = cidadeEnderecoTermoEstagio;
+		this.estadoEnderecoTermoEstagio = estadoEnderecoTermoEstagio;
+		this.eEstagioObrigatorio = eEstagioObrigatorio;
+		this.aluno = aluno;
+		this.convenio = convenio;
+		this.professorOrientador = professorOrientador;
+	}
+
+
+
 	public Integer getIdTermoEstagio() {
 		return idTermoEstagio;
 	}
@@ -187,14 +214,14 @@ public class TermoEstagio {
 
 	public void setEstadoEnderecoTermoEstagio(String estadoEnderecoTermoEstagio) {
 		this.estadoEnderecoTermoEstagio = estadoEnderecoTermoEstagio;
+	}	
+
+	public Boolean geteEstagioObrigatorio() {
+		return eEstagioObrigatorio;
 	}
 
-	public Boolean getEstagioObrigatorio() {
-		return estagioObrigatorio;
-	}
-
-	public void setEstagioObrigatorio(Boolean estagioObrigatorio) {
-		this.estagioObrigatorio = estagioObrigatorio;
+	public void seteEstagioObrigatorio(Boolean eEstagioObrigatorio) {
+		this.eEstagioObrigatorio = eEstagioObrigatorio;
 	}
 
 	public Aluno getAluno() {

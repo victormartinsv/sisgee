@@ -17,6 +17,7 @@ import br.cefetrj.sisgee.model.entity.AgenteIntegracao;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
+import br.cefetrj.sisgee.view.utils.UF;
 
 @WebServlet("/FormTermoEstagioServlet")
 public class FormTermoEstagioServlet extends HttpServlet {
@@ -29,11 +30,13 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		List<Empresa> empresas = EmpresaServices.listarEmpresas();
 		List<Aluno> alunos = AlunoServices.listarAlunos();
 		List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
+		UF[] uf = UF.asList();
 		
 		request.setAttribute("agentesIntegracao", agentesIntegracao);
 		request.setAttribute("empresas", empresas);
 		request.setAttribute("alunos", alunos);
 		request.setAttribute("professores", professores);
+		request.setAttribute("uf", uf);
 
 		request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
 

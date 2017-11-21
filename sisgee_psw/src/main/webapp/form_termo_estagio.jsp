@@ -4,6 +4,7 @@
 <%@include file="import_head.jspf"%>
 
 <style type="text/css">
+
 form {
 	margin-top: 50px;
 }
@@ -16,28 +17,29 @@ fieldset legend.col-form-legend {
 div.form-row {
 	padding: 0px 15px;
 }
+
 </style>
 
-<title>Registro de Termo de Est·gio</title>
+<title>Registro de Termo de Est√°gio</title>
 </head>
 <body>
 	<%@include file="import_navbar.jspf"%>
 	<div class="container">
 		<p class="tituloForm">
-		<h5>Registro de Termo de Est·gio</h5>
+		<h5>Registro de Termo de Est√°gio</h5>
 		</p>
 
 		<form>
 			<fieldset class="form-group">
 				<legend class="col-form-legend col-lg">Dados da Empresa Conveniada</legend>
 				<div class="form-group col-md-6">
-					<label for="numeroConvenio">N˙mero do convÍnio</label>
+					<label for="numeroConvenio">N√∫mero do conv√™nio</label>
 					<input type="text" class="form-control" id="numeroConvenio">
 				</div>
 				
 				<div class="form-row">
 					<div class="form-group col-md-3">
-						<label for="isAgenteIntegracao">… agente de integraÁ„o?</label>
+						<label for="isAgenteIntegracao">√â agente de integra√ß√£o?</label>
 					</div>
 					<div class="form-group">		
 						<div class="form-check form-check-inline">
@@ -47,7 +49,7 @@ div.form-row {
 						</div>
 						<div class="form-check form-check-inline">
 						  <label class="form-check-label">
-						    <input class="form-check-input isAgenteChk" type="radio" name="isAgenteIntegracao" id="notAgenteIntegracao" value="nao"> N„o
+						    <input class="form-check-input isAgenteChk" type="radio" name="isAgenteIntegracao" id="notAgenteIntegracao" value="nao"> N√£o
 						  </label>
 						</div>
 					</div>
@@ -58,7 +60,7 @@ div.form-row {
 						<input type="text" class="form-control" id="cnpjEmpresa">
 					</div>
 					<div class="form-group col-md-6">
-						<label for="nomeEmpresa">Raz„o Social</label>
+						<label for="nomeEmpresa">Raz√£o Social</label>
 						<input type="text" class="form-control" id="nomeEmpresa">
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
@@ -71,7 +73,7 @@ div.form-row {
 				
 				<div class="form-row isAI AI">
 					<div class="form-group col-md-6">
-						<label for="nomeEmpresa">Raz„o Social</label>
+						<label for="nomeEmpresa">Raz√£o Social</label>
 						<select id="nomeEmpresa" class="form-control">
 							<option value="" selected>---</option>
 							<c:forEach items="${ agentesIntegracao }" var="agenteIntegracao">
@@ -85,11 +87,11 @@ div.form-row {
 				</div>
 				<div class="form-row isAI AI">
 					<div class="form-group col-md-5">
-						<label for="nomeEmpresa">CNPJ da Empresa ligada ao Agente de IntegraÁ„o</label>
+						<label for="nomeEmpresa">CNPJ da Empresa ligada ao Agente de Integra√ß√£o</label>
 						<input type="text" class="form-control" id="cnpjEmpresa">
 					</div>
 					<div class="form-group col-md-5">
-						<label for="nomeEmpresa">Raz„o social da Empresa ligada ao Agente de IntegraÁ„o</label>
+						<label for="nomeEmpresa">Raz√£o social da Empresa ligada ao Agente de Integra√ß√£o</label>
 						<input type="text" class="form-control" id="nomeEmpresa">
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
@@ -103,7 +105,7 @@ div.form-row {
 				<legend class="col-form-legend col-lg">Dados do Aluno</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
-						<label for="matricula">MatrÌcula</label>
+						<label for="matricula">Matr√≠cula</label>
 						<input type="text" class="form-control" id="matricula">
 					</div>
 					<div class="form-group col-md">
@@ -125,14 +127,14 @@ div.form-row {
 			
 			
 			<fieldset class="form-group">
-				<legend class="col-form-legend col-lg">VigÍncia do Est·gio</legend>
+				<legend class="col-form-legend col-lg">Vig√™ncia do Est√°gio</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
-						<label for="dataInicioTermoEstagio">Data de inÌcio</label>
+						<label for="dataInicioTermoEstagio">Data de in√≠cio</label>
 						<input type="text" class="form-control" id="dataInicioTermoEstagio">
 					</div>
 					<div class="form-group col-md-4">
-						<label for="dataFimTermoEstagio">Data de tÈrmino</label>
+						<label for="dataFimTermoEstagio">Data de t√©rmino</label>
 						<input type="text" class="form-control" id="dataFimTermoEstagio">
 					</div>
 				</div>
@@ -140,7 +142,7 @@ div.form-row {
 			
 			
 			<fieldset class="form-group">
-				<legend class="col-form-legend col-lg">Carga Hor·rio do Aluno</legend>
+				<legend class="col-form-legend col-lg">Carga Hor√°rio do Aluno</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="cargaHorariaTermoEstagio">Horas por dia</label>
@@ -151,7 +153,7 @@ div.form-row {
 			
 			
 			<fieldset class="form-group">
-				<legend class="col-form-legend col-lg">Valor da Bolsa de Est·gio</legend>
+				<legend class="col-form-legend col-lg">Valor da Bolsa de Est√°gio</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="valorBolsa">Valor</label>
@@ -162,10 +164,10 @@ div.form-row {
 			
 			
 			<fieldset class="form-group">
-				<legend class="col-form-legend col-lg">Local do Est·gio</legend>
+				<legend class="col-form-legend col-lg">Local do Est√°gio</legend>
 				<div class="form-row">
 					<div class="form-group col-md-8">
-						<label for="enderecoTermoEstagio">EndereÁo</label>
+						<label for="enderecoTermoEstagio">Endere√ßo</label>
 						<input type="text" class="form-control" id="enderecoTermoEstagio">
 					</div>
 					<div class="form-group col-md-4">
@@ -202,7 +204,7 @@ div.form-row {
 
 			<div class="form-row">
 				<div class="form-group col-md-4">
-					<label for="eEstagioObrigatorio">O est·gio È obrigatÛrio?</label>
+					<label for="eEstagioObrigatorio">O est√°gio √© obrigat√≥rio?</label>
 				</div>
 				<div class="form-group">		
 					<div class="form-check form-check-inline">
@@ -212,7 +214,7 @@ div.form-row {
 					</div>
 					<div class="form-check form-check-inline">
 					  <label class="form-check-label">
-					    <input class="form-check-input" type="radio" name="eEstagioObrigatorio" id="notEstagioObrigatorio" value="nao"> N„o
+					    <input class="form-check-input" type="radio" name="eEstagioObrigatorio" id="notEstagioObrigatorio" value="nao"> N√£o
 					  </label>
 					</div>
 				</div>

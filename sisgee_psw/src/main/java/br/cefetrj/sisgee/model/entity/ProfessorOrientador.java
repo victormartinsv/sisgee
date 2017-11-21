@@ -14,14 +14,18 @@ public class ProfessorOrientador {
 	@Id
 	@GeneratedValue
 	private Integer idProfessorOrientador;
+	
 	@Column(length = 80, nullable = false)
 	private String nomeProfessorOrientador;
 
-	// TODO Relacionamento com TermoEstagio
 	@OneToMany(mappedBy = "professorOrientador")
 	private List<TermoEstagio> termoEstagios;
 
 	public ProfessorOrientador() {}
+	
+	public ProfessorOrientador(Integer idProfessorOrientador) {
+		this.idProfessorOrientador = idProfessorOrientador;
+	}
 	
 	public Integer getIdProfessorOrientador() {
 		return idProfessorOrientador;

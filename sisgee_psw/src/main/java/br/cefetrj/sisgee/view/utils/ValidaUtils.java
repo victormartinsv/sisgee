@@ -1,5 +1,8 @@
 package br.cefetrj.sisgee.view.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Classe criada para métodos de validação, para melhor reuso de código.
  * @author Paulo Cantuária
@@ -9,75 +12,139 @@ public class ValidaUtils {
 	
 	/**
 	 * Método para validar campo por tamanho, para valores de texto(String)
-	 * @param campo
-	 * @param tamanho
-	 * @param valor
+	 * @param campo texto com o nome do campo.
+	 * @param tamanho tamanho do campo.
+	 * @param param valor do texto a ser testado.
 	 * @return String com mensagem de erro ou vazia
 	 */
-	public static String validaTamanho(String campo, int tamanho, String valor) {
+	public static String validaTamanho(String nomeCampo, int tamanho, String param) {
 		String msg = "";
-		if(valor.length() > tamanho) {
-			msg = "O campo " + campo + " deve ter tamanho máximo de " + tamanho + ".";
+		if(param.length() > tamanho) {
+			msg = "O campo " + nomeCampo + " deve ter tamanho máximo de " + tamanho + ".";
 		}		
 		return msg;
 	}
 	
 	/**
 	 * Método para validar campo por tamanho, para valores inteiros
-	 * @param campo
-	 * @param tamanho
-	 * @param valor
+	 * @param nomeCampo texto com o nome do campo.
+	 * @param tamanho tamanho do campo.
+	 * @param param valor inteiro a ser testado.
 	 * @return String com mensagem de erro ou vazia
 	 */
-	public static String validaTamanho(String campo, int tamanho, Integer valor) {
+	public static String validaTamanho(String nomeCampo, int tamanho, Integer param) {
 		String msg = "";
-		if(valor > tamanho) {
-			msg = "O campo " + campo + " deve ter tamanho máximo de " + tamanho + ".";
+		if(param > tamanho) {
+			msg = "O campo " + nomeCampo + " deve ter tamanho máximo de " + tamanho + ".";
 		}		
 		return msg;
 	}	
 	
 	/**
 	 * Método para validar campo obrigatório
-	 * @param campo
-	 * @param valor
+	 * @param nomeCampo texto com o nome do campo.
+	 * @param param valor a ser testado como obrigatório.
 	 * @return String com mensagem de erro ou vazia
 	 */
-	public static String validaObrigatorio(String campo, String valor) {
+	public static String validaObrigatorio(String nomeCampo, String param) {
 		String msg = "";
-		if(valor == null || valor.isEmpty()) {
-			msg += "O campo " + campo + " é obrigatório.";
+		if(param == null || param.isEmpty()) {
+			msg += "O campo " + nomeCampo + " é obrigatório.";
 		}		
 		return msg;
 	}
 	
 	/**
 	 * Método para validar campos numéricos inteiros
-	 * @param campo
-	 * @param valor
+	 * @param nomeCampo texto com o nome do campo.
+	 * @param param com o valor a ser convertido para integer.
 	 * @return String com mensagem de erro ou vazia
 	 */
-	public static String validaInteger(String campo, String valor) {
+	public static String validaInteger(String nomeCampo, String param) {
 		String msg = "";
-		if(!valor.matches("\\d*")) {
-			msg += "O campo " + campo + " deve ser numérico.";
+		if(!param.matches("\\d*")) {
+			msg += "O campo " + nomeCampo + " deve ser numérico.";
 		}		
 		return msg;
 	}
 	
 	/**
 	 * Método para validar campos numéricos de ponto flutuante
-	 * @param campo
-	 * @param valor
-	 * @return String com mensagem de erro ou vazia
+	 * @param nomeCampo texto com o nome do campo.
+	 * @param param String com o valor a ser convertido para float.
+	 * @return String com mensagem de erro ou vazia.
 	 */
-	public static String validaFloat(String campo, String valor) {
+	public static String validaFloat(String nomeCampo, String param) {
 		String msg = "";		
 		try {
-			Float valorFloat = Float.parseFloat(valor);				
+			@SuppressWarnings("unused")
+			Float valorFloat = Float.parseFloat(param);				
 		}catch(Exception e) {
-			msg += "O campo " + campo + " deve ser numérico.";
+			msg += "O campo " + nomeCampo + " deve ser numérico.";
 		}		
 		return msg;
 	}
+	
+	/**
+	 * Método para validar campos booleanos
+	 * @param nomeCampo texto com o nome do campo.
+	 * @param param String com o valor a ser convertido para boolean.
+	 * @return String com mensagem de erro ou vazia.
+	 */
+	public static String validaBoolean(String nomeCampo, String param) {
+		String msg = "";		
+		try {
+			@SuppressWarnings("unused")
+			Boolean valorBoolean = Boolean.parseBoolean(param);				
+		}catch(Exception e) {
+			msg += "O campo " + nomeCampo + " deve ser booleano(Verdadeiro ou Falso, Sim ou Não, etc).";
+		}		
+		return msg;
+	}
+	
+	
+	/**
+	 * Método para validar campos de data (java.util.Date)
+	 * @param nomeCampo texto com o nome do campo.
+	 * @param param data a ser convertida para Date
+	 * @return String com mensagem de erro ou vazia.
+	 */
+	public static String validaDate(String nomeCampo, String param) {
+		String msg = "";
+		
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			@SuppressWarnings("unused")
+			Date dataFormatada = format.parse(param);
+		}catch(Exception e) {
+			msg += "O campo "+ nomeCampo + " é uma data inválida";
+		}		
+		return msg;
+	}
+	
+	/**
+	 * Método para validar duas datas (início e fim de um período)
+	 * @param dataInicio data que marca o início do período.
+	 * @param dataFim data que marca o final do período.
+	 * @return String com mensagem de erro ou vazia.
+	 */
+	public static String validaDatas(Date dataInicio, Date dataFim) {
+		String msg = "";
+		if(dataInicio.compareTo(dataFim) > 0) {
+			msg += "Data final não pode ser anterior que a data inicial";
+		}		
+		return msg;
+	}	
+	
+	public static String validaUf(String nomeCampo, String param) {
+		String msg = "";
+		UF [] ufs = UF.asList();
+		for (UF uf : ufs) {
+			if(!param.equals(uf)) {
+				msg += "O campo "+ nomeCampo + " é uma UF inválida";
+			}
+		}		
+		return msg;
+	}
+	
 }

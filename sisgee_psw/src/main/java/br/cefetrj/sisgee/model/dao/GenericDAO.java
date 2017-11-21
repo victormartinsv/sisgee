@@ -29,7 +29,7 @@ public class GenericDAO<T> {
 		return lista;
 	}
 	
-	public T buscar(Long id){
+	public T buscar(Integer id){
 		return manager.find(t, id);
 	}
 	

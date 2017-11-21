@@ -8,6 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+/**
+ * 
+ * @author Paulo Cantuária
+ * @since 1.0
+ *
+ */
 @Entity
 public class Campus {
 
@@ -76,5 +82,4 @@ public class Campus {
 	public String toString() {
 		return nomeCampus;
 	}
-
 }

@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 
 /**
  * 
- * @author padu
+ * @author Paulo Cantuária
  * @since 1.0
  * 
  */
@@ -26,8 +26,6 @@ public class Convenio {
 	@Column(length = 10, nullable = false)
 	private String numeroConvenio;
 
-	// TODO verificar relacionamentos e seus atributos (empresa e termoEstagio)
-
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Empresa empresa;
 
@@ -35,6 +33,10 @@ public class Convenio {
 	private List <TermoEstagio> termoEstagios;
 
 	public Convenio() {}
+	
+	public Convenio(String numeroConvenio) {
+		this.numeroConvenio = numeroConvenio;
+	}
 
 	public Integer getIdConvenio() {
 		return idConvenio;

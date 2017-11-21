@@ -25,6 +25,10 @@ public class ProfessorOrientadorServices {
 		return professorOrientadorDao.buscarTodos();
 	}
 	
+	public static ProfessorOrientador buscarProfessorOrientador(ProfessorOrientador professorOrientador) {
+		GenericDAO<ProfessorOrientador> professorOrientadorDao = PersistenceManager.createGenericDAO(ProfessorOrientador.class);
+		return professorOrientadorDao.buscar(professorOrientador.getIdProfessorOrientador());
+	}
 	
 	public static void incluirProfessorOrientador(ProfessorOrientador professorOrientador){
 		GenericDAO<ProfessorOrientador> professorOrientadorDao = PersistenceManager.createGenericDAO(ProfessorOrientador.class);
@@ -36,6 +40,7 @@ public class ProfessorOrientadorServices {
 			PersistenceManager.getTransaction().rollback();
 		}
 	}
+	
 	
 
 }

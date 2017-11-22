@@ -5,6 +5,10 @@
 
 <style type="text/css">
 
+div.container {
+	margin-bottom: 2em;
+}
+
 form {
 	margin-top: 50px;
 }
@@ -29,13 +33,16 @@ div.form-row {
 		<h5>Registro de Termo de Estágio</h5>
 		</p>
 
-		<form>
+		<form action="FormTermoEstagioServlet" method="post">
 			<fieldset class="form-group">
 				<legend class="col-form-legend col-lg">Dados da Empresa Conveniada</legend>
 				<div class="form-group col-md-6">
 					<label for="numeroConvenio">Número do convênio</label>
-					<input type="text" class="form-control" id="numeroConvenio">
-				</div>
+					<input type="text" class="form-control" id="numeroConvenio" name="convenio" value="${ param.convenio }" ${ not empty convenioMsg ? 'is-invalid': '' }>
+					<c:if test="${ not empty convenioMsg }">
+				    	<div class="invalid-feedback">${ convenioMsg }</div>
+		        	</c:if>
+				</div>				
 				
 				<div class="form-row">
 					<div class="form-group col-md-3">
@@ -44,12 +51,12 @@ div.form-row {
 					<div class="form-group">		
 						<div class="form-check form-check-inline">
 						  <label class="form-check-label">
-						    <input class="form-check-input isAgenteChk" type="radio" name="isAgenteIntegracao" id="isAgenteIntegracao" value="sim"> Sim
+						    <input class="form-check-input isAgenteChk" type="radio" name="isAgenteIntegracao" value="sim"> Sim
 						  </label>
 						</div>
 						<div class="form-check form-check-inline">
 						  <label class="form-check-label">
-						    <input class="form-check-input isAgenteChk" type="radio" name="isAgenteIntegracao" id="notAgenteIntegracao" value="nao"> Não
+						    <input class="form-check-input isAgenteChk" type="radio" name="isAgenteIntegracao" value="nao"> Não
 						  </label>
 						</div>
 					</div>
@@ -57,11 +64,11 @@ div.form-row {
 				<div class="form-row notAI AI">
 					<div class="form-group col-md-4">
 						<label for="cnpjEmpresa">CNPJ</label>
-						<input type="text" class="form-control" id="cnpjEmpresa">
+						<input type="text" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
 					</div>
 					<div class="form-group col-md-6">
 						<label for="nomeEmpresa">Razão Social</label>
-						<input type="text" class="form-control" id="nomeEmpresa">
+						<input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" value="${ param.nomeEmpresa }">
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
 <!-- 						<button type="button" class="btn btn-default" aria-label="Adicionar"> -->
@@ -88,11 +95,11 @@ div.form-row {
 				<div class="form-row isAI AI">
 					<div class="form-group col-md-5">
 						<label for="nomeEmpresa">CNPJ da Empresa ligada ao Agente de Integração</label>
-						<input type="text" class="form-control" id="cnpjEmpresa">
+						<input type="text" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
 					</div>
 					<div class="form-group col-md-5">
 						<label for="nomeEmpresa">Razão social da Empresa ligada ao Agente de Integração</label>
-						<input type="text" class="form-control" id="nomeEmpresa">
+						<input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" value="${ param.nomeEmpresa }">
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
 						<button type="button" class="btn btn-primary">+</button>
@@ -106,21 +113,21 @@ div.form-row {
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="matricula">Matrícula</label>
-						<input type="text" class="form-control" id="matricula">
+						<input type="text" class="form-control" id="matricula" name="matricula" value="${ param.matricula }">
 					</div>
 					<div class="form-group col-md">
 						<label for="nome">Nome</label>
-						<input type="text" class="form-control" id="nome">
+						<input type="text" class="form-control" id="nome" name="nome" value="${ param.nome }">
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="nomeCurso">Curso</label>
-						<input type="text" class="form-control" id="nomeCurso">
+						<input type="text" class="form-control" id="nomeCurso"  name="nomeCurso" value="${ param.nomeCurso }">
 					</div>
 					<div class="form-group col-md-6">
 						<label for="nomeCampus">Unidade</label>
-						<input type="text" class="form-control" id="nomeCampus">
+						<input type="text" class="form-control" id="nomeCampus"  name="nomeCampus" value="${ param.nomeCampus }">
 					</div>
 				</div>
 			</fieldset>
@@ -131,11 +138,11 @@ div.form-row {
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="dataInicioTermoEstagio">Data de início</label>
-						<input type="text" class="form-control" id="dataInicioTermoEstagio">
+						<input type="text" class="form-control" id="dataInicioTermoEstagio"  name="dataInicioTermoEstagio" value="${ param.dataInicioTermoEstagio }">
 					</div>
 					<div class="form-group col-md-4">
 						<label for="dataFimTermoEstagio">Data de término</label>
-						<input type="text" class="form-control" id="dataFimTermoEstagio">
+						<input type="text" class="form-control" id="dataFimTermoEstagio"   name="dataFimTermoEstagio" value="${ param.dataFimTermoEstagio }">
 					</div>
 				</div>
 			</fieldset>
@@ -146,7 +153,7 @@ div.form-row {
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="cargaHorariaTermoEstagio">Horas por dia</label>
-						<input type="text" class="form-control" id="cargaHorariaTermoEstagio">
+						<input type="text" class="form-control" id="cargaHorariaTermoEstagio" name="cargaHorariaTermoEstagio" value="${ param.cargaHorariaTermoEstagio }">
 					</div>
 				</div>
 			</fieldset>
@@ -157,7 +164,7 @@ div.form-row {
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="valorBolsa">Valor</label>
-						<input type="text" class="form-control" id="valorBolsa">
+						<input type="text" class="form-control" id="valorBolsa" name="valorBolsa" value="${ param.valorBolsa }">
 					</div>
 				</div>
 			</fieldset>
@@ -168,21 +175,21 @@ div.form-row {
 				<div class="form-row">
 					<div class="form-group col-md-8">
 						<label for="enderecoTermoEstagio">Endereço</label>
-						<input type="text" class="form-control" id="enderecoTermoEstagio">
+						<input type="text" class="form-control" id="enderecoTermoEstagio" name="enderecoTermoEstagio" value="${ param.enderecoTermoEstagio }">
 					</div>
 					<div class="form-group col-md-4">
 						<label for="complementoEnderecoTermoEstagio">Complemento</label>
-						<input type="text" class="form-control" id="complementoEnderecoTermoEstagio">
+						<input type="text" class="form-control" id="complementoEnderecoTermoEstagio" name="complementoEnderecoTermoEstagio" value="${ param.complementoEnderecoTermoEstagio }">
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-2">
 						<label for="bairroEnderecoTermoEstagio">Bairro</label>
-						<input type="text" class="form-control" id="bairroEnderecoTermoEstagio">
+						<input type="text" class="form-control" id="bairroEnderecoTermoEstagio" name="bairroEnderecoTermoEstagio" value="${ param.bairroEnderecoTermoEstagio }">
 					</div>
 					<div class="form-group col-md-4">
 						<label for="cidadeEnderecoTermoEstagio">Cidade</label>
-						<input type="text" class="form-control" id="cidadeEnderecoTermoEstagio">
+						<input type="text" class="form-control" id="cidadeEnderecoTermoEstagio" name="cidadeEnderecoTermoEstagio" value="${ param.cidadeEnderecoTermoEstagio }">
 					</div>
 					<div class="form-group col-md-4">
 						<label for="estadoEnderecoTermoEstagio">Estado</label>
@@ -196,7 +203,7 @@ div.form-row {
 					</div>
 					<div class="form-group col-md-2">
 						<label for="cepEnderecoTermoEstagio">CEP</label>
-						<input type="text" class="form-control" id="cepEnderecoTermoEstagio">
+						<input type="text" class="form-control" id="cepEnderecoTermoEstagio" name="cepEnderecoTermoEstagio" value="${ param.cepEnderecoTermoEstagio }">
 					</div>
 				</div>
 			</fieldset>
@@ -209,12 +216,12 @@ div.form-row {
 				<div class="form-group">		
 					<div class="form-check form-check-inline">
 					  <label class="form-check-label">
-					    <input class="form-check-input" type="radio" name="eEstagioObrigatorio" id="isEstagioObrigatorio" value="sim"> Sim
+					    <input class="form-check-input" type="radio" name="eEstagioObrigatorio" value="sim"> Sim
 					  </label>
 					</div>
 					<div class="form-check form-check-inline">
 					  <label class="form-check-label">
-					    <input class="form-check-input" type="radio" name="eEstagioObrigatorio" id="notEstagioObrigatorio" value="nao"> Não
+					    <input class="form-check-input" type="radio" name="eEstagioObrigatorio" value="nao"> Não
 					  </label>
 					</div>
 				</div>
@@ -231,7 +238,6 @@ div.form-row {
 					
 				</select>
 			</div>
-			
 			
 			<button type="submit" class="btn btn-primary">Salvar</button>
 			<button type="button" class="btn btn-secondary">Cancelar</button>
@@ -251,8 +257,8 @@ div.form-row {
 	    $('.isAI, .notAI').hide();
 	    
 	    $('.isAgenteChk').change(function(){
-	    	$('.AI').hide();	    	
-	    	$(this).val() == 'sim' ? $('.isAI').show("slow") : $('.notAI').show("slow");	    	
+	    	$('.AI').hide();
+	    	$(this).val() == 'sim' ? $('.isAI').show("slow") : $('.notAI').show("slow");
 	    });
 	    
     </script>

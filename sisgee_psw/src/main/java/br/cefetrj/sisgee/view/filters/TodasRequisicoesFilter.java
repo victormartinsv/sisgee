@@ -29,13 +29,13 @@ public class TodasRequisicoesFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
+		/*
 		try{			
 			chain.doFilter(request, response);			
 		}catch(Exception e) {
 			request.getRequestDispatcher("/erro.jsp").forward(request, response);
 		}
-		
+		*/chain.doFilter(request, response);	
 	}
 
 	/**

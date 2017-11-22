@@ -45,7 +45,7 @@ public class ValidaTermoEstagioServlet extends HttpServlet {
 		String cidadeEnderecoTermoEstagio = request.getParameter("cidadeEnderecoTermoEstagio");
 		String estadoEnderecoTermoEstagio = request.getParameter("estadoEnderecoTermoEstagio");
 		String eEstagioObrigatorio = request.getParameter("eEstagioObrigatorio");
-		String idProfessorOrientador = request.getParameter("professorOrientador");
+		String idProfessorOrientador = request.getParameter("idProfessorOrientador");
 		String idAluno = request.getParameter("aluno");
 		String convenio = request.getParameter("convenio");
 						
@@ -332,7 +332,7 @@ public class ValidaTermoEstagioServlet extends HttpServlet {
 		 */
 		String idProfessorMsg = "";
 		boolean idProfessorIsValid = true;
-		if (!(idProfessorOrientador.isEmpty() || idProfessorOrientador == null)) {
+		if (!(idProfessorOrientador.trim().isEmpty() || idProfessorOrientador == null)) {
 			idProfessorMsg = ValidaUtils.validaInteger("Professor Orientador", idProfessorOrientador);
 			if (idProfessorMsg.isEmpty()) {
 				Integer idProfessor = Integer.parseInt(idProfessorOrientador);

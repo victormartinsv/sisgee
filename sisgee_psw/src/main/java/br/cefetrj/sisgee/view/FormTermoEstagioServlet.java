@@ -32,8 +32,34 @@ public class FormTermoEstagioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		request = carregarListas(request); 
+		
+		request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
+
+	}
+	
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		/*CODIGO DO VALIDA SERVLET*/
+		request.setAttribute("convenio", "augusto");
+		request.setAttribute("convenioMsg", "Campo invalido");
+		
+		request = carregarListas(request);
+
+		request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
+
+	}
+	
+	
+	
+	private static HttpServletRequest carregarListas(HttpServletRequest request) {
+		
 		List<AgenteIntegracao> agentesIntegracao = AgenteIntegracaoServices.listarAgenteIntegracao();
 		List<Empresa> empresas = EmpresaServices.listarEmpresas();
 		List<Aluno> alunos = AlunoServices.listarAlunos();
@@ -45,8 +71,9 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		request.setAttribute("alunos", alunos);
 		request.setAttribute("professores", professores);
 		request.setAttribute("uf", uf);
-
-		request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
-
+		
+		return request;
+		
 	}
+	
 }

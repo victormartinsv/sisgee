@@ -8,7 +8,6 @@
 div.container {
 	margin-bottom: 2em;
 }
-
 form {
 	margin-top: 50px;
 }
@@ -24,20 +23,25 @@ div.form-row {
 
 </style>
 
-<title>Registro de Termo de Est√°gio</title>
+<title>Registro de Termo de Est·gio</title>
 </head>
 <body>
 	<%@include file="import_navbar.jspf"%>
+	
 	<div class="container">
+	<div class="alert alert-warning" role="alert">
+	<c:out value="${ msg }"/>
+	</div>
 		<p class="tituloForm">
-		<h5>Registro de Termo de Est√°gio</h5>
+
+		<h5>Registro de Termo de Est·gio</h5>		
 		</p>
 
-		<form action="FormTermoEstagioServlet" method="post">
+		<form action="ValidaTermoEstagioServlet" method="post">
 			<fieldset class="form-group">
 				<legend class="col-form-legend col-lg">Dados da Empresa Conveniada</legend>
 				<div class="form-group col-md-6">
-					<label for="numeroConvenio">N√∫mero do conv√™nio</label>
+					<label for="numeroConvenio">N˙mero do convÍnio</label>
 					<input type="text" class="form-control" id="numeroConvenio" name="convenio" value="${ param.convenio }" ${ not empty convenioMsg ? 'is-invalid': '' }>
 					<c:if test="${ not empty convenioMsg }">
 				    	<div class="invalid-feedback">${ convenioMsg }</div>
@@ -56,7 +60,9 @@ div.form-row {
 						</div>
 						<div class="form-check form-check-inline">
 						  <label class="form-check-label">
-						    <input class="form-check-input isAgenteChk" type="radio" name="isAgenteIntegracao" value="nao"> N√£o
+
+						    <input class="form-check-input isAgenteChk" type="radio" name="isAgenteIntegracao" value="nao"> N„o
+
 						  </label>
 						</div>
 					</div>
@@ -67,7 +73,9 @@ div.form-row {
 						<input type="text" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
 					</div>
 					<div class="form-group col-md-6">
-						<label for="nomeEmpresa">Raz√£o Social</label>
+
+						<label for="nomeEmpresa">Raz„o Social</label>
+
 						<input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" value="${ param.nomeEmpresa }">
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
@@ -94,11 +102,13 @@ div.form-row {
 				</div>
 				<div class="form-row isAI AI">
 					<div class="form-group col-md-5">
-						<label for="nomeEmpresa">CNPJ da Empresa ligada ao Agente de Integra√ß√£o</label>
+
+						<label for="nomeEmpresa">CNPJ da Empresa ligada ao Agente de IntegraÁ„o</label>
 						<input type="text" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
 					</div>
 					<div class="form-group col-md-5">
-						<label for="nomeEmpresa">Raz√£o social da Empresa ligada ao Agente de Integra√ß√£o</label>
+						<label for="nomeEmpresa">Raz„o social da Empresa ligada ao Agente de IntegraÁ„o</label>
+
 						<input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" value="${ param.nomeEmpresa }">
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
@@ -112,7 +122,9 @@ div.form-row {
 				<legend class="col-form-legend col-lg">Dados do Aluno</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
-						<label for="matricula">Matr√≠cula</label>
+
+						<label for="matricula">MatrÌcula</label>
+
 						<input type="text" class="form-control" id="matricula" name="matricula" value="${ param.matricula }">
 					</div>
 					<div class="form-group col-md">
@@ -137,11 +149,13 @@ div.form-row {
 				<legend class="col-form-legend col-lg">Vig√™ncia do Est√°gio</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
-						<label for="dataInicioTermoEstagio">Data de in√≠cio</label>
+
+						<label for="dataInicioTermoEstagio">Data de inÌcio</label>
 						<input type="text" class="form-control" id="dataInicioTermoEstagio"  name="dataInicioTermoEstagio" value="${ param.dataInicioTermoEstagio }">
 					</div>
 					<div class="form-group col-md-4">
-						<label for="dataFimTermoEstagio">Data de t√©rmino</label>
+						<label for="dataFimTermoEstagio">Data de tÈrmino</label>
+
 						<input type="text" class="form-control" id="dataFimTermoEstagio"   name="dataFimTermoEstagio" value="${ param.dataFimTermoEstagio }">
 					</div>
 				</div>
@@ -174,7 +188,9 @@ div.form-row {
 				<legend class="col-form-legend col-lg">Local do Est√°gio</legend>
 				<div class="form-row">
 					<div class="form-group col-md-8">
-						<label for="enderecoTermoEstagio">Endere√ßo</label>
+
+						<label for="enderecoTermoEstagio">EndereÁo</label>
+
 						<input type="text" class="form-control" id="enderecoTermoEstagio" name="enderecoTermoEstagio" value="${ param.enderecoTermoEstagio }">
 					</div>
 					<div class="form-group col-md-4">
@@ -221,7 +237,9 @@ div.form-row {
 					</div>
 					<div class="form-check form-check-inline">
 					  <label class="form-check-label">
-					    <input class="form-check-input" type="radio" name="eEstagioObrigatorio" value="nao"> N√£o
+
+					    <input class="form-check-input" type="radio" name="eEstagioObrigatorio" value="nao"> N„o
+
 					  </label>
 					</div>
 				</div>
@@ -230,7 +248,7 @@ div.form-row {
 			
 			<div class="form-group col-md-8">
 				<label for="idProfessorOrientador">Professor orientador</label>
-				<select id="idProfessorOrientador" class="form-control">
+				<select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control">
 					<option value="" selected>---</option>
 					<c:forEach items="${ professores }" var="professor">
 						<option value="${ professor.idProfessorOrientador }">${ professor.nomeProfessorOrientador }</option>

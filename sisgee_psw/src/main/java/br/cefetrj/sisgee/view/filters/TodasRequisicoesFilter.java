@@ -34,9 +34,9 @@ public class TodasRequisicoesFilter implements Filter {
 			chain.doFilter(request, response);			
 		}catch(Exception e) {
 			request.getRequestDispatcher("/erro.jsp").forward(request, response);
-		}*/
-		
-		chain.doFilter(request, response);			
+
+		}
+		*/chain.doFilter(request, response);	
 
 	}
 

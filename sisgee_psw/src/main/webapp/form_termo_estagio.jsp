@@ -4,6 +4,7 @@
 <%@include file="import_head.jspf"%>
 
 <style type="text/css">
+
 div.container {
 	margin-bottom: 2em;
 }
@@ -19,6 +20,7 @@ fieldset legend.col-form-legend {
 div.form-row {
 	padding: 0px 15px;
 }
+
 </style>
 
 <title>Registro de Termo de Estágio</title>
@@ -31,6 +33,7 @@ div.form-row {
 	<c:out value="${ msg }"/>
 	</div>
 		<p class="tituloForm">
+
 		<h5>Registro de Termo de Estágio</h5>		
 		</p>
 
@@ -47,7 +50,7 @@ div.form-row {
 				
 				<div class="form-row">
 					<div class="form-group col-md-3">
-						<label for="isAgenteIntegracao">É agente de integração?</label>
+						<label for="isAgenteIntegracao">Ã‰ agente de integraÃ§Ã£o?</label>
 					</div>
 					<div class="form-group">		
 						<div class="form-check form-check-inline">
@@ -57,7 +60,9 @@ div.form-row {
 						</div>
 						<div class="form-check form-check-inline">
 						  <label class="form-check-label">
+
 						    <input class="form-check-input isAgenteChk" type="radio" name="isAgenteIntegracao" value="nao"> Não
+
 						  </label>
 						</div>
 					</div>
@@ -68,7 +73,9 @@ div.form-row {
 						<input type="text" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
 					</div>
 					<div class="form-group col-md-6">
+
 						<label for="nomeEmpresa">Razão Social</label>
+
 						<input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" value="${ param.nomeEmpresa }">
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
@@ -81,7 +88,7 @@ div.form-row {
 				
 				<div class="form-row isAI AI">
 					<div class="form-group col-md-6">
-						<label for="nomeEmpresa">Razão Social</label>
+						<label for="nomeEmpresa">RazÃ£o Social</label>
 						<select id="nomeEmpresa" class="form-control">
 							<option value="" selected>---</option>
 							<c:forEach items="${ agentesIntegracao }" var="agenteIntegracao">
@@ -95,11 +102,13 @@ div.form-row {
 				</div>
 				<div class="form-row isAI AI">
 					<div class="form-group col-md-5">
+
 						<label for="nomeEmpresa">CNPJ da Empresa ligada ao Agente de Integração</label>
 						<input type="text" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
 					</div>
 					<div class="form-group col-md-5">
 						<label for="nomeEmpresa">Razão social da Empresa ligada ao Agente de Integração</label>
+
 						<input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" value="${ param.nomeEmpresa }">
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
@@ -113,7 +122,9 @@ div.form-row {
 				<legend class="col-form-legend col-lg">Dados do Aluno</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
+
 						<label for="matricula">Matrícula</label>
+
 						<input type="text" class="form-control" id="matricula" name="matricula" value="${ param.matricula }">
 					</div>
 					<div class="form-group col-md">
@@ -135,14 +146,16 @@ div.form-row {
 			
 			
 			<fieldset class="form-group">
-				<legend class="col-form-legend col-lg">Vigência do Estágio</legend>
+				<legend class="col-form-legend col-lg">VigÃªncia do EstÃ¡gio</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
+
 						<label for="dataInicioTermoEstagio">Data de início</label>
 						<input type="text" class="form-control" id="dataInicioTermoEstagio"  name="dataInicioTermoEstagio" value="${ param.dataInicioTermoEstagio }">
 					</div>
 					<div class="form-group col-md-4">
 						<label for="dataFimTermoEstagio">Data de término</label>
+
 						<input type="text" class="form-control" id="dataFimTermoEstagio"   name="dataFimTermoEstagio" value="${ param.dataFimTermoEstagio }">
 					</div>
 				</div>
@@ -150,7 +163,7 @@ div.form-row {
 			
 			
 			<fieldset class="form-group">
-				<legend class="col-form-legend col-lg">Carga Horário do Aluno</legend>
+				<legend class="col-form-legend col-lg">Carga HorÃ¡rio do Aluno</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="cargaHorariaTermoEstagio">Horas por dia</label>
@@ -161,7 +174,7 @@ div.form-row {
 			
 			
 			<fieldset class="form-group">
-				<legend class="col-form-legend col-lg">Valor da Bolsa de Estágio</legend>
+				<legend class="col-form-legend col-lg">Valor da Bolsa de EstÃ¡gio</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="valorBolsa">Valor</label>
@@ -172,10 +185,12 @@ div.form-row {
 			
 			
 			<fieldset class="form-group">
-				<legend class="col-form-legend col-lg">Local do Estágio</legend>
+				<legend class="col-form-legend col-lg">Local do EstÃ¡gio</legend>
 				<div class="form-row">
 					<div class="form-group col-md-8">
+
 						<label for="enderecoTermoEstagio">Endereço</label>
+
 						<input type="text" class="form-control" id="enderecoTermoEstagio" name="enderecoTermoEstagio" value="${ param.enderecoTermoEstagio }">
 					</div>
 					<div class="form-group col-md-4">
@@ -212,7 +227,7 @@ div.form-row {
 
 			<div class="form-row">
 				<div class="form-group col-md-4">
-					<label for="eEstagioObrigatorio">O estágio é obrigatório?</label>
+					<label for="eEstagioObrigatorio">O estÃ¡gio Ã© obrigatÃ³rio?</label>
 				</div>
 				<div class="form-group">		
 					<div class="form-check form-check-inline">
@@ -222,7 +237,9 @@ div.form-row {
 					</div>
 					<div class="form-check form-check-inline">
 					  <label class="form-check-label">
+
 					    <input class="form-check-input" type="radio" name="eEstagioObrigatorio" value="nao"> Não
+
 					  </label>
 					</div>
 				</div>

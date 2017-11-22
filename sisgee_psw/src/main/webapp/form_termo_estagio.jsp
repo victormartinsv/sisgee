@@ -29,9 +29,12 @@ div.form-row {
 	<%@include file="import_navbar.jspf"%>
 	
 	<div class="container">
-	<div class="alert alert-warning" role="alert">
-	<c:out value="${ msg }"/>
-	</div>
+		<c:if test="${ not empty msg }">
+			<div class="alert alert-warning" role="alert">
+				${ msg }
+			</div>
+		</c:if>
+
 		<p class="tituloForm">
 
 		<h5>Registro de Termo de Estágio</h5>		
@@ -50,7 +53,7 @@ div.form-row {
 				
 				<div class="form-row">
 					<div class="form-group col-md-3">
-						<label for="isAgenteIntegracao">Ã‰ agente de integraÃ§Ã£o?</label>
+						<label for="isAgenteIntegracao">É Agente de Integração?</label>
 					</div>
 					<div class="form-group">		
 						<div class="form-check form-check-inline">

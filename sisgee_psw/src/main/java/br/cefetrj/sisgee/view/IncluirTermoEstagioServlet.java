@@ -31,7 +31,9 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-				
+		//TODO remover saída do console		
+		System.out.println("iniciando o Incluir o Termo");
+		
 		Date dataInicioTermoEstagio = (Date)request.getAttribute("dataInicio");
 		Date dataFimTermoEstagio = (Date)request.getAttribute("dataFim");		
 		Integer cargaHorariaTermoEstagio = (Integer)request.getAttribute("cargaHoraria");
@@ -61,16 +63,23 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 			msg = "Registro de Termo de Estágio concluído com sucesso.";
 			request.setAttribute("msg", msg);
 			lg.info(msg);
-			request.getRequestDispatcher("/index.jsp");
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			
+			//TODO remover saída do console
+			
+			
 		}catch(Exception e) {
 			msg = "Ocorreu um erro inesperado ao tentar registrar o termo. Tente novamente ou contate o suporte caso o erro persita.";
 			request.setAttribute("msg", msg);
 			
 			lg.error("Exception ao tentar inserir o Termo de Estágio", e);
-			request.getRequestDispatcher("FormTermoEstagioServlet");
+			request.getRequestDispatcher("FormTermoEstagioServlet").forward(request, response);
+			
+			//TODO remover saída do console
+			System.out.println(msg);
 		}
 		
-		
+		System.out.println(msg);
 		
 	}
 

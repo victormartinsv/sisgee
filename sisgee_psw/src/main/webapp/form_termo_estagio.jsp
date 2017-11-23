@@ -40,7 +40,7 @@ div.form-row {
 		<h5>Registro de Termo de Estágio</h5>		
 		</p>
 
-		<form action="ValidaTermoEstagioServlet" method="post">
+		<form action="FormTermoEstagioServlet" method="post">
 			<fieldset class="form-group">
 				<legend class="col-form-legend col-lg">Dados da Empresa Conveniada</legend>
 				<div class="form-group col-md-6">
@@ -92,7 +92,7 @@ div.form-row {
 				<div class="form-row isAI AI">
 					<div class="form-group col-md-6">
 						<label for="nomeEmpresa">RazÃ£o Social</label>
-						<select id="nomeEmpresa" class="form-control">
+						<select id="nomeEmpresa" name="nomeEmpresa" class="form-control">
 							<option value="" selected>---</option>
 							<c:forEach items="${ agentesIntegracao }" var="agenteIntegracao">
 								<option value="${ agenteIntegracao.idAgenteIntegracao }">${ agenteIntegracao.nomeAgenteIntegracao }</option>
@@ -126,7 +126,7 @@ div.form-row {
 				<div class="form-row">
 					<div class="form-group col-md-4">
 
-						<label for="matricula">Matrícula</label>
+						<label for="matricula">Matrícula </label>
 
 						<input type="text" class="form-control" id="matricula" name="matricula" value="${ param.matricula }">
 					</div>
@@ -146,8 +146,10 @@ div.form-row {
 					</div>
 				</div>
 			</fieldset>
-			
-			
+
+			<c:if test="${ not empty periodoMsg }">
+				<div class="alert alert-danger" role="alert">${ periodoMsg }</div>
+			</c:if>
 			<fieldset class="form-group">
 				<legend class="col-form-legend col-lg">VigÃªncia do EstÃ¡gio</legend>
 				<div class="form-row">
@@ -190,29 +192,35 @@ div.form-row {
 			<fieldset class="form-group">
 				<legend class="col-form-legend col-lg">Local do EstÃ¡gio</legend>
 				<div class="form-row">
-					<div class="form-group col-md-8">
+					<div class="form-group col-md-12">
 
 						<label for="enderecoTermoEstagio">Endereço</label>
 
 						<input type="text" class="form-control" id="enderecoTermoEstagio" name="enderecoTermoEstagio" value="${ param.enderecoTermoEstagio }">
 					</div>
+					</div>
+					<div class="form-row">
+					<div class="form-group col-md-2">
+						<label for="bairroEnderecoTermoEstagio">Número</label>
+						<input type="text" class="form-control" id="numeroEnderecoTermoEstagio" name="numeroEnderecoTermoEstagio" value="${ param.bairroEnderecoTermoEstagio }">
+					</div>
 					<div class="form-group col-md-4">
 						<label for="complementoEnderecoTermoEstagio">Complemento</label>
 						<input type="text" class="form-control" id="complementoEnderecoTermoEstagio" name="complementoEnderecoTermoEstagio" value="${ param.complementoEnderecoTermoEstagio }">
 					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-2">
+					<div class="form-group col-md-6">
 						<label for="bairroEnderecoTermoEstagio">Bairro</label>
 						<input type="text" class="form-control" id="bairroEnderecoTermoEstagio" name="bairroEnderecoTermoEstagio" value="${ param.bairroEnderecoTermoEstagio }">
 					</div>
-					<div class="form-group col-md-4">
+				</div>
+				<div class="form-row">					
+					<div class="form-group col-md-6">
 						<label for="cidadeEnderecoTermoEstagio">Cidade</label>
 						<input type="text" class="form-control" id="cidadeEnderecoTermoEstagio" name="cidadeEnderecoTermoEstagio" value="${ param.cidadeEnderecoTermoEstagio }">
 					</div>
-					<div class="form-group col-md-4">
+					<div class="form-group col-md-2">
 						<label for="estadoEnderecoTermoEstagio">Estado</label>
-						<select id="estadoEnderecoTermoEstagio" class="form-control">
+						<select name = "estadoEnderecoTermoEstagio" id="estadoEnderecoTermoEstagio" class="form-control">
 							<option value="" selected>---</option>
 							<c:forEach items="${ uf }" var="uf">
 								<option value="${ uf }">${ uf }</option>
@@ -220,14 +228,14 @@ div.form-row {
 							
 						</select>
 					</div>
-					<div class="form-group col-md-2">
+					<div class="form-group col-md-4">
 						<label for="cepEnderecoTermoEstagio">CEP</label>
 						<input type="text" class="form-control" id="cepEnderecoTermoEstagio" name="cepEnderecoTermoEstagio" value="${ param.cepEnderecoTermoEstagio }">
 					</div>
 				</div>
 			</fieldset>
 
-
+		
 			<div class="form-row">
 				<div class="form-group col-md-4">
 					<label for="eEstagioObrigatorio">O estÃ¡gio Ã© obrigatÃ³rio?</label>
@@ -259,6 +267,7 @@ div.form-row {
 					
 				</select>
 			</div>
+			
 			
 			<button type="submit" class="btn btn-primary">Salvar</button>
 			<button type="button" class="btn btn-secondary">Cancelar</button>

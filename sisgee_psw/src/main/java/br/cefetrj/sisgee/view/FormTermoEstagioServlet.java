@@ -48,13 +48,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 
 	}
 	
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		String dataInicioTermoEstagio = request.getParameter("dataInicioTermoEstagio");
 		String dataFimTermoEstagio = request.getParameter("dataFimTermoEstagio");		
-		String cargaHorariaTermoEstagio = request.getParameter("situacaoTermoEstagio");
+		String cargaHorariaTermoEstagio = request.getParameter("cargaHorariaTermoEstagio");
 		String valorBolsa = request.getParameter("valorBolsa");
 		String enderecoTermoEstagio = request.getParameter("enderecoTermoEstagio");
 		String numeroEnderecoTermoEstagio = request.getParameter("numeroEnderecoTermoEstagio");
@@ -65,7 +66,8 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		String estadoEnderecoTermoEstagio = request.getParameter("estadoEnderecoTermoEstagio");
 		String eEstagioObrigatorio = request.getParameter("eEstagioObrigatorio");
 		String idProfessorOrientador = request.getParameter("idProfessorOrientador");
-		String idAluno = request.getParameter("idAluno");
+		//TODO alterar o parametro de matricula para idAluno
+		String idAluno = request.getParameter("matricula");
 		String convenio = request.getParameter("convenio");
 						
 		/**
@@ -92,10 +94,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			}else {
 				request.setAttribute("dataInicioMsg", dataInicioMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(dataInicioMsg);
 			}
 		} else {
 			request.setAttribute("dataInicioMsg", dataInicioMsg);
 			isValid = false;
+			//TODO Fazer log
+			System.out.println(dataInicioMsg);
 		}
 		
 		/**
@@ -117,6 +123,8 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		} else {
 			request.setAttribute("dataFimMsg", dataFimMsg);
 			isValid = false;
+			//TODO Fazer log
+			System.out.println(dataFimMsg);
 		}
 		
 		/**
@@ -125,15 +133,17 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		String periodoMsg = "";
 		if(!(dataFimTermoEstagio == null || dataFimTermoEstagio.isEmpty())) {
 			periodoMsg = ValidaUtils.validaDatas(dataInicio, dataFim);
-			if(periodoMsg.trim().isEmpty()) {
+			if(!periodoMsg.trim().isEmpty()) {
 				request.setAttribute("periodoMsg", periodoMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(periodoMsg);
 			}	
 		}		
 		
 		/**
 		 * Validação da carga horária usando os métodos da Classe ValidaUtils
-		 * Campo obrigatório e valor menor que 255.
+		 * Campo obrigatório e valor menor que 255 (No banco), valor menor que 24, por ser horas diárias.
 		 */
 		String cargaHorariaMsg = "";
 		cargaHorariaMsg = ValidaUtils.validaObrigatorio("Carga Horária", cargaHorariaTermoEstagio);
@@ -142,19 +152,26 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			if (cargaHorariaMsg.trim().isEmpty()) {
 				Integer cargaHoraria = Integer.parseInt(cargaHorariaTermoEstagio);
 				if (cargaHorariaMsg.trim().isEmpty()) {
-					cargaHorariaMsg = ValidaUtils.validaTamanho("Carga Horária", 255, cargaHoraria);
+					cargaHorariaMsg = ValidaUtils.validaTamanho("Carga Horária", 24, cargaHoraria);
 					request.setAttribute("cargaHoraria", cargaHoraria);
 				} else {
 					request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
 					isValid = false;
+					//TODO Fazer log
+					System.out.println(cargaHorariaMsg);
+					
 				}
 			} else {
 				request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(cargaHorariaMsg);
 			}
 		} else {
 			request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
 			isValid = false;
+			//TODO Fazer log
+			System.out.println(cargaHorariaMsg);
 		}
 				
 		/**
@@ -171,10 +188,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			} else {
 				request.setAttribute("valorBolsaMsg", valorBolsaMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(valorBolsaMsg);
 			}
 		} else {
 			request.setAttribute("valorBolsaMsg", valorBolsaMsg);
 			isValid = false;
+			//TODO Fazer log
+			System.out.println(valorBolsaMsg);
 		}			
 		
 		/**
@@ -190,10 +211,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			}else {
 				request.setAttribute("enderecoMsg", enderecoMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(enderecoMsg);
 			}
 		}else {
 			request.setAttribute("enderecoMsg", enderecoMsg);
 			isValid = false;
+			//TODO Fazer log
+			System.out.println(enderecoMsg);
 		}
 		
 		
@@ -210,10 +235,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			}else {
 				request.setAttribute("numeroEnderecoMsg", numeroEnderecoMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(numeroEnderecoMsg);
 			}
 		}else {
 			request.setAttribute("numeroEnderecoMsg", numeroEnderecoMsg);
 			isValid = false;
+			//TODO Fazer log
+			System.out.println(numeroEnderecoMsg);
 		}		
 		
 		/**
@@ -229,10 +258,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			}else {
 				request.setAttribute("complementoEnderecoMsg", complementoEnderecoMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(complementoEnderecoMsg);
 			}
 		}else {
 			request.setAttribute("complementoEnderecoMsg", complementoEnderecoMsg);
 			isValid = false;
+			//TODO Fazer log
+			System.out.println(complementoEnderecoMsg);
 		}		
 		
 		/**
@@ -248,10 +281,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			}else {
 				request.setAttribute("bairroEnderecoMsg", bairroEnderecoMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(bairroEnderecoMsg);
 			}
 		}else {
 			request.setAttribute("bairroEnderecoMsg", bairroEnderecoMsg);
 			isValid = false;
+			//TODO Fazer log
+			System.out.println(bairroEnderecoMsg);
 		}		
 		
 		
@@ -269,10 +306,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			}else {
 				request.setAttribute("cepEnderecoMsg", cepEnderecoMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(cepEnderecoMsg);
 			}
 		}else {
 			request.setAttribute("cepEnderecoMsg", cepEnderecoMsg);
 			isValid = false;
+			//TODO Fazer log
+			System.out.println(cepEnderecoMsg);
 		}			
 		
 		
@@ -289,10 +330,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			}else {
 				request.setAttribute("cidadeEnderecoMsg", cidadeEnderecoMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(cidadeEnderecoMsg);
 			}
 		}else {
 			request.setAttribute("cidadeEnderecoMsg", cidadeEnderecoMsg);
 			isValid = false;
+			//TODO Fazer log
+			System.out.println(cidadeEnderecoMsg);
 		}					
 		
 		/**
@@ -308,10 +353,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			}else {
 				request.setAttribute("estadoEnderecoMsg", estadoEnderecoMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(estadoEnderecoMsg);
 			}
 		}else {
 			request.setAttribute("estadoEnderecoMsg", estadoEnderecoMsg);
 			isValid = false;
+			//TODO Fazer log
+			System.out.println(estadoEnderecoMsg);
 		}					
 		
 		/**
@@ -321,18 +370,29 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		String eEstagioObrigatorioMsg = "";
 		eEstagioObrigatorioMsg = ValidaUtils.validaObrigatorio("Estágio Obrigatório", eEstagioObrigatorio);
 		if(eEstagioObrigatorioMsg.trim().isEmpty()) {
-			eEstagioObrigatorioMsg = ValidaUtils.validaBoolean("Estágio Obrigatório", eEstagioObrigatorio);
-			if(eEstagioObrigatorioMsg.trim().isEmpty()) {
-				Boolean obrigatorio = Boolean.parseBoolean(eEstagioObrigatorio);
+			Boolean obrigatorio;
+			if(eEstagioObrigatorio.equals("sim")) {				
+				obrigatorio = true;
 				request.setAttribute("obrigatorio", obrigatorio);
+			} else if(eEstagioObrigatorio.equals("nao")) {
+				obrigatorio = false;
+				request.setAttribute("obrigatorio", obrigatorio);
+			}else {
+				eEstagioObrigatorioMsg = "Valor inválido";
+				request.setAttribute("eEstagioObrigatorioMsg", eEstagioObrigatorioMsg);
+				isValid = false;
+				//TODO Fazer log
+				System.out.println(eEstagioObrigatorioMsg);
+			}
+				
 			}else {
 				request.setAttribute("eEstagioObrigatorioMsg", eEstagioObrigatorioMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(eEstagioObrigatorioMsg);
 			}			
-		}else {
-			request.setAttribute("eEstagioObrigatorioMsg", eEstagioObrigatorioMsg);
-			isValid = false;
-		}		
+		
+				
 		
 		/**
 		 * Validação do Id do Professor Orientador, usando métodos da Classe ValidaUtils.
@@ -350,14 +410,20 @@ public class FormTermoEstagioServlet extends HttpServlet {
 					} else {
 						idProfessorMsg = "Professor escolhido não está cadastrado";
 						isValid = false;
+						//TODO Fazer log
+						System.out.println(idProfessorMsg);
 					}
 				} else {
 					idProfessorMsg = "Nenhum professor cadastrado no banco";
 					isValid = false;
+					//TODO Fazer log
+					System.out.println(idProfessorMsg);
 				}
 			} else {
 				request.setAttribute("idProfessorMsg", idProfessorMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(idProfessorMsg);
 			}
 		}
 		
@@ -377,18 +443,28 @@ public class FormTermoEstagioServlet extends HttpServlet {
 						request.setAttribute("id", idAlunoInt);
 					} else {
 						idAlunoMsg = "Aluno escolhido não está cadastrado";
+						isValid = false;
+						//TODO Fazer log
+						System.out.println(idAlunoMsg);
 					}
 				} else {
 					idAlunoMsg = "Nenhum aluno cadastrado no banco";
+					isValid = false;
+					//TODO Fazer log
+					System.out.println(idAlunoMsg);
 				}
 
 			} else {
 				request.setAttribute("idAlunoMsg", idAlunoMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(idAlunoMsg);
 			}
 		} else {
 			request.setAttribute("idAlunoMsg", idAlunoMsg);
 			isValid = false;
+			//TODO Fazer log
+			System.out.println(idAlunoMsg);
 		}
 		
 		String convenioMsg = "";
@@ -400,14 +476,18 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			} else {
 				request.setAttribute("convenioMsg", convenioMsg);
 				isValid = false;
+				//TODO Fazer log
+				System.out.println(convenioMsg);
 			}
 		} else {
 			request.setAttribute("convenioMsg", convenioMsg);
 			isValid = false;
+			//TODO Fazer log
+			System.out.println(convenioMsg);
 		}				
 		
 		/**
-		 * Teste das variáveis booleanas após validação.
+		 * Teste da variável booleana após validação.
 		 * Redirecionamento para a inclusão ou devolver para o formulário com as mensagens.
 		 */
 		if (isValid) {

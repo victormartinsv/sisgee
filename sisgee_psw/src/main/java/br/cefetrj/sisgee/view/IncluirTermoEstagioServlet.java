@@ -2,12 +2,14 @@ package br.cefetrj.sisgee.view;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
 
 import br.cefetrj.sisgee.control.TermoEstagioServices;
 import br.cefetrj.sisgee.model.entity.Aluno;
@@ -15,6 +17,14 @@ import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 
+/**
+ * 
+ * @author Paulo Cantuária
+ * @since1.0
+ *
+ */
+
+@WebServlet("/IncluirTermoEstagioServlet")
 public class IncluirTermoEstagioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -45,14 +55,18 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 				 aluno,  convenio,  professorOrientador);
 		
 		String msg = "";
+		Logger lg = Logger.getLogger(IncluirTermoEstagioServlet.class);
 		try{
 			TermoEstagioServices.incluirTermoEstagio(termoEstagio);
 			msg = "Registro de Termo de Estágio concluído com sucesso.";
 			request.setAttribute("msg", msg);
+			lg.info(msg);
 			request.getRequestDispatcher("/index.jsp");
 		}catch(Exception e) {
 			msg = "Ocorreu um erro inesperado ao tentar registrar o termo. Tente novamente ou contate o suporte caso o erro persita.";
 			request.setAttribute("msg", msg);
+			
+			lg.error("Exception ao tentar inserir o Termo de Estágio", e);
 			request.getRequestDispatcher("FormTermoEstagioServlet");
 		}
 		

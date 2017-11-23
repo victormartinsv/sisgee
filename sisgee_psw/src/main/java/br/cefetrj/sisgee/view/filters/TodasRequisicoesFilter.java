@@ -10,6 +10,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
+import org.apache.log4j.Logger;
+import org.postgresql.jdbc2.optional.SimpleDataSource;
+
 /**
  * Filtro para todas as requisições.
  * Substituindo o padrão Front Controller
@@ -29,12 +32,14 @@ public class TodasRequisicoesFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
+				
 		try{			
-			chain.doFilter(request, response);			
+			chain.doFilter(request, response);	
+			
 		}catch(Exception e) {
+			Logger lg = Logger.getLogger(TodasRequisicoesFilter.class);
+			lg.error("Exception não tratada no Filter", e);
 			request.getRequestDispatcher("/erro.jsp").forward(request, response);
-
 		}
 	}
 

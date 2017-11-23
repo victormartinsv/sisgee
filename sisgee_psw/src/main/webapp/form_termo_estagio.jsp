@@ -201,8 +201,8 @@ div.form-row {
 					</div>
 					<div class="form-row">
 					<div class="form-group col-md-2">
-						<label for="bairroEnderecoTermoEstagio">Número</label>
-						<input type="text" class="form-control" id="numeroEnderecoTermoEstagio" name="numeroEnderecoTermoEstagio" value="${ param.bairroEnderecoTermoEstagio }">
+						<label for="numeroEnderecoTermoEstagio">Número</label>
+						<input type="text" class="form-control" id="numeroEnderecoTermoEstagio" name="numeroEnderecoTermoEstagio" value="${ param.numeroEnderecoTermoEstagio }">
 					</div>
 					<div class="form-group col-md-4">
 						<label for="complementoEnderecoTermoEstagio">Complemento</label>

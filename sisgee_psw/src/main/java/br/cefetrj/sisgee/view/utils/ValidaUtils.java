@@ -49,7 +49,7 @@ public class ValidaUtils {
 	public static String validaObrigatorio(String nomeCampo, String param) {
 		String msg = "";
 		if(param == null || param.isEmpty()) {
-			msg += "O campo " + nomeCampo + " é obrigatório.";
+			msg = "O campo " + nomeCampo + " é obrigatório.";
 		}		
 		return msg;
 	}
@@ -63,7 +63,7 @@ public class ValidaUtils {
 	public static String validaInteger(String nomeCampo, String param) {
 		String msg = "";
 		if(!param.matches("\\d*")) {
-			msg += "O campo " + nomeCampo + " deve ser numérico.";
+			msg = "O campo " + nomeCampo + " deve ser numérico.";
 		}		
 		return msg;
 	}
@@ -80,7 +80,7 @@ public class ValidaUtils {
 			@SuppressWarnings("unused")
 			Float valorFloat = Float.parseFloat(param);				
 		}catch(Exception e) {
-			msg += "O campo " + nomeCampo + " deve ser numérico.";
+			msg = "O campo " + nomeCampo + " deve ser numérico.";
 		}		
 		return msg;
 	}
@@ -97,7 +97,7 @@ public class ValidaUtils {
 			@SuppressWarnings("unused")
 			Boolean valorBoolean = Boolean.parseBoolean(param);				
 		}catch(Exception e) {
-			msg += "O campo " + nomeCampo + " deve ser booleano(Verdadeiro ou Falso, Sim ou Não, etc).";
+			msg = "O campo " + nomeCampo + " deve ser booleano(Verdadeiro ou Falso, Sim ou Não, etc).";
 		}		
 		return msg;
 	}
@@ -117,7 +117,7 @@ public class ValidaUtils {
 			@SuppressWarnings("unused")
 			Date dataFormatada = format.parse(param);
 		}catch(Exception e) {
-			msg += "O campo "+ nomeCampo + " é uma data inválida";
+			msg = "O campo "+ nomeCampo + " é uma data inválida";
 		}		
 		return msg;
 	}
@@ -131,19 +131,25 @@ public class ValidaUtils {
 	public static String validaDatas(Date dataInicio, Date dataFim) {
 		String msg = "";
 		if(dataInicio.compareTo(dataFim) > 0) {
-			msg += "Data final não pode ser anterior que a data inicial";
+			msg = "Data final não pode ser anterior que a data inicial";
 		}		
 		return msg;
 	}	
 	
 	public static String validaUf(String nomeCampo, String param) {
 		String msg = "";
+		boolean valid = false;
 		UF [] ufs = UF.asList();
 		for (UF uf : ufs) {
-			if(!param.equals(uf)) {
-				msg += "O campo "+ nomeCampo + " é uma UF inválida";
+			if(param.equals(uf.getUf())) {
+				valid = true;
+				return "";
 			}
-		}		
+		}
+		if(valid == false) {
+			msg = "O campo " + nomeCampo + " é uma UF inválida";
+		}
+		
 		return msg;
 	}
 	

@@ -29,8 +29,8 @@ public class TermoEstagio {
 	private Date dataFimTermoEstagio;
 
 	private Date dataRescisaoTermoEstagio;
-	@Column(length = 25, nullable = false)
-
+	
+	@Column(length = 25)
 	private String situacaoTermoEstagio;
 
 	@Column(nullable = false)

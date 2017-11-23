@@ -33,6 +33,8 @@ public class TermoEstagioServices {
 			termoEstagioDao.incluir(termoEstagio);
 			PersistenceManager.getTransaction().commit();
 		}catch(Exception e){
+			//TODO remover saída do console
+			System.out.println(e);
 			PersistenceManager.getTransaction().rollback();
 		}
 	}

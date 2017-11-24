@@ -45,31 +45,32 @@ div.form-row {
 				<legend class="col-form-legend col-lg">Dados da Empresa Conveniada</legend>
 				<div class="form-group col-md-6">
 					<label for="numeroConvenio">Número do convênio</label>
-					<input type="text" class="form-control" id="numeroConvenio" name="convenio" value="${ param.convenio }" ${ not empty convenioMsg ? 'is-invalid': '' }>
+					<input type="text" class="form-control ${ not empty convenioMsg ? 'is-invalid': 'is-valid' }" id="numeroConvenio" name="convenio" value="${ param.convenio }" >
 					<c:if test="${ not empty convenioMsg }">
 				    	<div class="invalid-feedback">${ convenioMsg }</div>
 		        	</c:if>
-				</div>				
-				
+				</div>
+
 				<div class="form-row">
 					<div class="form-group col-md-3">
 						<label for="isAgenteIntegracao">É Agente de Integração?</label>
 					</div>
-					<div class="form-group">		
-						<div class="form-check form-check-inline">
-						  <label class="form-check-label">
-						    <input class="form-check-input isAgenteChk" type="radio" name="isAgenteIntegracao" value="sim"> Sim
+					
+					<div class="custom-controls-stacked d-block my-3">							
+						  <label class="custom-control custom-radio">
+						    <input id="agenteSim" class="custom-control-input isAgenteChk" type="radio" name="isAgenteIntegracao" required value="sim"> 
+								<span class="custom-control-indicator"></span> 
+								<span class="custom-control-description" >Sim</span>
+						  </label>						
+						
+						  <label class="custom-control custom-radio">
+						    <input id="agenteNao" class="custom-control-input isAgenteChk" type="radio" name="isAgenteIntegracao" required value="nao"> 
+								<span class="custom-control-indicator"></span> 
+								<span class="custom-control-description">Não</span>
 						  </label>
-						</div>
-						<div class="form-check form-check-inline">
-						  <label class="form-check-label">
-
-						    <input class="form-check-input isAgenteChk" type="radio" name="isAgenteIntegracao" value="nao"> Não
-
-						  </label>
-						</div>
 					</div>
-				</div>
+				</div>							
+				
 				<div class="form-row notAI AI">
 					<div class="form-group col-md-4">
 						<label for="cnpjEmpresa">CNPJ</label>
@@ -156,12 +157,17 @@ div.form-row {
 					<div class="form-group col-md-4">
 
 						<label for="dataInicioTermoEstagio">Data de início</label>
-						<input type="text" class="form-control" id="dataInicioTermoEstagio"  name="dataInicioTermoEstagio" value="${ param.dataInicioTermoEstagio }">
+						<input type="text" class="form-control ${ not empty dataInicioMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataInicioTermoEstagio"  name="dataInicioTermoEstagio" value="${ param.dataInicioTermoEstagio }" >
+					<c:if test="${ not empty dataInicioMsg }">
+				    	<div class="invalid-feedback">${ dataInicioMsg }</div>
+		        	</c:if>
 					</div>
 					<div class="form-group col-md-4">
 						<label for="dataFimTermoEstagio">Data de término</label>
-
-						<input type="text" class="form-control" id="dataFimTermoEstagio"   name="dataFimTermoEstagio" value="${ param.dataFimTermoEstagio }">
+						<input type="text" class="form-control ${ not empty dataFimMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataFimTermoEstagio"   name="dataFimTermoEstagio" value="${ param.dataFimTermoEstagio }" >
+						<c:if test="${ not empty dataFimMsg }">
+				    		<div class="invalid-feedback">${ dataFimMsg }</div>
+		        	</c:if>
 					</div>
 				</div>
 			</fieldset>
@@ -172,7 +178,10 @@ div.form-row {
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="cargaHorariaTermoEstagio">Horas por dia</label>
-						<input type="text" class="form-control" id="cargaHorariaTermoEstagio" name="cargaHorariaTermoEstagio" value="${ param.cargaHorariaTermoEstagio }">
+						<input type="text" class="form-control ${ not empty cargaHorariaMsg ? 'is-invalid': 'is-valid' }" id="cargaHorariaTermoEstagio" name="cargaHorariaTermoEstagio" value="${ param.cargaHorariaTermoEstagio }" >
+						<c:if test="${ not empty cargaHorariaMsg }">
+				    		<div class="invalid-feedback">${ cargaHorariaMsg }</div>
+		        		</c:if>
 					</div>
 				</div>
 			</fieldset>
@@ -183,7 +192,10 @@ div.form-row {
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="valorBolsa">Valor</label>
-						<input type="text" class="form-control" id="valorBolsa" name="valorBolsa" value="${ param.valorBolsa }">
+						<input type="text" class="form-control ${ not empty valorBolsaMsg ? 'is-invalid': 'is-valid' }" id="valorBolsa" name="valorBolsa" value="${ param.valorBolsa }" >
+						<c:if test="${ not empty valorBolsaMsg }">
+				    		<div class="invalid-feedback">${ valorBolsaMsg }</div>
+		        		</c:if>
 					</div>
 				</div>
 			</fieldset>
@@ -195,42 +207,61 @@ div.form-row {
 					<div class="form-group col-md-12">
 
 						<label for="enderecoTermoEstagio">Endereço</label>
-
-						<input type="text" class="form-control" id="enderecoTermoEstagio" name="enderecoTermoEstagio" value="${ param.enderecoTermoEstagio }">
+						<input type="text" class="form-control ${ not empty enderecoMsg ? 'is-invalid': not empty enderecoMsg ? 'is-invalid' : 'is-valid' }" id="enderecoTermoEstagio" name="enderecoTermoEstagio" value="${ param.enderecoTermoEstagio }">
+						<c:if test="${ not empty enderecoMsg }">
+				    		<div class="invalid-feedback">${ enderecoMsg }</div>
+		        		</c:if>
 					</div>
 					</div>
 					<div class="form-row">
 					<div class="form-group col-md-2">
 						<label for="numeroEnderecoTermoEstagio">Número</label>
-						<input type="text" class="form-control" id="numeroEnderecoTermoEstagio" name="numeroEnderecoTermoEstagio" value="${ param.numeroEnderecoTermoEstagio }">
+						<input type="text" class="form-control ${ not empty numeroEnderecoMsg ? 'is-invalid': not empty numeroEnderecoMsg ? 'is-invalid' : 'is-valid' }" id="numeroEnderecoTermoEstagio" name="numeroEnderecoTermoEstagio" value="${ param.numeroEnderecoTermoEstagio }">
+						<c:if test="${ not empty numeroEnderecoMsg }">
+				    		<div class="invalid-feedback">${ numeroEnderecoMsg }</div>
+		        		</c:if>
 					</div>
 					<div class="form-group col-md-4">
 						<label for="complementoEnderecoTermoEstagio">Complemento</label>
-						<input type="text" class="form-control" id="complementoEnderecoTermoEstagio" name="complementoEnderecoTermoEstagio" value="${ param.complementoEnderecoTermoEstagio }">
+						<input type="text" class="form-control ${ not empty complementoEnderecoMsg ? 'is-invalid': not empty complementoEnderecoMsg ? 'is-invalid' : 'is-valid' }" id="complementoEnderecoTermoEstagio" name="complementoEnderecoTermoEstagio" value="${ param.complementoEnderecoTermoEstagio }">
+						<c:if test="${ not empty complementoEnderecoMsg }">
+				    		<div class="invalid-feedback">${ complementoEnderecoMsg }</div>
+		        		</c:if>
 					</div>
 					<div class="form-group col-md-6">
 						<label for="bairroEnderecoTermoEstagio">Bairro</label>
-						<input type="text" class="form-control" id="bairroEnderecoTermoEstagio" name="bairroEnderecoTermoEstagio" value="${ param.bairroEnderecoTermoEstagio }">
+						<input type="text" class="form-control ${ not empty bairroEnderecoMsg ? 'is-invalid': not empty bairroEnderecoMsg ? 'is-invalid' : 'is-valid' }" id="bairroEnderecoTermoEstagio" name="bairroEnderecoTermoEstagio" value="${ param.bairroEnderecoTermoEstagio }">
+						<c:if test="${ not empty bairroEnderecoMsg }">
+				    		<div class="invalid-feedback">${ bairroEnderecoMsg }</div>
+		        		</c:if>
 					</div>
 				</div>
 				<div class="form-row">					
 					<div class="form-group col-md-6">
 						<label for="cidadeEnderecoTermoEstagio">Cidade</label>
-						<input type="text" class="form-control" id="cidadeEnderecoTermoEstagio" name="cidadeEnderecoTermoEstagio" value="${ param.cidadeEnderecoTermoEstagio }">
+						<input type="text" class="form-control ${ not empty cidadeEnderecoMsg ? 'is-invalid': not empty cidadeEnderecoMsg ? 'is-invalid' : 'is-valid' }" id="cidadeEnderecoTermoEstagio" name="cidadeEnderecoTermoEstagio" value="${ param.cidadeEnderecoTermoEstagio }">
+						<c:if test="${ not empty cidadeEnderecoMsg }">
+				    		<div class="invalid-feedback">${ cidadeEnderecoMsg }</div>
+		        		</c:if>
 					</div>
 					<div class="form-group col-md-2">
 						<label for="estadoEnderecoTermoEstagio">Estado</label>
-						<select name = "estadoEnderecoTermoEstagio" id="estadoEnderecoTermoEstagio" class="form-control">
+						<select name = "estadoEnderecoTermoEstagio" id="estadoEnderecoTermoEstagio" class="form-control ${ not empty estadoEnderecoMsg ? 'is-invalid': not empty estadoEnderecoMsg ? 'is-invalid' : 'is-valid' }">
 							<option value="" selected>---</option>
 							<c:forEach items="${ uf }" var="uf">
 								<option value="${ uf }">${ uf }</option>
-							</c:forEach>
-							
+							</c:forEach>							
 						</select>
+						<c:if test="${ not empty estadoEnderecoMsg }">
+				    		<div class="invalid-feedback">${ estadoEnderecoMsg }</div>
+		        		</c:if>
 					</div>
 					<div class="form-group col-md-4">
 						<label for="cepEnderecoTermoEstagio">CEP</label>
-						<input type="text" class="form-control" id="cepEnderecoTermoEstagio" name="cepEnderecoTermoEstagio" value="${ param.cepEnderecoTermoEstagio }">
+						<input type="text" class="form-control ${ not empty cepEnderecoMsg ? 'is-invalid': not empty cepEnderecoMsg ? 'is-invalid' : 'is-valid' }" id="cepEnderecoTermoEstagio" name="cepEnderecoTermoEstagio" value="${ param.cepEnderecoTermoEstagio }">
+						<c:if test="${ not empty cepEnderecoMsg }">
+				    		<div class="invalid-feedback">${ cepEnderecoMsg }</div>
+		        		</c:if>
 					</div>
 				</div>
 			</fieldset>
@@ -240,33 +271,35 @@ div.form-row {
 				<div class="form-group col-md-4">
 					<label for="eEstagioObrigatorio">O estÃ¡gio Ã© obrigatÃ³rio?</label>
 				</div>
-				<div class="form-group">		
-					<div class="form-check form-check-inline">
-					  <label class="form-check-label">
-					    <input class="form-check-input" type="radio" name="eEstagioObrigatorio" value="sim"> Sim
-					  </label>
-					</div>
-					<div class="form-check form-check-inline">
-					  <label class="form-check-label">
 
-					    <input class="form-check-input" type="radio" name="eEstagioObrigatorio" value="nao"> Não
-
-					  </label>
-					</div>
-				</div>
+				<div class="custom-controls-stacked d-block my-3">
+					<label class="custom-control custom-radio"> 
+						<input id="estagioSim" name="eEstagioObrigatorio" type="radio" class="custom-control-input" required value = "sim"> 
+						<span class="custom-control-indicator"></span> 
+						<span class="custom-control-description" >Sim</span>
+					</label> 
+					<label class="custom-control custom-radio"> 
+						<input id="estagioNao" name="eEstagioObrigatorio" type="radio" class="custom-control-input" required value = "nao"> 
+						<span class="custom-control-indicator"></span> 
+						<span class="custom-control-description">Não</span>
+					</label>
+				</div>				
 			</div>
 			
 			
 			<div class="form-group col-md-8">
 				<label for="idProfessorOrientador">Professor orientador</label>
-				<select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control">
+				<select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control ${ not empty idProfessorMsg ? 'is-invalid': not empty idProfessorMsg ? 'is-invalid' : 'is-valid' }">
 					<option value="" selected>---</option>
 					<c:forEach items="${ professores }" var="professor">
 						<option value="${ professor.idProfessorOrientador }">${ professor.nomeProfessorOrientador }</option>
-					</c:forEach>
-					
+					</c:forEach>					
 				</select>
+				<c:if test="${ not empty idProfessorMsg }">
+				    		<div class="invalid-feedback">${ idProfessorMsg }</div>
+		        		</c:if>				
 			</div>
+			
 			
 			
 			<button type="submit" class="btn btn-primary">Salvar</button>

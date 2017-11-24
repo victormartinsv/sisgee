@@ -11,7 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
 import org.apache.log4j.Logger;
-import org.postgresql.jdbc2.optional.SimpleDataSource;
 
 /**
  * Filtro para todas as requisições.

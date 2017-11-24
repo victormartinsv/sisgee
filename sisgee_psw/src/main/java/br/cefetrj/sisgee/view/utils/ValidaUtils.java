@@ -35,7 +35,7 @@ public class ValidaUtils {
 	public static String validaTamanho(String nomeCampo, int tamanho, Integer param) {
 		String msg = "";
 		if(param > tamanho) {
-			msg = "O campo " + nomeCampo + " deve ter tamanho máximo de " + tamanho + ".";
+			msg = "O campo " + nomeCampo + " deve ter valor máximo de " + tamanho + ".";
 		}		
 		return msg;
 	}	

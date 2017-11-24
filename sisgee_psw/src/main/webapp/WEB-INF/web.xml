@@ -6,35 +6,5 @@
       <url-pattern>*.jsp</url-pattern>
       <el-ignored>false</el-ignored>
     </jsp-property-group>
-  </jsp-config>
-  <servlet>
-    <description></description>
-    <display-name>FormTermoAditivoServlet</display-name>
-    <servlet-name>FormTermoAditivoServlet</servlet-name>
-    <servlet-class>br.cefetrj.sisgee.view.FormTermoAditivoServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>FormTermoAditivoServlet</servlet-name>
-    <url-pattern>/FormTermoAditivoServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>IncluirTermoAditivoServlet</display-name>
-    <servlet-name>IncluirTermoAditivoServlet</servlet-name>
-    <servlet-class>br.cefetrj.sisgee.view.IncluirTermoAditivoServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>IncluirTermoAditivoServlet</servlet-name>
-    <url-pattern>/IncluirTermoAditivoServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ValidaTermoAditivoServlet</display-name>
-    <servlet-name>ValidaTermoAditivoServlet</servlet-name>
-    <servlet-class>br.cefetrj.sisgee.view.ValidaTermoAditivoServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ValidaTermoAditivoServlet</servlet-name>
-    <url-pattern>/ValidaTermoAditivoServlet</url-pattern>
-  </servlet-mapping>
+  </jsp-config> 
 </web-app>

@@ -23,7 +23,16 @@ div.form-row {
 
 </style>
 
-<title>Registro de Termo de Estágio</title>
+<title>
+	<c:choose>
+		<c:when test="${ not empty aditivo }">
+			Registro de Termo Aditivo
+		</c:when>
+		<c:otherwise>
+			Registro de Termo de Estágio
+		</c:otherwise>
+	</c:choose>
+</title>
 </head>
 <body>
 	<%@include file="import_navbar.jspf"%>
@@ -37,11 +46,28 @@ div.form-row {
 
 		<p class="tituloForm">
 
-		<h5>Registro de Termo de Estágio</h5>		
-		</p>
-
-		<form action="FormTermoEstagioServlet" method="post">
-			<fieldset class="form-group">
+		<h5>		
+		<c:choose>
+			<c:when test="${ not empty aditivo }">
+				Registro de Termo Aditivo
+			</c:when>
+			<c:otherwise>
+				Registro de Termo de Estágio
+			</c:otherwise>
+		</c:choose>
+		</h5>		
+		</p>		
+		
+		<c:choose>
+			<c:when test="${ not empty aditivo }">
+				<form action="ValidaTermoAditivoServlet" method="post">
+			</c:when>
+			<c:otherwise>
+				<form action="FormTermoEstagioServlet" method="post">
+			</c:otherwise>
+		</c:choose>
+		
+			<fieldset class="form-group" ${ not empty aditivo ? 'disabled' :'' }>
 				<legend class="col-form-legend col-lg">Dados da Empresa Conveniada</legend>
 				<div class="form-group col-md-6">
 					<label for="numeroConvenio">Número do convênio</label>
@@ -122,7 +148,7 @@ div.form-row {
 			</fieldset>
 			
 			
-			<fieldset class="form-group">
+			<fieldset class="form-group" ${ not empty aditivo ? 'disabled' :'' }>
 				<legend class="col-form-legend col-lg">Dados do Aluno</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
@@ -267,19 +293,19 @@ div.form-row {
 			</fieldset>
 
 		
-			<div class="form-row">
-				<div class="form-group col-md-4">
+			<div class="form-row" >
+				<div class="form-group col-md-3" >
 					<label for="eEstagioObrigatorio">O estÃ¡gio Ã© obrigatÃ³rio?</label>
 				</div>
 
 				<div class="custom-controls-stacked d-block my-3">
 					<label class="custom-control custom-radio"> 
-						<input id="estagioSim" name="eEstagioObrigatorio" type="radio" class="custom-control-input" required value = "sim"> 
+						<input id="estagioSim" name="eEstagioObrigatorio" type="radio" class="custom-control-input" required value = "sim" ${ not empty aditivo ? 'disabled' :'' }> 
 						<span class="custom-control-indicator"></span> 
 						<span class="custom-control-description" >Sim</span>
 					</label> 
 					<label class="custom-control custom-radio"> 
-						<input id="estagioNao" name="eEstagioObrigatorio" type="radio" class="custom-control-input" required value = "nao"> 
+						<input id="estagioNao" name="eEstagioObrigatorio" type="radio" class="custom-control-input" required value = "nao" ${ not empty aditivo ? 'disabled' :'' }> 
 						<span class="custom-control-indicator"></span> 
 						<span class="custom-control-description">Não</span>
 					</label>

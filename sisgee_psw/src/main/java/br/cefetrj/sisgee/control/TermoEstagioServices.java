@@ -35,6 +35,7 @@ public class TermoEstagioServices {
 		}catch(Exception e){
 			//TODO remover saída do console
 			System.out.println(e);
+			e.printStackTrace();
 			PersistenceManager.getTransaction().rollback();
 		}
 	}

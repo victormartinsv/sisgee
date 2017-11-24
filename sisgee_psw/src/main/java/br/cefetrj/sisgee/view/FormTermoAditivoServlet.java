@@ -37,7 +37,9 @@ public class FormTermoAditivoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request = carregarListas(request); 
+		String aditivo = "sim";
+		request = carregarListas(request);
+		request.setAttribute("aditivo", aditivo);
 
 		request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
 
@@ -244,7 +246,11 @@ public class FormTermoAditivoServlet extends HttpServlet {
 			request.getRequestDispatcher("/IncluirTermoAditivoServlet").forward(request, response);
 		} else {
 			String msg = "Alguns campos precisam de atenção";
+			String aditivo = "sim";
+			request = carregarListas(request);
 			request.setAttribute("msg", msg);
+			request.setAttribute("aditivo", aditivo);
+			
 			request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
 		}
 

@@ -20,7 +20,7 @@ import br.cefetrj.sisgee.view.utils.ValidaUtils;
 /**
  * Servlet para validar os dados da tela de cadastro de Termo de Estágio.
  * 
- * @author Paulo Cantuária
+ * @author Pedro
  * @since 1.0
  *
  */

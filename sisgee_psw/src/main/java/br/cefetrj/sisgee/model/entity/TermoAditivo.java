@@ -52,8 +52,29 @@ public class TermoAditivo {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private TermoEstagio termoEstagio;
-
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private ProfessorOrientador professorOrientador;
+	
 	public TermoAditivo() {}
+	
+	public TermoAditivo(Date dataFimTermoAditivo, Integer cargaHorariaTermoAditivo,
+			Float valorBolsaTermoAditivo, String enderecoTermoAditivo, ProfessorOrientador professorOrientador) {
+		
+		this.dataFimTermoAditivo = dataFimTermoAditivo;
+		this.cargaHorariaTermoAditivo = cargaHorariaTermoAditivo;
+		this.valorBolsaTermoAditivo = valorBolsaTermoAditivo;
+		this.enderecoTermoAditivo = enderecoTermoAditivo;
+		this.professorOrientador = professorOrientador;
+	}
+	
+	public ProfessorOrientador getProfessorOrientador() {
+		return professorOrientador;
+	}
+
+	public void setProfessorOrientador(ProfessorOrientador professorOrientador) {
+		this.professorOrientador = professorOrientador;
+	}
 	
 	public Integer getIdTermoAditivo() {
 		return idTermoAditivo;

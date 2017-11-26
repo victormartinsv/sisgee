@@ -14,8 +14,8 @@ import javax.persistence.EntityManager;
  */
 public class GenericDAO<T> {
 
-	private EntityManager manager;
-	private Class<T> t;
+	protected EntityManager manager;
+	protected Class<T> t;
 	
 	GenericDAO(Class<T> t, EntityManager manager){
 		this.t = t;
@@ -44,6 +44,7 @@ public class GenericDAO<T> {
 	public void alterar(T entidade){
 		manager.merge(entidade);
 	}
+	
 	
 	
 }

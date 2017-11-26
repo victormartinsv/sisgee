@@ -1,7 +1,6 @@
 package br.cefetrj.sisgee.view;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,16 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.cefetrj.sisgee.control.AlunoServices;
-import br.cefetrj.sisgee.control.ProfessorOrientadorServices;
-import br.cefetrj.sisgee.model.entity.Aluno;
-import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 
 /**
  * Servlet para validar os dados da tela de cadastro de empresa.
  * 
- * @author Nat·lia Nunes
+ * @author Nat√°lia Nunes
  * @since 1.0
  *
  */
@@ -33,22 +28,21 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 		String cnpjEmpresa = request.getParameter("cnpjEmpresa");
 		String nomeEmpresa = request.getParameter("nomeEmpresa");
 		String agenteIntegracao = request.getParameter("agenteIntegracao");
-		String idEmpresa = request.getParameter("idEmpresa");
-
+		
 		boolean isValid = true;
 
 		/**
-		 * ValidaÁ„o do campo Agente IntegraÁ„o, usando mÈtodos da Classe
+		 * Valida√ß√£o do campo Agente Integra√ß√£o, usando m√©todos da Classe
 		 * ValidaUtils. Deve ser campo booleano
 		 */
 
 		String agenteIntegracaoMsg = "";
-		agenteIntegracaoMsg = ValidaUtils.validaObrigatorio("Agente IntegraÁ„o", agenteIntegracao);
+		agenteIntegracaoMsg = ValidaUtils.validaObrigatorio("Agente Integra√ß√£o", agenteIntegracao);
 		if (agenteIntegracaoMsg.trim().isEmpty()) {
-			agenteIntegracaoMsg = ValidaUtils.validaBoolean("Agente IntegraÁ„o", agenteIntegracao);
+			agenteIntegracaoMsg = ValidaUtils.validaBoolean("Agente Integra√ß√£o", agenteIntegracao);
 			if (agenteIntegracaoMsg.trim().isEmpty()) {
 				Boolean obrigatorio = Boolean.parseBoolean(agenteIntegracao);
-				request.setAttribute("obrigatÛrio", obrigatorio);
+				request.setAttribute("obrigat√≥rio", obrigatorio);
 			} else {
 				request.setAttribute("agenteIntegracaoMsg", agenteIntegracaoMsg);
 				isValid = false;
@@ -59,8 +53,8 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 		}
 
 		/**
-		 * ValidaÁ„o do CNPJ da empresa usando os mÈtodos da Classe ValidaUtils
-		 * Campo obrigatÛrio
+		 * Valida√ß√£o do CNPJ da empresa usando os m√©todos da Classe ValidaUtils
+		 * Campo obrigat√≥rio
 		 */
 
 		String cnpjEmpresaMsg = "";
@@ -88,19 +82,19 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 	}
 
 	/**
-		 * ValidaÁ„o da Raz„o Social do Cadastro Empresa usando mÈtodos da
-		 * Classe ValidaUtils. Campo obrigatÛrio e tamanho m·ximo de 100
+		 * Valida√ß√£o da Raz√£o Social do Cadastro Empresa usando m√©todos da
+		 * Classe ValidaUtils. Campo obrigat√≥rio e tamanho m√°ximo de 100
 		 * caracteres.
 		 */
 
 		String nomeEmpresaMsg = "";
 
-	nomeEmpresaMsg=ValidaUtils.validaObrigatorio("Raz„o Social",nomeEmpresa);
+	nomeEmpresaMsg=ValidaUtils.validaObrigatorio("Raz√£o Social",nomeEmpresa);
 
 	if(nomeEmpresaMsg.trim().isEmpty())
 	{
 
-		nomeEmpresaMsg = ValidaUtils.validaTamanho("Raz„o Social", 100, nomeEmpresa);
+		nomeEmpresaMsg = ValidaUtils.validaTamanho("Raz√£o Social", 100, nomeEmpresa);
 
 		if (nomeEmpresaMsg.trim().isEmpty()) {
 
@@ -119,8 +113,8 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 		}
 
 	/**
-	 * Teste das vari·veis booleanas apÛs validaÁ„o. Redirecionamento para a
-	 * inclus„o ou devolver para o formul·rio com as mensagens.
+	 * Teste das vari√°veis booleanas ap√≥s valida√ß√£o. Redirecionamento para a
+	 * inclus√£o ou devolver para o formul√°rio com as mensagens.
 	 */
 	if(isValid)
 	{
@@ -128,7 +122,7 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 		request.getRequestDispatcher("/IncluirCadastroEmpresaServlet").forward(request, response);
 	}else
 	{
-		String msg = "Alguns campos precisam de atenÁ„o";
+		String msg = "Alguns campos precisam de aten√ß√£o";
 		request.setAttribute("msg", msg);
 		request.getRequestDispatcher("/form_empresa.jsp").forward(request, response);
 	}

@@ -4,14 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Classe criada para métodos de validação, para melhor reuso de código.
- * @author Paulo Cantuária
+ * Classe criada para mÃ©todos de validaÃ§Ã£o, para melhor reuso de cÃ³digo.
+ * @author Paulo CantuÃ¡ria
  * @since 1.0
  */
 public class ValidaUtils {
 	
 	/**
-	 * Método para validar campo por tamanho, para valores de texto(String)
+	 * MÃ©todo para validar campo por tamanho, para valores de texto(String)
 	 * @param campo texto com o nome do campo.
 	 * @param tamanho tamanho do campo.
 	 * @param param valor do texto a ser testado.
@@ -20,13 +20,13 @@ public class ValidaUtils {
 	public static String validaTamanho(String nomeCampo, int tamanho, String param) {
 		String msg = "";
 		if(param.length() > tamanho) {
-			msg = "O campo " + nomeCampo + " deve ter tamanho máximo de " + tamanho + ".";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_tamanho_txt";
 		}		
 		return msg;
 	}
 	
 	/**
-	 * Método para validar campo por tamanho, para valores inteiros
+	 * MÃ©todo para validar campo por tamanho, para valores inteiros
 	 * @param nomeCampo texto com o nome do campo.
 	 * @param tamanho tamanho do campo.
 	 * @param param valor inteiro a ser testado.
@@ -35,13 +35,13 @@ public class ValidaUtils {
 	public static String validaTamanho(String nomeCampo, int tamanho, Integer param) {
 		String msg = "";
 		if(param > tamanho) {
-			msg = "O campo " + nomeCampo + " deve ter valor máximo de " + tamanho + ".";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_tamanho_num";
 		}		
 		return msg;
 	}	
 	
 	/**
-	 * M�todo para validar campo com tamanho restito, para valores de texto(String)
+	 * MÃ©todo para validar campo com tamanho restito, para valores de texto(String)
 	  * @param campo texto com o nome do campo.
 	 * @param tamanho tamanho do campo.
 	 * @param param valor do texto a ser testado.
@@ -49,30 +49,28 @@ public class ValidaUtils {
 	 */
 	public static String validaTamanhoExato(String nomeCampo, int tamanho, String param) {
 		String msg = "";
-		if(param.length() < tamanho || param.length() > tamanho) {
-			msg = "O campo " + nomeCampo + " deve ter " + tamanho + " caracteres.";
+		if(param.length() != tamanho) {
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_tamanho_exato";
 		}		
 		return msg;
 	}
 	
-	
 	/**
-	 * Método para validar campo obrigatório
+	 * MÃ©todo para validar campo obrigatÃ³rio
 	 * @param nomeCampo texto com o nome do campo.
-	 * @param param valor a ser testado como obrigatório.
+	 * @param param valor a ser testado como obrigatÃ³rio.
 	 * @return String com mensagem de erro ou vazia
 	 */
 	public static String validaObrigatorio(String nomeCampo, String param) {
 		String msg = "";
 		if(param == null || param.isEmpty()) {
-			msg = "O campo " + nomeCampo + " é obrigatório.";
-			System.out.println(msg);
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio";
 		}		
 		return msg;
 	}
 	
 	/**
-	 * Método para validar campos numéricos inteiros
+	 * MÃ©todo para validar campos numÃ©ricos inteiros
 	 * @param nomeCampo texto com o nome do campo.
 	 * @param param com o valor a ser convertido para integer.
 	 * @return String com mensagem de erro ou vazia
@@ -80,13 +78,13 @@ public class ValidaUtils {
 	public static String validaInteger(String nomeCampo, String param) {
 		String msg = "";
 		if(!param.matches("\\d*")) {
-			msg = "O campo " + nomeCampo + " deve ser numérico.";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_numerico";
 		}		
 		return msg;
 	}
 	
 	/**
-	 * Método para validar campos numéricos de ponto flutuante
+	 * MÃ©todo para validar campos numÃ©ricos de ponto flutuante
 	 * @param nomeCampo texto com o nome do campo.
 	 * @param param String com o valor a ser convertido para float.
 	 * @return String com mensagem de erro ou vazia.
@@ -97,13 +95,13 @@ public class ValidaUtils {
 			@SuppressWarnings("unused")
 			Float valorFloat = Float.parseFloat(param);				
 		}catch(Exception e) {
-			msg = "O campo " + nomeCampo + " deve ser num�rico.";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_numerico";
 		}		
 		return msg;
 	}
 	
 	/**
-	 * Método para validar campos booleanos
+	 * MÃ©todo para validar campos booleanos
 	 * @param nomeCampo texto com o nome do campo.
 	 * @param param String com o valor a ser convertido para boolean.
 	 * @return String com mensagem de erro ou vazia.
@@ -114,14 +112,14 @@ public class ValidaUtils {
 			@SuppressWarnings("unused")
 			Boolean valorBoolean = Boolean.parseBoolean(param);				
 		}catch(Exception e) {
-			msg = "O campo " + nomeCampo + " deve ser booleano(Verdadeiro ou Falso, Sim ou Não, etc).";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_booleano";
 		}		
 		return msg;
 	}
 	
 	
 	/**
-	 * Método para validar campos de data (java.util.Date)
+	 * MÃ©todo para validar campos de data (java.util.Date)
 	 * @param nomeCampo texto com o nome do campo.
 	 * @param param data a ser convertida para Date
 	 * @return String com mensagem de erro ou vazia.
@@ -134,25 +132,33 @@ public class ValidaUtils {
 			@SuppressWarnings("unused")
 			Date dataFormatada = format.parse(param);
 		}catch(Exception e) {
-			msg = "O campo "+ nomeCampo + " é uma data inválida";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_date";
 		}		
 		return msg;
 	}
 	
 	/**
-	 * Método para validar duas datas (início e fim de um período)
-	 * @param dataInicio data que marca o início do período.
-	 * @param dataFim data que marca o final do período.
+	 * MÃ©todo para validar duas datas (inÃ­cio e fim de um perÃ­odo)
+	 * @param dataInicio data que marca o inÃ­cio do perÃ­odo.
+	 * @param dataFim data que marca o final do perÃ­odo.
 	 * @return String com mensagem de erro ou vazia.
 	 */
 	public static String validaDatas(Date dataInicio, Date dataFim) {
 		String msg = "";
 		if(dataInicio.compareTo(dataFim) > 0) {
-			msg = "Data final não pode ser anterior que a data inicial";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_datas";
 		}		
 		return msg;
 	}	
 	
+	
+	/**
+	 * MÃ©todo para validar a seleÃ§Ã£o de Estados (UFs)
+	 * 
+	 * @param nomeCampo
+	 * @param param
+	 * @return
+	 */
 	public static String validaUf(String nomeCampo, String param) {
 		String msg = "";
 		boolean valid = false;
@@ -164,10 +170,11 @@ public class ValidaUtils {
 			}
 		}
 		if(valid == false) {
-			msg = "O campo " + nomeCampo + " é uma UF inválida";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_UF";
 		}
 		
 		return msg;
 	}
-	
+		
 }
+

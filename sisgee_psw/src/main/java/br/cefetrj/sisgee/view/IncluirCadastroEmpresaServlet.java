@@ -15,6 +15,7 @@ import br.cefetrj.sisgee.control.EmpresaServices;
 import br.cefetrj.sisgee.model.entity.AgenteIntegracao;
 import br.cefetrj.sisgee.model.entity.Empresa;
 
+@WebServlet("/IncluirCadastroEmpresaServlet")
 public class IncluirCadastroEmpresaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -76,3 +77,4 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
 	}
 
 }
+

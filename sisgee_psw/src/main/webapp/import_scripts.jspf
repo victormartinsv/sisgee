@@ -40,6 +40,13 @@
 	        
 	    });
 	    
+	    $('#matricula').on('keypress', function(e){
+	        if (e.keyCode == 13) {
+	            e.preventDefault();
+	            $("#btnBuscarMatricula").click();
+	        }
+	    });
+	    
 	    $('#btnBuscarMatricula').click(function(){
 	    	
 	    	if($.trim($('#matricula').val()) == ""){

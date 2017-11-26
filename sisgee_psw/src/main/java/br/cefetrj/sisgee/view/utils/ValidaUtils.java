@@ -41,6 +41,22 @@ public class ValidaUtils {
 	}	
 	
 	/**
+	 * M�todo para validar campo com tamanho restito, para valores de texto(String)
+	  * @param campo texto com o nome do campo.
+	 * @param tamanho tamanho do campo.
+	 * @param param valor do texto a ser testado.
+	 * @return String com mensagem de erro ou vazia
+	 */
+	public static String validaTamanhoExato(String nomeCampo, int tamanho, String param) {
+		String msg = "";
+		if(param.length() < tamanho || param.length() > tamanho) {
+			msg = "O campo " + nomeCampo + " deve ter " + tamanho + " caracteres.";
+		}		
+		return msg;
+	}
+	
+	
+	/**
 	 * Método para validar campo obrigatório
 	 * @param nomeCampo texto com o nome do campo.
 	 * @param param valor a ser testado como obrigatório.
@@ -50,6 +66,7 @@ public class ValidaUtils {
 		String msg = "";
 		if(param == null || param.isEmpty()) {
 			msg = "O campo " + nomeCampo + " é obrigatório.";
+			System.out.println(msg);
 		}		
 		return msg;
 	}
@@ -80,7 +97,7 @@ public class ValidaUtils {
 			@SuppressWarnings("unused")
 			Float valorFloat = Float.parseFloat(param);				
 		}catch(Exception e) {
-			msg = "O campo " + nomeCampo + " deve ser numérico.";
+			msg = "O campo " + nomeCampo + " deve ser num�rico.";
 		}		
 		return msg;
 	}

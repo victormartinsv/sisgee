@@ -95,6 +95,10 @@ public class AgenteIntegracao {
 		return nomeAgenteIntegracao;
 	}
 	
-	
+	public AgenteIntegracao(String nomeAgenteIntegracao, String cnpjAgenteIntegracao){
+		
+		this.cnpjAgenteIntegracao = cnpjAgenteIntegracao;
+		this.nomeAgenteIntegracao = nomeAgenteIntegracao;
+	}
 
 }

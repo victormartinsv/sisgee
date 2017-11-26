@@ -20,7 +20,7 @@ public class ValidaUtils {
 	public static String validaTamanho(String nomeCampo, int tamanho, String param) {
 		String msg = "";
 		if(param.length() > tamanho) {
-			msg = "O campo " + nomeCampo + " deve ter tamanho máximo de " + tamanho + ".";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_tamanho_txt";
 		}		
 		return msg;
 	}
@@ -35,10 +35,25 @@ public class ValidaUtils {
 	public static String validaTamanho(String nomeCampo, int tamanho, Integer param) {
 		String msg = "";
 		if(param > tamanho) {
-			msg = "O campo " + nomeCampo + " deve ter valor máximo de " + tamanho + ".";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_tamanho_num";
 		}		
 		return msg;
 	}	
+	
+	/**
+	 * Método para validar campo com tamanho restito, para valores de texto(String)
+	  * @param campo texto com o nome do campo.
+	 * @param tamanho tamanho do campo.
+	 * @param param valor do texto a ser testado.
+	 * @return String com mensagem de erro ou vazia
+	 */
+	public static String validaTamanhoExato(String nomeCampo, int tamanho, String param) {
+		String msg = "";
+		if(param.length() != tamanho) {
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_tamanho_exato";
+		}		
+		return msg;
+	}
 	
 	/**
 	 * Método para validar campo obrigatório
@@ -49,7 +64,7 @@ public class ValidaUtils {
 	public static String validaObrigatorio(String nomeCampo, String param) {
 		String msg = "";
 		if(param == null || param.isEmpty()) {
-			msg = "O campo " + nomeCampo + " é obrigatório.";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio";
 		}		
 		return msg;
 	}
@@ -63,7 +78,7 @@ public class ValidaUtils {
 	public static String validaInteger(String nomeCampo, String param) {
 		String msg = "";
 		if(!param.matches("\\d*")) {
-			msg = "O campo " + nomeCampo + " deve ser numérico.";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_numerico";
 		}		
 		return msg;
 	}
@@ -80,7 +95,7 @@ public class ValidaUtils {
 			@SuppressWarnings("unused")
 			Float valorFloat = Float.parseFloat(param);				
 		}catch(Exception e) {
-			msg = "O campo " + nomeCampo + " deve ser numérico.";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_numerico";
 		}		
 		return msg;
 	}
@@ -97,7 +112,7 @@ public class ValidaUtils {
 			@SuppressWarnings("unused")
 			Boolean valorBoolean = Boolean.parseBoolean(param);				
 		}catch(Exception e) {
-			msg = "O campo " + nomeCampo + " deve ser booleano(Verdadeiro ou Falso, Sim ou Não, etc).";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_booleano";
 		}		
 		return msg;
 	}
@@ -117,7 +132,7 @@ public class ValidaUtils {
 			@SuppressWarnings("unused")
 			Date dataFormatada = format.parse(param);
 		}catch(Exception e) {
-			msg = "O campo "+ nomeCampo + " é uma data inválida";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_date";
 		}		
 		return msg;
 	}
@@ -131,11 +146,19 @@ public class ValidaUtils {
 	public static String validaDatas(Date dataInicio, Date dataFim) {
 		String msg = "";
 		if(dataInicio.compareTo(dataFim) > 0) {
-			msg = "Data final não pode ser anterior que a data inicial";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_datas";
 		}		
 		return msg;
 	}	
 	
+	
+	/**
+	 * Método para validar a seleção de Estados (UFs)
+	 * 
+	 * @param nomeCampo
+	 * @param param
+	 * @return
+	 */
 	public static String validaUf(String nomeCampo, String param) {
 		String msg = "";
 		boolean valid = false;
@@ -147,10 +170,11 @@ public class ValidaUtils {
 			}
 		}
 		if(valid == false) {
-			msg = "O campo " + nomeCampo + " é uma UF inválida";
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_UF";
 		}
 		
 		return msg;
 	}
+	
 	
 }

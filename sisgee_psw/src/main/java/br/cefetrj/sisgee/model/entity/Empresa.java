@@ -35,7 +35,16 @@ public class Empresa {
 	@OneToMany(mappedBy = "empresa")
 	private List<Convenio> convenios;
 
-	public Empresa() {}
+	
+	public Empresa(){}
+	
+	public Empresa(String cnpjEmpresa, String nomeEmpresa, AgenteIntegracao agenteIntegracao ){
+		
+		this.cnpjEmpresa = cnpjEmpresa;
+		this.nomeEmpresa = nomeEmpresa;
+		this.agenteIntegracao = agenteIntegracao;
+
+	}
 	
 	public Integer getIdEmpresa() {
 		return idEmpresa;

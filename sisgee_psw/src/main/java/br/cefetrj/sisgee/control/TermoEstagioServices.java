@@ -30,7 +30,7 @@ public class TermoEstagioServices {
 		GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);		
 		PersistenceManager.getTransaction().begin();
 		try{
-			termoEstagioDao.incluir(termoEstagio);
+			termoEstagioDao.incluir(termoEstagio);			
 			PersistenceManager.getTransaction().commit();
 		}catch(Exception e){
 			//TODO remover saída do console

@@ -37,7 +37,7 @@ public class ValidaTermoAditivoServlet extends HttpServlet {
 		String cargaHorariaTermoAditivo = request.getParameter("cargaHoraria");
 		String valorBolsaTermoAditivo = request.getParameter("valor");
 		String enderecoTermoAditivo = request.getParameter("enderecoTermoAditivo");
-		String idProfessorOrientador = request.getParameter("idProfessor");
+		String idProfessorOrientador = request.getParameter("idProfessorOrientador");
 		String idAluno = request.getParameter("idAluno");
 		
 		/**
@@ -71,7 +71,7 @@ public class ValidaTermoAditivoServlet extends HttpServlet {
 		}
 		
 		/**
-		 * Validação da Data de fim do aditivo usando os métodos da Classe ValidaUtils		 * 
+		 * Validação da Data de fim do aditivo usando os métodos da Classe ValidaUtils
 		 */
 		Date dataFim = null;
 		String dataFimMsg = "";

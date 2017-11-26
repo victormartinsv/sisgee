@@ -155,33 +155,8 @@ div.form-row {
 			
 			
 			<fieldset class="form-group dadosAluno" ${ not empty aditivo ? 'disabled' :'' }>
-				<legend class="col-form-legend col-lg">Dados do Aluno</legend>
-				<div class="form-row">
-					<div class="form-group col-md-4">
-						<label for="matricula">Matrícula</label>
-						<div class="input-group">
-						  <input type="hidden" id="idAluno" name="idAluno" value="${ param.idAluno }">
-					      <input type="text" class="form-control" placeholder="Digite a matrícula" id="matricula" name="matricula" value="${ param.matricula }">
-					      <span class="input-group-btn">
-					        <button class="btn btn-primary" type="button" id="btnBuscarMatricula">Buscar</button>
-					      </span>
-					    </div>
-					</div>
-					<div class="form-group col-md">
-						<label for="nome">Nome</label>
-						<input type="text" class="form-control" id="nome" name="nome" value="${ param.nome }" readonly>
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="nomeCurso">Curso</label>
-						<input type="text" class="form-control" id="nomeCurso"  name="nomeCurso" value="${ param.nomeCurso }" readonly>
-					</div>
-					<div class="form-group col-md-6">
-						<label for="nomeCampus">Unidade</label>
-						<input type="text" class="form-control" id="nomeCampus"  name="nomeCampus" value="${ param.nomeCampus }" readonly>
-					</div>
-				</div>
+			<%@include file="import_busca_aluno.jspf"%>
+				
 			</fieldset>
 
 			<c:if test="${ not empty periodoMsg }">
@@ -363,85 +338,6 @@ div.form-row {
 	</div>
 	<%@include file="import_footer.jspf"%>
 	<%@include file="import_finalbodyscripts.jspf"%>
-    <script type="text/javascript">
-	    $('#dataInicioTermoEstagio, #dataFimTermoEstagio').datepicker({
-	    	<c:if test="${ lang eq 'pt_BR' }">
-	    	language: 'pt-BR'
-	        </c:if>
-	    });
-	    
-	    $('.isAI, .notAI').hide();
-	    
-	    $('.isAgenteChk').change(function(){
-	    	$('.AI').hide();
-	    	$(this).val() == 'sim' ? $('.isAI').show("slow") : $('.notAI').show("slow");
-	    });
-	    
-	    $('#btnBuscarEmpresaNotAI').click(function(){
-	    	
-	    	if($.trim($('#cnpjEmpresa').val()) == ""){
-	    		alert("Você precisa digitar o CNPJ da Empresa!");
-    			return;
-	    	}
-	    	
-	    	var result = null;
-	        $.ajax({
-	            type: 'GET',
-	            url: 'BuscaEmpresaServlet', //Servlet
-	            async: false, // habilita a função ajax() repassar os dados para a função pai
-	            data: $('#cnpjEmpresa').serialize(),
-	            dataType: "json",
-	            success: function(json){
-	                //console.log(json);
-	                result = json;
-	            }
-	        });
-	        if(result){
-	        	$("#nomeEmpresa").val(result.strNomeEmpresa);
-	        }
-	        else{
-	        	alert("Empresa não encontrada!");
-	        }	        	    	
-	        
-	    });
-	    
-	    $('#btnBuscarMatricula').click(function(){
-	    	
-	    	if($.trim($('#matricula').val()) == ""){
-	    		$(".dadosAluno input:not([id=matricula])").val("");
-	    		$("#myModalLabel").html("Campo vazio");
-	        	$(".modal-body").html("Você precisa digitar a matrícula!");	        	
-	        	$('#myModal').modal('show');
-    			return;
-	    	}
-	    	
-	    	var result = null;
-	        $.ajax({
-	            type: 'GET',
-	            url: 'BuscaAlunoServlet', //Servlet
-	            async: false, // habilita a função ajax() repassar os dados para a função pai
-	            data: $('#matricula').serialize(),
-	            dataType: "json",
-	            success: function(json){
-	                result = json;
-	            }
-	        });
-	        
-	        if(result.idAluno != ""){
-	        	$("#idAluno").val(result.idAluno);
-	        	$("#nome").val(result.nome);
-	        	$("#nomeCurso").val(result.nomeCurso);
-	        	$("#nomeCampus").val(result.nomeCampus);
-	        }
-	        else{
-	        	$(".dadosAluno input:not([id=matricula])").val("");
-	        	$("#myModalLabel").html("Aluno não encontrado");
-	        	$(".modal-body").html("A matrícula não corresponde a um aluno cadastrado.");	        	
-	        	$('#myModal').modal('show');
-	        }
-	        
-	    });
-	    
-    </script>
+   	<%@include file="import_scripts.jspf"%>
 </body>
 </html>

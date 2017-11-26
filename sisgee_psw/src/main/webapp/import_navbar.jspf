@@ -23,7 +23,7 @@
 					<a class="dropdown-item" href="FormTermoEstagioServlet"> 
 						Registro de Termo 
 					</a> 
-					<a class="dropdown-item" href="FormTermoAditivoServlet">
+					<a class="dropdown-item" href="form_termo_aditivo.jsp">
 						Registro de Aditivo
 					</a> 
 					<a class="dropdown-item" href="form_rescisao.jsp"> 

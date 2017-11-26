@@ -7,14 +7,4 @@
       <el-ignored>false</el-ignored>
     </jsp-property-group>
   </jsp-config>
-  <servlet>
-    <description></description>
-    <display-name>IncluirCadastroEmpresaServlet</display-name>
-    <servlet-name>IncluirCadastroEmpresaServlet</servlet-name>
-    <servlet-class>br.cefetrj.sisgee.view.IncluirCadastroEmpresaServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>IncluirCadastroEmpresaServlet</servlet-name>
-    <url-pattern>/IncluirCadastroEmpresaServlet</url-pattern>
-  </servlet-mapping>
 </web-app>

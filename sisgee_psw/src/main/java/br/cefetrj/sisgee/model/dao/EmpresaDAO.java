@@ -9,11 +9,10 @@ public class EmpresaDAO extends GenericDAO<Empresa> {
 	}
 	
 	public Empresa buscarByCnpj(String cnpj){
-		//return manager.find(t, cnpj);
 		return (Empresa) manager.createQuery(
-			    "SELECT e FROM Empresa e WHERE e.cnpjEmpresa LIKE :cnpj")
-			    .setParameter("cnpj", cnpj)
-			    .getSingleResult();
+		    "SELECT e FROM Empresa e WHERE e.cnpjEmpresa LIKE :cnpj")
+		    .setParameter("cnpj", cnpj)
+		    .getSingleResult();
 	}
 
 }

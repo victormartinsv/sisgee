@@ -58,7 +58,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		
 		String msg = "";
 		Logger lg = Logger.getLogger(IncluirTermoEstagioServlet.class);
-		try{
+		try{			
 			TermoEstagioServices.incluirTermoEstagio(termoEstagio);
 			msg = "Registro de Termo de Estágio concluído com sucesso.";
 			request.setAttribute("msg", msg);

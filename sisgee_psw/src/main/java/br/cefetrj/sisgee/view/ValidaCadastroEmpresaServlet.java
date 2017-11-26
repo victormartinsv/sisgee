@@ -1,6 +1,8 @@
 package br.cefetrj.sisgee.view;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 
 /**
@@ -24,12 +27,16 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		Locale locale = ServletUtils.getLocale(request);
+		ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
 
 		String cnpjEmpresa = request.getParameter("cnpjEmpresa");
 		String nomeEmpresa = request.getParameter("nomeEmpresa");
 		String agenteIntegracao = request.getParameter("agenteIntegracao");
 		
 		boolean isValid = true;
+		Integer tamanho = 0;
 
 		/**
 		 * Validação do campo Agente Integração, usando métodos da Classe
@@ -44,10 +51,12 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 				Boolean obrigatorio = Boolean.parseBoolean(agenteIntegracao);
 				request.setAttribute("obrigatório", obrigatorio);
 			} else {
+				agenteIntegracaoMsg = messages.getString(agenteIntegracaoMsg);
 				request.setAttribute("agenteIntegracaoMsg", agenteIntegracaoMsg);
 				isValid = false;
 			}
 		} else {
+			agenteIntegracaoMsg = messages.getString(agenteIntegracaoMsg);
 			request.setAttribute("agenteIntegracaoMsg", agenteIntegracaoMsg);
 			isValid = false;
 		}
@@ -58,11 +67,12 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 		 */
 
 		String cnpjEmpresaMsg = "";
+		tamanho = 14;
 
 		cnpjEmpresaMsg = ValidaUtils.validaObrigatorio("CNPJ", cnpjEmpresa);
 
 		if (cnpjEmpresaMsg.trim().isEmpty()) {
-			cnpjEmpresaMsg = ValidaUtils.validaTamanhoExato("CNPJ", 14, cnpjEmpresa);
+			cnpjEmpresaMsg = ValidaUtils.validaTamanhoExato("CNPJ", tamanho, cnpjEmpresa);
 			System.out.println(cnpjEmpresaMsg);
 
 			if (cnpjEmpresaMsg.trim().isEmpty()) {
@@ -72,14 +82,15 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 				request.setAttribute("cnpjEmpresa", cnpjEmpresa);
 
 			else {
+
+				request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
+				isValid = false;
+			}
+
+		} else {
 			request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
 			isValid = false;
 		}
-	
-	}else{
-		request.setAttribute("cnpjEmpresaMsg",cnpjEmpresaMsg);
-		isValid=false;
-	}
 
 	/**
 		 * Validação da Razão Social do Cadastro Empresa usando métodos da

@@ -73,7 +73,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		String eEstagioObrigatorio = request.getParameter("eEstagioObrigatorio");
 		String idProfessorOrientador = request.getParameter("idProfessorOrientador");
 		//TODO alterar o parametro de matricula para idAluno
-		String idAluno = request.getParameter("matricula");
+		String idAluno = request.getParameter("idAluno");
 		String convenio = request.getParameter("convenio");
 			
 		boolean isValid = true;

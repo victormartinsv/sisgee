@@ -2,9 +2,11 @@ package br.cefetrj.sisgee.control;
 
 import java.util.List;
 
+import br.cefetrj.sisgee.model.dao.AlunoDAO;
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.entity.Aluno;
+import br.cefetrj.sisgee.model.entity.Empresa;
 
 /**
  * Serviços de alunos. Trata a lógica de negócios
@@ -38,6 +40,16 @@ public class AlunoServices {
 			PersistenceManager.getTransaction().commit();
 		}catch(Exception e){
 			PersistenceManager.getTransaction().rollback();
+		}
+	}
+	
+	public static Aluno buscarAlunoByMatricula(String matricula) {
+		AlunoDAO alunoDao = new AlunoDAO();
+		try{
+			Aluno a = alunoDao.buscarByMatricula(matricula);
+			return a;
+		}catch(Exception e){
+			return null;
 		}
 	}
 	

@@ -2,6 +2,7 @@ package br.cefetrj.sisgee.control;
 
 import java.util.List;
 
+import br.cefetrj.sisgee.model.dao.EmpresaDAO;
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.entity.Empresa;
@@ -25,6 +26,17 @@ public class EmpresaServices {
 		GenericDAO<Empresa> empresaDao = PersistenceManager.createGenericDAO(Empresa.class);
 		return empresaDao.buscarTodos();
 	}	
+	
+	public static Empresa buscarEmpresaByCnpj(String cnpj) {
+		EmpresaDAO empresaDao = new EmpresaDAO();
+		try{
+			Empresa e = empresaDao.buscarByCnpj(cnpj);
+			return e;
+		}catch(Exception e){
+			return null;
+		}
+		
+	}
 	
 	public static void incluirEmpresa(Empresa empresa){
 		GenericDAO<Empresa> empresaDao = PersistenceManager.createGenericDAO(Empresa.class);	

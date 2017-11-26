@@ -100,7 +100,13 @@ div.form-row {
 				<div class="form-row notAI AI">
 					<div class="form-group col-md-4">
 						<label for="cnpjEmpresa">CNPJ</label>
-						<input type="text" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
+<%-- 						<input type="text" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }"> --%>
+						<div class="input-group">
+					      <input type="text" class="form-control" placeholder="Digite o CNPJ" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
+					      <span class="input-group-btn">
+					        <button class="btn btn-primary" type="button" id="btnBuscarEmpresaNotAI">Buscar</button>
+					      </span>
+					    </div>
 					</div>
 					<div class="form-group col-md-6">
 
@@ -112,7 +118,7 @@ div.form-row {
 <!-- 						<button type="button" class="btn btn-default" aria-label="Adicionar"> -->
 <!-- 							<span class="glyphicon glyphicons-plus" aria-hidden="true"></span> -->
 <!-- 						</button> -->
-						<button type="button" class="btn btn-primary">+</button>
+						<button type="button" id="addEmresa" class="btn btn-primary">+</button>
 					</div>
 				</div>
 				
@@ -148,28 +154,32 @@ div.form-row {
 			</fieldset>
 			
 			
-			<fieldset class="form-group" ${ not empty aditivo ? 'disabled' :'' }>
+			<fieldset class="form-group dadosAluno" ${ not empty aditivo ? 'disabled' :'' }>
 				<legend class="col-form-legend col-lg">Dados do Aluno</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
-
-						<label for="matricula">Matrícula </label>
-
-						<input type="text" class="form-control" id="matricula" name="matricula" value="${ param.matricula }">
+						<label for="matricula">Matrícula</label>
+						<div class="input-group">
+						  <input type="hidden" id="idAluno" name="idAluno" value="${ param.idAluno }">
+					      <input type="text" class="form-control" placeholder="Digite a matrícula" id="matricula" name="matricula" value="${ param.matricula }">
+					      <span class="input-group-btn">
+					        <button class="btn btn-primary" type="button" id="btnBuscarMatricula">Buscar</button>
+					      </span>
+					    </div>
 					</div>
 					<div class="form-group col-md">
 						<label for="nome">Nome</label>
-						<input type="text" class="form-control" id="nome" name="nome" value="${ param.nome }">
+						<input type="text" class="form-control" id="nome" name="nome" value="${ param.nome }" readonly>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="nomeCurso">Curso</label>
-						<input type="text" class="form-control" id="nomeCurso"  name="nomeCurso" value="${ param.nomeCurso }">
+						<input type="text" class="form-control" id="nomeCurso"  name="nomeCurso" value="${ param.nomeCurso }" readonly>
 					</div>
 					<div class="form-group col-md-6">
 						<label for="nomeCampus">Unidade</label>
-						<input type="text" class="form-control" id="nomeCampus"  name="nomeCampus" value="${ param.nomeCampus }">
+						<input type="text" class="form-control" id="nomeCampus"  name="nomeCampus" value="${ param.nomeCampus }" readonly>
 					</div>
 				</div>
 			</fieldset>
@@ -332,6 +342,23 @@ div.form-row {
 			<button type="button" class="btn btn-secondary">Cancelar</button>
 			
 		</form>
+		
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="myModalLabel"></h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body"></div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 
 	</div>
 	<%@include file="import_footer.jspf"%>
@@ -348,6 +375,71 @@ div.form-row {
 	    $('.isAgenteChk').change(function(){
 	    	$('.AI').hide();
 	    	$(this).val() == 'sim' ? $('.isAI').show("slow") : $('.notAI').show("slow");
+	    });
+	    
+	    $('#btnBuscarEmpresaNotAI').click(function(){
+	    	
+	    	if($.trim($('#cnpjEmpresa').val()) == ""){
+	    		alert("Você precisa digitar o CNPJ da Empresa!");
+    			return;
+	    	}
+	    	
+	    	var result = null;
+	        $.ajax({
+	            type: 'GET',
+	            url: 'BuscaEmpresaServlet', //Servlet
+	            async: false, // habilita a função ajax() repassar os dados para a função pai
+	            data: $('#cnpjEmpresa').serialize(),
+	            dataType: "json",
+	            success: function(json){
+	                //console.log(json);
+	                result = json;
+	            }
+	        });
+	        if(result){
+	        	$("#nomeEmpresa").val(result.strNomeEmpresa);
+	        }
+	        else{
+	        	alert("Empresa não encontrada!");
+	        }	        	    	
+	        
+	    });
+	    
+	    $('#btnBuscarMatricula').click(function(){
+	    	
+	    	if($.trim($('#matricula').val()) == ""){
+	    		$(".dadosAluno input:not([id=matricula])").val("");
+	    		$("#myModalLabel").html("Campo vazio");
+	        	$(".modal-body").html("Você precisa digitar a matrícula!");	        	
+	        	$('#myModal').modal('show');
+    			return;
+	    	}
+	    	
+	    	var result = null;
+	        $.ajax({
+	            type: 'GET',
+	            url: 'BuscaAlunoServlet', //Servlet
+	            async: false, // habilita a função ajax() repassar os dados para a função pai
+	            data: $('#matricula').serialize(),
+	            dataType: "json",
+	            success: function(json){
+	                result = json;
+	            }
+	        });
+	        
+	        if(result.idAluno != ""){
+	        	$("#idAluno").val(result.idAluno);
+	        	$("#nome").val(result.nome);
+	        	$("#nomeCurso").val(result.nomeCurso);
+	        	$("#nomeCampus").val(result.nomeCampus);
+	        }
+	        else{
+	        	$(".dadosAluno input:not([id=matricula])").val("");
+	        	$("#myModalLabel").html("Aluno não encontrado");
+	        	$(".modal-body").html("A matrícula não corresponde a um aluno cadastrado.");	        	
+	        	$('#myModal').modal('show');
+	        }
+	        
 	    });
 	    
     </script>

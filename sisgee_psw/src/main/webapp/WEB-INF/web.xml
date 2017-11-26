@@ -6,5 +6,5 @@
       <url-pattern>*.jsp</url-pattern>
       <el-ignored>false</el-ignored>
     </jsp-property-group>
-  </jsp-config> 
+  </jsp-config>
 </web-app>

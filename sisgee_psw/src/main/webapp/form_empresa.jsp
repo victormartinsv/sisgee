@@ -21,7 +21,7 @@ div.form-row {
 }
 </style>
 
-<title>Registro de Empresa (ou Agente IntegraÁ„o)</title>
+<title>Registro de Empresa (ou Agente Integra√ß√£o)</title>
 </head>
 
 <body>
@@ -36,14 +36,14 @@ div.form-row {
 
 		<p class="tituloForm">
 
-		<h5>Registro de Empresa (ou Agente IntegraÁ„o)</h5>		
+		<h5>Registro de Empresa (ou Agente Integra√ß√£o)</h5>		
 		</p>
 		
 		<form action="ValidaCadastroEmpresaServlet" method="post">
 			<fieldset class="form-group">
 				<div class="form-row" >
 				<div class="form-group col-md-3" >
-					<label for="agenteIntegracao">… Agente de IntegraÁ„o?</label>
+					<label for="agenteIntegracao">√â Agente de Integra√ß√£o?</label>
 				</div>
 
 				<div class="custom-controls-stacked d-block my-3">
@@ -55,7 +55,7 @@ div.form-row {
 					<label class="custom-control custom-radio"> 
 						<input id="agenteNao" name="agenteIntegracao" type="radio" class="custom-control-input" required value = "nao" ${ not empty aditivo ? 'disabled' :'' }> 
 						<span class="custom-control-indicator"></span> 
-						<span class="custom-control-description">N„o</span>
+						<span class="custom-control-description">N√£o</span>
 					</label>
 				</div>				
 			</div>
@@ -69,7 +69,7 @@ div.form-row {
 					</div>
 					<div class="form-group col-md-6">
 
-						<label for="nomeEmpresa">Raz„o Social</label>
+						<label for="nomeEmpresa">Raz√£o Social</label>
 						<input type="text" class="form-control ${ not empty nomeEmpresaMsg ? 'is-invalid': 'is-valid' }" id="nomeEmpresa" name="nomeEmpresa" required value="${ param.nomeEmpresa }">
 						<c:if test="${ not empty nomeEmpresaMsg }">
 				    		<div class="invalid-feedback">${ nomeEmpresaMsg }</div>
@@ -85,4 +85,3 @@ div.form-row {
 	<%@include file="import_footer.jspf"%>
 	<%@include file="import_finalbodyscripts.jspf"%>
 </body>
-</html>

@@ -46,6 +46,10 @@ public class Empresa {
 
 	}
 	
+	public Empresa(Integer idEmpresa) {
+		this.idEmpresa = idEmpresa;
+	}
+	
 	public Integer getIdEmpresa() {
 		return idEmpresa;
 	}

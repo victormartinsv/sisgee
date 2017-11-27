@@ -6,7 +6,6 @@ import br.cefetrj.sisgee.model.dao.AlunoDAO;
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.entity.Aluno;
-import br.cefetrj.sisgee.model.entity.Empresa;
 
 /**
  * Serviços de alunos. Trata a lógica de negócios

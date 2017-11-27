@@ -4,7 +4,7 @@
 <%@include file="import_head.jspf"%>
 <title>SISGEE</title>
 </head>
-<body>
+<body onunload="window.opener.atualizaAgenteIntegracao()">
 	<%@include file="import_navbar.jspf"%>
 	<div class="container">
 		<p>

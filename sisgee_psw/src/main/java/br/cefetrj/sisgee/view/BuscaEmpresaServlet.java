@@ -12,8 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.cefetrj.sisgee.control.AlunoServices;
 import br.cefetrj.sisgee.control.EmpresaServices;
+import br.cefetrj.sisgee.model.entity.Aluno;
+import br.cefetrj.sisgee.model.entity.Campus;
+import br.cefetrj.sisgee.model.entity.Curso;
 import br.cefetrj.sisgee.model.entity.Empresa;
+import br.cefetrj.sisgee.model.entity.Pessoa;
 
 /**
  * Servlet para trazer os dados da Empresa para a tela de cadastro de Termo
@@ -33,24 +38,20 @@ public class BuscaEmpresaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String cnpjEmpresa = request.getParameter("cnpjEmpresa");
+		String idEmpresa = "";
+		String nomeEmpresa = "";
+		
 		Empresa empresa = EmpresaServices.buscarEmpresaByCnpj(cnpjEmpresa.trim());
-		//Empresa empresa = EmpresaServices.buscarEmpresaByCnpj(cnpjEmpresa);
+		if(empresa != null) {
+			idEmpresa = Integer.toString(empresa.getIdEmpresa());
+			nomeEmpresa = empresa.getNomeEmpresa();
+		}
 		
 		//JSON
 		JsonObject model = Json.createObjectBuilder()
-				 //.add("strRazaoSocial", empresa.getNomeEmpresa())
-				.add("idEmpresa", empresa.getIdEmpresa())
-				.add("strNomeEmpresa", empresa.getNomeEmpresa())
-				 /*.add("lastName", "Java")
-				 .add("age", 18)
-				 .add("phoneNumbers", Json.createArrayBuilder()
-				 .add(Json.createObjectBuilder()
-				 .add("type", "mobile")
-				 .add("number", "111-111-1111"))
-				 .add(Json.createObjectBuilder()
-				 .add("type", "home")
-				 .add("number", "222-222-2222")))*/
-				 .build();
+				.add("idEmpresa", idEmpresa)
+				.add("nomeEmpresa", nomeEmpresa)
+				.build();
 		
 		StringWriter stWriter = new StringWriter();
 		JsonWriter jsonWriter = Json.createWriter(stWriter);

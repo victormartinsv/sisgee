@@ -71,6 +71,7 @@ div.form-row {
 				<legend class="col-form-legend col-lg">Dados da Empresa Conveniada</legend>
 				<div class="form-group col-md-6">
 					<label for="numeroConvenio">Número do convênio</label>
+					<input type="hidden" id="idEmpresa" name="idEmpresa" value="${ param.idEmpresa }">
 					<input type="text" class="form-control ${ not empty convenioMsg ? 'is-invalid': 'is-valid' }" id="numeroConvenio" name="convenio" value="${ param.convenio }" >
 					<c:if test="${ not empty convenioMsg }">
 				    	<div class="invalid-feedback">${ convenioMsg }</div>
@@ -100,32 +101,26 @@ div.form-row {
 				<div class="form-row notAI AI">
 					<div class="form-group col-md-4">
 						<label for="cnpjEmpresa">CNPJ</label>
-<%-- 						<input type="text" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }"> --%>
-						<div class="input-group">
-					      <input type="text" class="form-control" placeholder="Digite o CNPJ" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
+						<div class="input-group">						  
+					      <input type="text" class="form-control cnpjEmpresaNotAI cnpjEmpresa" placeholder="Digite o CNPJ" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
 					      <span class="input-group-btn">
 					        <button class="btn btn-primary" type="button" id="btnBuscarEmpresaNotAI">Buscar</button>
 					      </span>
 					    </div>
 					</div>
 					<div class="form-group col-md-6">
-
 						<label for="nomeEmpresa">Razão Social</label>
-
-						<input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" value="${ param.nomeEmpresa }">
+						<input type="text" class="form-control nomeEmpresaNotAI nomeEmpresa" id="nomeEmpresa" name="nomeEmpresa" value="${ param.nomeEmpresa }" readonly>
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
-<!-- 						<button type="button" class="btn btn-default" aria-label="Adicionar"> -->
-<!-- 							<span class="glyphicon glyphicons-plus" aria-hidden="true"></span> -->
-<!-- 						</button> -->
-						<button type="button" id="addEmresa" class="btn btn-primary">+</button>
+						<button type="button" class="btn btn-primary addEmpresa">+</button>
 					</div>
 				</div>
 				
 				<div class="form-row isAI AI">
 					<div class="form-group col-md-6">
-						<label for="nomeEmpresa">RazÃ£o Social</label>
-						<select id="nomeEmpresa" name="nomeEmpresa" class="form-control">
+						<label for="idAgenteIntegracao">Razão Social</label>
+						<select id="idAgenteIntegracao" name="idAgenteIntegracao" class="form-control">
 							<option value="" selected>---</option>
 							<c:forEach items="${ agentesIntegracao }" var="agenteIntegracao">
 								<option value="${ agenteIntegracao.idAgenteIntegracao }">${ agenteIntegracao.nomeAgenteIntegracao }</option>
@@ -133,22 +128,25 @@ div.form-row {
 						</select>
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
-						<button type="button" class="btn btn-primary">+</button>
+						<button type="button" class="btn btn-primary addAgenteIntegracao">+</button>
 					</div>
 				</div>
 				<div class="form-row isAI AI">
 					<div class="form-group col-md-5">
-
-						<label for="nomeEmpresa">CNPJ da Empresa ligada ao Agente de Integração</label>
-						<input type="text" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
+						<label for="cnpjEmpresa">CNPJ da Empresa ligada ao Agente de Integração</label>
+						<div class="input-group">
+					      <input type="text" class="form-control cnpjEmpresaIsAI cnpjEmpresa" placeholder="Digite o CNPJ" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
+					      <span class="input-group-btn">
+					        <button class="btn btn-primary" type="button" id="btnBuscarEmpresaIsAI">Buscar</button>
+					      </span>
+					    </div>
 					</div>
 					<div class="form-group col-md-5">
 						<label for="nomeEmpresa">Razão social da Empresa ligada ao Agente de Integração</label>
-
-						<input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" value="${ param.nomeEmpresa }">
+						<input type="text" class="form-control nomeEmpresaIsAI nomeEmpresa" name="nomeEmpresa" value="${ param.nomeEmpresa }" readonly>
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
-						<button type="button" class="btn btn-primary">+</button>
+						<button type="button" class="btn btn-primary addEmpresa">+</button>
 					</div>
 				</div>							
 			</fieldset>
@@ -156,14 +154,14 @@ div.form-row {
 			
 			<fieldset class="form-group dadosAluno" ${ not empty aditivo ? 'disabled' :'' }>
 			<%@include file="import_busca_aluno.jspf"%>
-				
 			</fieldset>
+
 
 			<c:if test="${ not empty periodoMsg }">
 				<div class="alert alert-danger" role="alert">${ periodoMsg }</div>
 			</c:if>
 			<fieldset class="form-group">
-				<legend class="col-form-legend col-lg">VigÃªncia do EstÃ¡gio</legend>
+				<legend class="col-form-legend col-lg">Vigência do Estágio</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
 
@@ -185,7 +183,7 @@ div.form-row {
 			
 			
 			<fieldset class="form-group">
-				<legend class="col-form-legend col-lg">Carga HorÃ¡rio do Aluno</legend>
+				<legend class="col-form-legend col-lg">Carga Horária do Aluno</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="cargaHorariaTermoEstagio">Horas por dia</label>
@@ -199,7 +197,7 @@ div.form-row {
 			
 			
 			<fieldset class="form-group">
-				<legend class="col-form-legend col-lg">Valor da Bolsa de EstÃ¡gio</legend>
+				<legend class="col-form-legend col-lg">Valor da Bolsa de Estágio</legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="valorBolsa">Valor</label>
@@ -213,7 +211,7 @@ div.form-row {
 			
 			
 			<fieldset class="form-group">
-				<legend class="col-form-legend col-lg">Local do EstÃ¡gio</legend>
+				<legend class="col-form-legend col-lg">Local do Estágio</legend>
 				<div class="form-row">
 					<div class="form-group col-md-12">
 
@@ -280,7 +278,7 @@ div.form-row {
 		
 			<div class="form-row" >
 				<div class="form-group col-md-3" >
-					<label for="eEstagioObrigatorio">O estÃ¡gio Ã© obrigatÃ³rio?</label>
+					<label for="eEstagioObrigatorio">O estágio é obrigatário?</label>
 				</div>
 
 				<div class="custom-controls-stacked d-block my-3">

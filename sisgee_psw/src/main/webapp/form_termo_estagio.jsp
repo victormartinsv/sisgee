@@ -102,7 +102,7 @@ div.form-row {
 					<div class="form-group col-md-4">
 						<label for="cnpjEmpresa">CNPJ</label>
 						<div class="input-group">						  
-					      <input type="text" class="form-control cnpjEmpresaNotAI" placeholder="Digite o CNPJ" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
+					      <input type="text" class="form-control cnpjEmpresaNotAI cnpjEmpresa" placeholder="Digite o CNPJ" id="cnpjEmpresa" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
 					      <span class="input-group-btn">
 					        <button class="btn btn-primary" type="button" id="btnBuscarEmpresaNotAI">Buscar</button>
 					      </span>
@@ -113,7 +113,7 @@ div.form-row {
 						<input type="text" class="form-control nomeEmpresaNotAI nomeEmpresa" id="nomeEmpresa" name="nomeEmpresa" value="${ param.nomeEmpresa }" readonly>
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
-						<button type="button" id="addEmresa" class="btn btn-primary">+</button>
+						<button type="button" class="btn btn-primary addEmpresa">+</button>
 					</div>
 				</div>
 				
@@ -128,14 +128,14 @@ div.form-row {
 						</select>
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
-						<button type="button" class="btn btn-primary">+</button>
+						<button type="button" class="btn btn-primary addAgenteIntegracao">+</button>
 					</div>
 				</div>
 				<div class="form-row isAI AI">
 					<div class="form-group col-md-5">
 						<label for="cnpjEmpresa">CNPJ da Empresa ligada ao Agente de Integração</label>
 						<div class="input-group">
-					      <input type="text" class="form-control cnpjEmpresaIsAI" placeholder="Digite o CNPJ" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
+					      <input type="text" class="form-control cnpjEmpresaIsAI cnpjEmpresa" placeholder="Digite o CNPJ" name="cnpjEmpresa" value="${ param.cnpjEmpresa }">
 					      <span class="input-group-btn">
 					        <button class="btn btn-primary" type="button" id="btnBuscarEmpresaIsAI">Buscar</button>
 					      </span>
@@ -146,7 +146,7 @@ div.form-row {
 						<input type="text" class="form-control nomeEmpresaIsAI nomeEmpresa" name="nomeEmpresa" value="${ param.nomeEmpresa }" readonly>
 					</div>
 					<div class="form-group col-md-2" style="padding-top: 1.9em">
-						<button type="button" class="btn btn-primary">+</button>
+						<button type="button" class="btn btn-primary addEmpresa">+</button>
 					</div>
 				</div>							
 			</fieldset>

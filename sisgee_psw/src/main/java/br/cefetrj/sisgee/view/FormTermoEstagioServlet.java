@@ -95,6 +95,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				try {
 					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 					dataInicio = format.parse(dataInicioTermoEstagio);
+					//System.out.println("dataInicio no FormTermoEstagioServlet: " + dataInicio);
 					request.setAttribute("dataInicio", dataInicio);
 				} catch (Exception e) {
 					//TODO trocar saída de console por Log

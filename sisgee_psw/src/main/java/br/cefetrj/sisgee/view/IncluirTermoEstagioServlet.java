@@ -35,6 +35,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		System.out.println("iniciando o Incluir o Termo");
 		
 		Date dataInicioTermoEstagio = (Date)request.getAttribute("dataInicio");
+		//System.out.println("dataInicio no IncluirServlet: " + dataInicioTermoEstagio);
 		Date dataFimTermoEstagio = (Date)request.getAttribute("dataFim");		
 		Integer cargaHorariaTermoEstagio = (Integer)request.getAttribute("cargaHoraria");
 		Float valorBolsa = (Float)request.getAttribute("valor");

@@ -15,10 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.control.AgenteIntegracaoServices;
 import br.cefetrj.sisgee.control.AlunoServices;
+import br.cefetrj.sisgee.control.ConvenioServices;
 import br.cefetrj.sisgee.control.EmpresaServices;
 import br.cefetrj.sisgee.control.ProfessorOrientadorServices;
 import br.cefetrj.sisgee.model.entity.AgenteIntegracao;
 import br.cefetrj.sisgee.model.entity.Aluno;
+import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
@@ -71,10 +73,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		String cidadeEnderecoTermoEstagio = request.getParameter("cidadeEnderecoTermoEstagio");
 		String estadoEnderecoTermoEstagio = request.getParameter("estadoEnderecoTermoEstagio");
 		String eEstagioObrigatorio = request.getParameter("eEstagioObrigatorio");
-		String idProfessorOrientador = request.getParameter("idProfessorOrientador");
-		//TODO alterar o parametro de matricula para idAluno
+		String idProfessorOrientador = request.getParameter("idProfessorOrientador");		
 		String idAluno = request.getParameter("idAluno");
-		String convenio = request.getParameter("convenio");
+		String numeroConvenio = request.getParameter("convenio");
+		String idEmpresa = request.getParameter("idEmpresa");
+				
+		Empresa empresa = null;
+		Convenio convenio = null;
+		
 			
 		boolean isValid = true;
 		String campo = "";
@@ -495,7 +501,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		
 		/**
 		 * Validação do Id do Aluno, usando métodos da Classe ValidaUtils.
-		 * Instanciando o objeto e passando como Atributo para a inclusão, caso seja validado.
+		 * Valor obrigatório e Integer
 		 */
 		String idAlunoMsg = "";
 		campo = "Aluno";
@@ -534,17 +540,22 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			System.out.println(idAlunoMsg);
 		}
 		
+		/**
+		 * Validação do Nº de Convênio
+		 * Campo obrigatório, tamanho máximo 10
+		 * 
+		 */
 		String convenioMsg = "";
 		campo = "Número do convênio";
 		tamanho = 10;
-		convenioMsg = ValidaUtils.validaObrigatorio(campo, convenio);
+		convenioMsg = ValidaUtils.validaObrigatorio(campo, numeroConvenio);
 		if (convenioMsg.trim().isEmpty()) {
-			convenioMsg = ValidaUtils.validaTamanho(campo, tamanho, convenio);
+			convenioMsg = ValidaUtils.validaTamanho(campo, tamanho, numeroConvenio);
 			if (convenioMsg.trim().isEmpty()) {
-				request.setAttribute("convenio", convenio);
+				convenio = ConvenioServices.buscarConvenioByNumero(numeroConvenio);				
 			} else {
 				convenioMsg = messages.getString(convenioMsg);
-				ServletUtils.mensagemFormatada(convenioMsg, locale, tamanho);
+				convenioMsg = ServletUtils.mensagemFormatada(convenioMsg, locale, tamanho);
 				request.setAttribute("convenioMsg", convenioMsg);
 				isValid = false;
 				//TODO Fazer log
@@ -556,11 +567,58 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			isValid = false;
 			//TODO Fazer log
 			System.out.println(convenioMsg);
-		}				
+		}	
 		
 		/**
-		 * Teste da variável booleana após validação.
-		 * Redirecionamento para a inclusão ou devolver para o formulário com as mensagens.
+		 * Validação do idEmpresa campo obrigatório, inteiro e já existente no banco
+		 */
+		String empresaMsg = "";
+		campo = "Empresa";
+		Integer idEmp;		
+		empresaMsg = ValidaUtils.validaObrigatorio(campo, idEmpresa);
+		if (empresaMsg.trim().isEmpty()) {
+			empresaMsg = ValidaUtils.validaInteger(campo, idEmpresa);
+			if (empresaMsg.trim().isEmpty()) {
+				idEmp = Integer.parseInt(idEmpresa);
+				empresa = EmpresaServices.buscarEmpresa(idEmp);
+				if(empresa != null) {
+					request.setAttribute("idEmp", idEmp);
+				}else {
+					empresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.empresa_invalida");
+					request.setAttribute("empresaMsg", empresaMsg);
+					isValid = false;
+				}
+			} else {
+				empresaMsg = messages.getString(empresaMsg);
+				request.setAttribute("empresaMsg", empresaMsg);
+				isValid = false;
+			}
+		} else {
+			empresaMsg = messages.getString(empresaMsg);
+			request.setAttribute("empresaMsg", empresaMsg);
+			isValid = false;
+		}		
+		
+		/**
+		 * Tratamento da lógica entre Convênio e Empresa
+		 */
+		
+		if(convenio != null) {
+			if(empresa != null) {
+				List<Convenio> convenios = empresa.getConvenios();
+				convenios.add(convenio);
+				empresa.setConvenios(convenios);
+			}
+		}else {
+			
+		}
+		
+			
+		
+		
+		/**
+		 * Teste da variável booleana após validação. Redirecionamento para a inclusão
+		 * ou devolver para o formulário com as mensagens.
 		 */
 		if (isValid) {
 			request.getRequestDispatcher("/IncluirTermoEstagioServlet").forward(request, response);
@@ -568,7 +626,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			String msg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.msg_atencao");
 			request.setAttribute("msg", msg);
 			request = carregarListas(request);
-			
+
 			request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
 		}
 	}	

@@ -2,6 +2,8 @@ package br.cefetrj.sisgee.view;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,11 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import br.cefetrj.sisgee.control.ConvenioServices;
 import br.cefetrj.sisgee.control.TermoEstagioServices;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
+import br.cefetrj.sisgee.view.utils.ServletUtils;
 
 /**
  * 
@@ -31,8 +35,9 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//TODO remover saída do console		
-		System.out.println("iniciando o Incluir o Termo");
+		
+		Locale locale = ServletUtils.getLocale(request);
+		ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);		
 		
 		Date dataInicioTermoEstagio = (Date)request.getAttribute("dataInicio");
 		//System.out.println("dataInicio no IncluirServlet: " + dataInicioTermoEstagio);
@@ -48,8 +53,11 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		String estadoEnderecoTermoEstagio = (String)request.getAttribute("estadoEnderecoTermoEstagio");
 		Boolean eEstagioObrigatorio = (Boolean)request.getAttribute("obrigatorio");
 		Aluno aluno = new Aluno((Integer)request.getAttribute("idAlunoInt"));
-		Convenio convenio = new Convenio((String)request.getAttribute("convenio"));
+		Convenio convenio = (Convenio)request.getAttribute("convenio");
 		ProfessorOrientador professorOrientador = new ProfessorOrientador((Integer)request.getAttribute("idProfessor"));
+		
+		
+		
 		
 		TermoEstagio termoEstagio = new TermoEstagio(dataInicioTermoEstagio, dataFimTermoEstagio, cargaHorariaTermoEstagio,
 				 valorBolsa,  enderecoTermoEstagio,  numeroEnderecoTermoEstagio,
@@ -59,29 +67,25 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		
 		String msg = "";
 		Logger lg = Logger.getLogger(IncluirTermoEstagioServlet.class);
-		try{			
-			TermoEstagioServices.incluirTermoEstagio(termoEstagio);
-			msg = "Registro de Termo de Estágio concluído com sucesso.";
-			request.setAttribute("msg", msg);
-			lg.info(msg);
-			request.getRequestDispatcher("/index.jsp").forward(request, response);
+		try{
 			
-			//TODO remover saída do console
+			TermoEstagioServices.incluirTermoEstagio(termoEstagio);
+			msg = messages.getString("br.cefetrj.sisgee.incluir_termo_estagio_servlet.msg_sucesso");
+			request.setAttribute("msg", msg);
+			
+			lg.info(msg);
+			request.getRequestDispatcher("/index.jsp").forward(request, response);			
 			
 			
 		}catch(Exception e) {
-			msg = "Ocorreu um erro inesperado ao tentar registrar o termo. Tente novamente ou contate o suporte caso o erro persita.";
+			msg = messages.getString("br.cefetrj.sisgee.incluir_termo_estagio_servlet.msg_falha");
 			request.setAttribute("msg", msg);
 			
 			lg.error("Exception ao tentar inserir o Termo de Estágio", e);
-			request.getRequestDispatcher("FormTermoEstagioServlet").forward(request, response);
+			request.getRequestDispatcher("FormTermoEstagioServlet").forward(request, response);			
 			
-			//TODO remover saída do console
-			System.out.println(msg);
 		}
 		
-		System.out.println(msg);
-		
+		System.out.println(msg);		
 	}
-
 }

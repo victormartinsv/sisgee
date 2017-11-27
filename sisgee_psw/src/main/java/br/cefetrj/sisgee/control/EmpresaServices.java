@@ -38,6 +38,17 @@ public class EmpresaServices {
 		
 	}
 	
+	public static Empresa buscarEmpresa(Integer idEmpresa) {
+		EmpresaDAO empresaDao = new EmpresaDAO();
+		try{
+			Empresa e = empresaDao.buscar(idEmpresa);
+			return e;
+		}catch(Exception e){
+			return null;
+		}
+		
+	}
+	
 	public static void incluirEmpresa(Empresa empresa){
 		GenericDAO<Empresa> empresaDao = PersistenceManager.createGenericDAO(Empresa.class);	
 		PersistenceManager.getTransaction().begin();

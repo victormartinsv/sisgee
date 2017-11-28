@@ -71,11 +71,11 @@ div.form-row {
 				<c:forEach items = "${termosAditivos}" var = "termoAditivo">
 						<tr>
 						<td> ${ termoAditivo.termoEstagio.dataInicioTermoEstagio } </td>
-						<td> ${ termoAditivo.termoEstagio.idConvenio.idEmpresa.cnpjEmpresa }</td>
-						<td> ${ termoAditivo.termoEstagio.idConvenio.idEmpresa.cnpjEmpresa }</td>
+						<td> ${ termoAditivo.termoEstagio.convenio.empresa.cnpjEmpresa }</td>
+						<td> ${ termoAditivo.termoEstagio.convenio.empresa.cnpjEmpresa }</td>
 							
 							<c:url value = "/BuscaTermoAditivoServlet" var = "buscaTermoAditivoUrl" scope = "page">
-								<c:param name="id" value = "${termoAditivo.id}">  </c:param>
+								<c:param name="id" value = "${termoAditivo.idTermoAditivo}">  </c:param>
 							</c:url>
 							<td><a href = "${buscaTermoAditivoUrl}" >Data de Registro</a></td>
 						</tr>

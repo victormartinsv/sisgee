@@ -50,15 +50,16 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
 		//TODO remover saída de console
 		System.out.println(idAluno);
 
-		Aluno aluno = null;
-		List<TermoEstagio> termoEstagios = null;
+		Aluno aluno = AlunoServices.buscarAluno(new Aluno(id));
+		List<TermoEstagio> termoEstagios =  aluno.getTermoEstagios();
+		
+		//TODO consertar a lógica de mensagem vazia
 		if(msg != "") {
 			aluno = AlunoServices.buscarAluno(new Aluno(id));				
-			termoEstagios = aluno.getTermoEstagios();
-			
+			termoEstagios = aluno.getTermoEstagios();			
 		}
-			
-		List<TermoAditivo> termosAditivos;
+		System.out.println(termoEstagios);
+		List<TermoAditivo> termosAditivos = null;
 
 		if (termoEstagios != null) {
 			for (TermoEstagio termoEstagio : termoEstagios) {
@@ -68,6 +69,9 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
 					break;
 				}
 			}
+		}
+		for (TermoAditivo termoAditivo : termosAditivos) {
+			System.out.println(termoAditivo);
 		}
 
 		request.setAttribute("msg",msg);

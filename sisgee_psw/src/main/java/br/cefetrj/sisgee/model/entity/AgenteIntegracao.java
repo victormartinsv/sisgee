@@ -32,6 +32,10 @@ public class AgenteIntegracao {
 	private List<Empresa> empresas;
 		
 	public AgenteIntegracao() {}
+	
+	public AgenteIntegracao(Integer idAgenteIntegracao) {
+		this.idAgenteIntegracao = idAgenteIntegracao;
+	}
 
 	public Integer getIdAgenteIntegracao() {
 		return idAgenteIntegracao;

@@ -38,6 +38,17 @@ public class EmpresaServices {
 		
 	}
 	
+	public static Empresa buscarEmpresaByNome(String nome) {
+		EmpresaDAO empresaDao = new EmpresaDAO();
+		try{
+			Empresa e = empresaDao.buscarByNome(nome);
+			return e;
+		}catch(Exception e){
+			return null;
+		}
+		
+	}
+	
 	public static Empresa buscarEmpresa(Integer idEmpresa) {
 		EmpresaDAO empresaDao = new EmpresaDAO();
 		try{

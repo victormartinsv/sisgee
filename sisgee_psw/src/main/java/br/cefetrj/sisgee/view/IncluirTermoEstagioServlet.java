@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import br.cefetrj.sisgee.control.ConvenioServices;
 import br.cefetrj.sisgee.control.TermoEstagioServices;
+import br.cefetrj.sisgee.model.entity.AgenteIntegracao;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.Convenio;
+import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
@@ -37,11 +38,10 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		Locale locale = ServletUtils.getLocale(request);
-		ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);		
+		ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
 		
+		//OBRIGATÓRIO
 		Date dataInicioTermoEstagio = (Date)request.getAttribute("dataInicio");
-		//System.out.println("dataInicio no IncluirServlet: " + dataInicioTermoEstagio);
-		Date dataFimTermoEstagio = (Date)request.getAttribute("dataFim");		
 		Integer cargaHorariaTermoEstagio = (Integer)request.getAttribute("cargaHoraria");
 		Float valorBolsa = (Float)request.getAttribute("valor");
 		String enderecoTermoEstagio = (String)request.getAttribute("enderecoTermoEstagio");
@@ -52,13 +52,33 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		String cidadeEnderecoTermoEstagio = (String)request.getAttribute("cidadeEnderecoTermoEstagio");
 		String estadoEnderecoTermoEstagio = (String)request.getAttribute("estadoEnderecoTermoEstagio");
 		Boolean eEstagioObrigatorio = (Boolean)request.getAttribute("obrigatorio");
-		Aluno aluno = new Aluno((Integer)request.getAttribute("idAlunoInt"));
-		Convenio convenio = (Convenio)request.getAttribute("convenio");
-		ProfessorOrientador professorOrientador = new ProfessorOrientador((Integer)request.getAttribute("idProfessor"));
+		Aluno aluno = new Aluno((Integer)request.getAttribute("idAluno"));		
+		//Convenio convenio = (Convenio)request.getAttribute("convenio");
+		Convenio convenio = new Convenio((String)request.getAttribute("numeroConvenio"));
+		Empresa empresa = new Empresa((Integer)request.getAttribute("idEmp"));		
 		
+		//NÃO OBRIGATÓRIO
+		Boolean hasDataFim = (Boolean)request.getAttribute("hasDataFim");		
+		Boolean hasProfessor = (Boolean)request.getAttribute("hasProfessor");
+		String isAgenteIntegracao = (String)request.getAttribute("isAgenteIntegracao");
 		
+		Date dataFimTermoEstagio = null;
+		ProfessorOrientador professorOrientador = null;
+		AgenteIntegracao agenteIntegracao = null;
 		
+		if(hasDataFim) {
+			dataFimTermoEstagio = (Date)request.getAttribute("dataFim");
+		}
 		
+		if(hasProfessor) {
+			professorOrientador = new ProfessorOrientador((Integer)request.getAttribute("idProfessor"));
+		}		
+		
+		if(isAgenteIntegracao.equals("sim")) {
+			agenteIntegracao = new AgenteIntegracao((Integer)request.getAttribute("idAI"));
+		}
+		
+
 		TermoEstagio termoEstagio = new TermoEstagio(dataInicioTermoEstagio, dataFimTermoEstagio, cargaHorariaTermoEstagio,
 				 valorBolsa,  enderecoTermoEstagio,  numeroEnderecoTermoEstagio,
 				 complementoEnderecoTermoEstagio,  bairroEnderecoTermoEstagio,  cepEnderecoTermoEstagio,
@@ -69,7 +89,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		Logger lg = Logger.getLogger(IncluirTermoEstagioServlet.class);
 		try{
 			
-			TermoEstagioServices.incluirTermoEstagio(termoEstagio);
+			TermoEstagioServices.incluirTermoEstagio(termoEstagio, empresa, agenteIntegracao);
 			msg = messages.getString("br.cefetrj.sisgee.incluir_termo_estagio_servlet.msg_sucesso");
 			request.setAttribute("msg", msg);
 			

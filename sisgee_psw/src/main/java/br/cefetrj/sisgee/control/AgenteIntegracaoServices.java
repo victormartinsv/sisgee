@@ -2,9 +2,11 @@ package br.cefetrj.sisgee.control;
 
 import java.util.List;
 
+import br.cefetrj.sisgee.model.dao.EmpresaDAO;
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.entity.AgenteIntegracao;
+import br.cefetrj.sisgee.model.entity.Empresa;
 
 /**
  * Serviços de AgenteIntegracao. 
@@ -36,5 +38,16 @@ public class AgenteIntegracaoServices {
 			PersistenceManager.getTransaction().rollback();
 		}
 	}
+	
+	public static AgenteIntegracao buscarAgenteIntegracao(Integer idAgenteIntegracao) {
+		GenericDAO<AgenteIntegracao> agenteIntegracaoDao = PersistenceManager.createGenericDAO(AgenteIntegracao.class);
+		try{
+			AgenteIntegracao a = agenteIntegracaoDao.buscar(idAgenteIntegracao);
+			return a;
+		}catch(Exception e){
+			return null;
+		}
+	}
+	
 }
 

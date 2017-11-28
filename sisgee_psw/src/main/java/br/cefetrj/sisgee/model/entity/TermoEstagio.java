@@ -216,11 +216,11 @@ public class TermoEstagio {
 		this.estadoEnderecoTermoEstagio = estadoEnderecoTermoEstagio;
 	}	
 
-	public Boolean geteEstagioObrigatorio() {
+	public Boolean getEEstagioObrigatorio() {
 		return eEstagioObrigatorio;
 	}
 
-	public void seteEstagioObrigatorio(Boolean eEstagioObrigatorio) {
+	public void setEEstagioObrigatorio(Boolean eEstagioObrigatorio) {
 		this.eEstagioObrigatorio = eEstagioObrigatorio;
 	}
 

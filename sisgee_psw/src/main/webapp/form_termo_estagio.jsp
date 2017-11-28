@@ -72,9 +72,9 @@ div.form-row {
 				<div class="form-group col-md-6">
 					<label for="numeroConvenio">Número do convênio</label>
 					<input type="hidden" id="idEmpresa" name="idEmpresa" value="${ param.idEmpresa }">
-					<input type="text" class="form-control ${ not empty convenioMsg ? 'is-invalid': 'is-valid' }" id="numeroConvenio" name="convenio" value="${ param.convenio }" >
-					<c:if test="${ not empty convenioMsg }">
-				    	<div class="invalid-feedback">${ convenioMsg }</div>
+					<input type="text" class="form-control ${ not empty convenioMsg ? 'is-invalid': 'is-valid' }" id="numeroConvenio" name="numeroConvenio" value="${ param.numeroConvenio }" >
+					<c:if test="${ not empty numeroConvenioMsg }">
+				    	<div class="invalid-feedback">${ numeroConvenioMsg }</div>
 		        	</c:if>
 				</div>
 

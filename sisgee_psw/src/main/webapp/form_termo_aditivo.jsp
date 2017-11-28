@@ -65,12 +65,10 @@ div.form-row {
 			<tbody>
 				<c:forEach items = "${empresas}" var = "empresa">
 						<tr>
-							<td>${empresa.cnpj}</td>
-							<td>${empresa.razaoSocial}</td>
-							<c:url value = "/DataRegistroServlet" var = "dataRegistroUrl" scope = "page">
+							<c:url value = "/BuscaTermoAditivoServlet" var = "buscaTermoAditivoUrl" scope = "page">
 								<c:param name="id" value = "${empresa.id}"></c:param>
 							</c:url>
-							<td><a href = "${dataRegistroUrl}">Data de Registro</a></td>
+							<td><a href = "${buscaTermoAditivoUrl}">Data de Registro</a></td>
 						</tr>
 				</c:forEach>
 			</tbody>

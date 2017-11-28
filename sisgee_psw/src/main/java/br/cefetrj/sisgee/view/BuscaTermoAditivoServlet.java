@@ -1,7 +1,6 @@
 package br.cefetrj.sisgee.view;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.control.AlunoServices;
-import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.TermoAditivo;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
@@ -30,50 +28,52 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Locale locale = ServletUtils.getLocale(request);
 		ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
+		
 		String msg = null;
-
-		if (request.getAttribute("aluno") == null) {
-			msg = "Nenhum aluno cadastrado";
-		} else {
-
-			String idAluno = request.getParameter("idAluno");
-			Integer id = null;
-			msg = ValidaUtils.validaObrigatorio("Aluno", idAluno);
+		String idAluno = request.getParameter("idAluno");
+		Integer id = null;
+		
+		msg = ValidaUtils.validaObrigatorio("Aluno", idAluno);		
+		if(msg.trim().isEmpty()) {
+			msg = ValidaUtils.validaInteger("Aluno", idAluno);
 			if(msg.trim().isEmpty()) {
-				msg = ValidaUtils.validaInteger("Aluno", idAluno);
-				if(msg.trim().isEmpty()) {
-					id = Integer.parseInt(idAluno);					
-				}else {
-					msg = messages.getString(msg);
-				}
-			} else {
+				id = Integer.parseInt(idAluno);					
+			}else {
 				msg = messages.getString(msg);
 			}
+		} else {
+			msg = messages.getString(msg);
+		}
+		//TODO remover saída de console
+		System.out.println(idAluno);
 
-			Aluno aluno = null;
-			List<TermoEstagio> termoEstagios = null;
-			if(msg != "") {
-				aluno = AlunoServices.buscarAluno(new Aluno(id));				
-				termoEstagios = aluno.getTermoEstagios();
-			}
+		Aluno aluno = null;
+		List<TermoEstagio> termoEstagios = null;
+		if(msg != "") {
+			aluno = AlunoServices.buscarAluno(new Aluno(id));				
+			termoEstagios = aluno.getTermoEstagios();
 			
-			List<TermoAditivo> termosAditivos = new ArrayList<TermoAditivo>();
+		}
 			
-			if (termoEstagios != null) {
-				for(TermoEstagio termosEstagios : termoEstagios) {
-					if(((TermoEstagio) aluno.getTermoEstagios()).getDataRescisaoTermoEstagio() == null) {
-						termosAditivos = TermoAditivoServices.listarTermoAditivo();
-					}
+		List<TermoAditivo> termosAditivos;
+
+		if (termoEstagios != null) {
+			for (TermoEstagio termoEstagio : termoEstagios) {
+				if (termoEstagio.getDataRescisaoTermoEstagio() == null) {
+					termosAditivos = termoEstagio.getTermosAditivos();
+					request.setAttribute("termosAditivos", termosAditivos);
+					break;
 				}
 			}
-
-			request.setAttribute("msg",msg);
-			request.getRequestDispatcher("/form_termo_aditivo.jsp").forward(request, response);
-
 		}
+
+		request.setAttribute("msg",msg);
+		request.getRequestDispatcher("/form_termo_aditivo.jsp").forward(request, response);
+
+		
 
 	}
 }

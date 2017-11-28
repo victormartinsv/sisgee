@@ -4,6 +4,7 @@
 <%@include file="import_head.jspf"%>
 
 <style type="text/css">
+
 div.container {
 	margin-bottom: 2em;
 }
@@ -19,10 +20,11 @@ fieldset legend.col-form-legend {
 div.form-row {
 	padding: 0px 15px;
 }
+
 </style>
 
 <title>
-	Registro de Termo Aditivo
+	<fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermoAditivo"/>
 </title>
 
 </head>
@@ -39,56 +41,69 @@ div.form-row {
 		<p class="tituloForm">
 
 		<h5>		
-			Registro de Termo Aditivo
+			<fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermoAditivo"/>
 		</h5>		
 
 		</p>		
 		
-		<form action="ValidaTermoAditivoServlet" method="post">
+		<form action=BuscaTermoAditivoServlet method="post">
 			
 			<fieldset class="form-group dadosAluno" ${ not empty aditivo ? 'disabled' :'' }>
 				
 				<%@include file="import_busca_aluno.jspf"%>
+				<div class="container">
+					
+					<button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.resources.form.listarAditivos"/></button>
+				</div>				
 				
 			</fieldset>
-			
-			<table class = "table table">
+		</form>
+		
+		<div class="container">
+		<table class = "table table">
 			
 			<thead>		
 				<tr>
-					<th>Data de Registro</th>
-					<th>CNPJ</th>
-					<th>Razao Social</th>
+					<th><fmt:message key = "br.cefetrj.sisgee.resources.form.dataRegistro"/></th>
+					<th><fmt:message key = "br.cefetrj.sisgee.resources.form.cnpj"/></th>
+					<th><fmt:message key = "br.cefetrj.sisgee.resources.form.razaoSocial"/></th>
 				</tr>
-			</thead>
-			
+			</thead>			
 			<tbody>
-				<c:forEach items = "${empresas}" var = "empresa">
+				<c:forEach items = "${termosAditivos}" var = "termoAditivo">
 						<tr>
+						<td> ${ termoAditivo.termoEstagio.dataInicioTermoEstagio } </td>
+						<td> ${ termoAditivo.termoEstagio.idConvenio.idEmpresa.cnpjEmpresa }</td>
+						<td> ${ termoAditivo.termoEstagio.idConvenio.idEmpresa.cnpjEmpresa }</td> <!-- por que duas vezes cnpjEmpresa? -->
+							
 							<c:url value = "/BuscaTermoAditivoServlet" var = "buscaTermoAditivoUrl" scope = "page">
-								<c:param name="id" value = "${empresa.id}"></c:param>
+								<c:param name="id" value = "${termoAditivo.id}">  </c:param>
 							</c:url>
-							<td><a href = "${buscaTermoAditivoUrl}">Data de Registro</a></td>
+							<td><a href = "${buscaTermoAditivoUrl}" ><fmt:message key = "br.cefetrj.sisgee.resources.form.dataRegistro"/></a></td>
 						</tr>
 				</c:forEach>
 			</tbody>
 
 		</table>
+		</div>
 		
+			
+		<form action="ValidaTermoAditivoServlet" method="post">
+				
 		<br>
 			
 			<div class="mx-auto" style="width: 500px;">
 				<div class="row">
 					<div class="form-check form-check-inline">
 						<label class="form-check-label">
-							<input class="form-check-input" type="checkbox" id="vigencia" name="vigencia"  value="sim">Vigencia
+							<input class="form-check-input" type="checkbox" id="vigencia" name="vigencia"  value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.vigenciaEstagio"/>
 						</label>
 					</div>
 				
 					<div class="mx-auto" style="width: 200px;">
 					<div class="form-check form-check-inline">
 						<label class="form-check-label">
-							<input class="form-check-input" type="checkbox" id="enderecoTermoEstagio" name="enderecoTermoEstagio" value="sim">Endereco do Estagio
+							<input class="form-check-input" type="checkbox" id="enderecoTermoEstagio" name="enderecoTermoEstagio" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.endereco"/>
 						</label>
 					</div>
 					</div>
@@ -100,14 +115,14 @@ div.form-row {
 				<div class="row">
 					<div class="form-check form-check-inline">
 						<label class="form-check-label">
-							<input class="form-check-input" type="checkbox" id="cargaHorariaTermoEstagio" name="cargaHorariaTermoEstagio" value="sim">Carga Horaria
+							<input class="form-check-input" type="checkbox" id="cargaHorariaTermoEstagio" name="cargaHorariaTermoEstagio" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.cargaHorariaAluno"/>
 						</label>
 					</div>
 				
 					<div class="mx-auto" style="width: 236px;">
 					<div class="form-check form-check-inline">
 						<label class="form-check-label">
-							<input class="form-check-input" type="checkbox" id="professorOrientador" name="professorOrientador" value="sim">Professor Orientador
+							<input class="form-check-input" type="checkbox" id="professorOrientador" name="professorOrientador" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/>
 						</label>
 					</div>
 					</div>				
@@ -118,15 +133,15 @@ div.form-row {
 				<div class="row">
 					<div class="form-check form-check-inline">
 						<label class="form-check-label">
-							<input class="form-check-input" type="checkbox" id="valorBolsa" name="valorBolsa" value="sim">Valor da Bolsa
+							<input class="form-check-input" type="checkbox" id="valorBolsa" name="valorBolsa" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.valorBolsaEstagio"/>
 						</label>
 					</div>
 				</div>
 			</div>			
 			<br>			
 		
-			<button type="submit" class="btn btn-primary">Salvar</button>
-			<button type="button" class="btn btn-secondary">Cancelar</button>			
+			<button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.resources.form.salvar"/></button>
+			<button type="button" class="btn btn-secondary"><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>			
 		</form>
 		
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -140,7 +155,7 @@ div.form-row {
 		      </div>
 		      <div class="modal-body"></div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><fmt:message key = "br.cefetrj.sisgee.resources.form.fechar"/></button>
 		      </div>
 		    </div>
 		  </div>

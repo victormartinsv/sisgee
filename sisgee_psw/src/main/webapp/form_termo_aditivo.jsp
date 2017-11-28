@@ -44,15 +44,21 @@ div.form-row {
 
 		</p>		
 		
-		<form action="ValidaTermoAditivoServlet" method="post">
+		<form action=BuscaTermoAditivoServlet method="post">
 			
 			<fieldset class="form-group dadosAluno" ${ not empty aditivo ? 'disabled' :'' }>
 				
 				<%@include file="import_busca_aluno.jspf"%>
+				<div class="container">
+					
+					<button type="submit" class="btn btn-primary">Listar Termos aditivos</button>
+				</div>				
 				
 			</fieldset>
-			
-			<table class = "table table">
+		</form>
+		
+		<div class="container">
+		<table class = "table table">
 			
 			<thead>		
 				<tr>
@@ -60,21 +66,28 @@ div.form-row {
 					<th>CNPJ</th>
 					<th>Razao Social</th>
 				</tr>
-			</thead>
-			
+			</thead>			
 			<tbody>
-				<c:forEach items = "${empresas}" var = "empresa">
+				<c:forEach items = "${termosAditivos}" var = "termoAditivo">
 						<tr>
+						<td> ${ termoAditivo.termoEstagio.dataInicioTermoEstagio } </td>
+						<td> ${ termoAditivo.termoEstagio.idConvenio.idEmpresa.cnpjEmpresa }</td>
+						<td> ${ termoAditivo.termoEstagio.idConvenio.idEmpresa.cnpjEmpresa }</td>
+							
 							<c:url value = "/BuscaTermoAditivoServlet" var = "buscaTermoAditivoUrl" scope = "page">
-								<c:param name="id" value = "${empresa.id}"></c:param>
+								<c:param name="id" value = "${termoAditivo.id}">  </c:param>
 							</c:url>
-							<td><a href = "${buscaTermoAditivoUrl}">Data de Registro</a></td>
+							<td><a href = "${buscaTermoAditivoUrl}" >Data de Registro</a></td>
 						</tr>
 				</c:forEach>
 			</tbody>
 
 		</table>
+		</div>
 		
+			
+		<form action="ValidaTermoAditivoServlet" method="post">
+				
 		<br>
 			
 			<div class="mx-auto" style="width: 500px;">

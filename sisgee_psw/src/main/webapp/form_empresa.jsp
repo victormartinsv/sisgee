@@ -21,7 +21,7 @@ div.form-row {
 }
 </style>
 
-<title>Registro de Empresa (ou Agente Integração)</title>
+<title><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo" /></title>
 </head>
 
 <body>
@@ -36,32 +36,32 @@ div.form-row {
 
 		<p class="tituloForm">
 
-		<h5>Registro de Empresa (ou Agente Integração)</h5>		
+		<h5><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo" /></h5>		
 		</p>
 		
 		<form action="ValidaCadastroEmpresaServlet" method="post">
 			<fieldset class="form-group">
 				<div class="form-row" >
 				<div class="form-group col-md-3" >
-					<label for="agenteIntegracao">É Agente de Integração?</label>
+					<label for="agenteIntegracao"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_agente_integracao" /></label>
 				</div>
 
 				<div class="custom-controls-stacked d-block my-3">
 					<label class="custom-control custom-radio"> 
 						<input id="agenteSim" name="agenteIntegracao" type="radio" class="custom-control-input" required value = "sim" ${ not empty aditivo ? 'disabled' :'' }> 
 						<span class="custom-control-indicator"></span> 
-						<span class="custom-control-description" >Sim</span>
+						<span class="custom-control-description" ><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_sim" /></span>
 					</label> 
 					<label class="custom-control custom-radio"> 
 						<input id="agenteNao" name="agenteIntegracao" type="radio" class="custom-control-input" required value = "nao" ${ not empty aditivo ? 'disabled' :'' }> 
 						<span class="custom-control-indicator"></span> 
-						<span class="custom-control-description">Não</span>
+						<span class="custom-control-description"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_nao" /></span>
 					</label>
 				</div>				
 			</div>
 				
 					<div class="form-group col-md-4">
-						<label for="cnpjEmpresa">CNPJ</label>
+						<label for="cnpjEmpresa"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_cnpj" /></label>
 						<input type="text" class="form-control ${ not empty cnpjEmpresaMsg ? 'is-invalid': 'is-valid' }" id="cnpjEmpresa" name="cnpjEmpresa" required value="${ param.cnpjEmpresa }">
 						<c:if test="${ not empty cnpjEmpresaMsg }">
 				    		<div class="invalid-feedback">${ cnpjEmpresaMsg }</div>
@@ -69,7 +69,7 @@ div.form-row {
 					</div>
 					<div class="form-group col-md-6">
 
-						<label for="nomeEmpresa">Razão Social</label>
+						<label for="nomeEmpresa"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_razao_social" /></label>
 						<input type="text" class="form-control ${ not empty nomeEmpresaMsg ? 'is-invalid': 'is-valid' }" id="nomeEmpresa" name="nomeEmpresa" required value="${ param.nomeEmpresa }">
 						<c:if test="${ not empty nomeEmpresaMsg }">
 				    		<div class="invalid-feedback">${ nomeEmpresaMsg }</div>
@@ -77,8 +77,8 @@ div.form-row {
 					</div>
 		</fieldset>
 			
-				<button type="submit" class="btn btn-primary">Salvar</button>
-			<button type="button" class="btn btn-secondary">Cancelar</button>
+				<button type="submit" class="btn btn-primary"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_salvar" /></button>
+			<button type="button" class="btn btn-secondary"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_cancelar" /></button>
 			
 		</form>
 	</div>

@@ -29,10 +29,7 @@ public class TermoEstagio {
 	private Date dataFimTermoEstagio;
 
 	private Date dataRescisaoTermoEstagio;
-	
-	@Column(length = 25)
-	private String situacaoTermoEstagio;
-
+		
 	@Column(nullable = false)
 	private Integer cargaHorariaTermoEstagio;
 
@@ -136,13 +133,6 @@ public class TermoEstagio {
 		this.dataRescisaoTermoEstagio = dataRescisaoTermoEstagio;
 	}
 
-	public String getSituacaoTermoEstagio() {
-		return situacaoTermoEstagio;
-	}
-
-	public void setSituacaoTermoEstagio(String situacaoTermoEstagio) {
-		this.situacaoTermoEstagio = situacaoTermoEstagio;
-	}
 
 	public Integer getCargaHorariaTermoEstagio() {
 		return cargaHorariaTermoEstagio;

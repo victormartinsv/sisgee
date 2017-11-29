@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <%@include file="import_head.jspf"%>
-<title>SISGEE</title>
+<title><fmt:message key = "br.cefetrj.sisgee.resources.form.sisgee"/></title>
 </head>
 <body>
 	<%@include file="import_navbar.jspf"%>
@@ -15,7 +15,7 @@
 					</div>
 				</c:when>
 				<c:otherwise>
-					<h3>Bem vindo ao SISGEE</h3>
+					<h3><fmt:message key = "br.cefetrj.sisgee.resources.form.bemVindoSisgee"/></h3>
 				</c:otherwise>
 			</c:choose>
 		</p>

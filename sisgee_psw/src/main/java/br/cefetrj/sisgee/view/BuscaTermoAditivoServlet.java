@@ -50,6 +50,7 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
 		//TODO remover saída de console
 		System.out.println(idAluno);
 
+
 		Aluno aluno = AlunoServices.buscarAluno(new Aluno(id));
 		List<TermoEstagio> termoEstagios =  aluno.getTermoEstagios();
 		
@@ -70,9 +71,7 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
 				}
 			}
 		}
-		for (TermoAditivo termoAditivo : termosAditivos) {
-			System.out.println(termoAditivo);
-		}
+
 
 		request.setAttribute("msg",msg);
 		request.getRequestDispatcher("/form_termo_aditivo.jsp").forward(request, response);

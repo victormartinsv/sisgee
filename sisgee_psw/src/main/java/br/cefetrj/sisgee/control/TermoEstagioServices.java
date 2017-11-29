@@ -15,7 +15,7 @@ import br.cefetrj.sisgee.model.entity.TermoEstagio;
  * Trata a lógica de negócios
  * associada com a entidade TermoEstagio.
  * 
- * @author Paulo Cantuária
+ * @author Paulo Cantuária, Augusto Jose
  * @since 1.0
  */
 public class TermoEstagioServices {
@@ -29,6 +29,11 @@ public class TermoEstagioServices {
 		GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
 		return termoEstagioDao.buscarTodos();
 	}	
+	
+	public static TermoEstagio buscarTermoEstagio(Integer idTermoEstagio) {
+		GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
+		return termoEstagioDao.buscar(idTermoEstagio);
+	}
 	
 	public static void incluirTermoEstagio(TermoEstagio termoEstagio, Empresa empresa, AgenteIntegracao agenteIntegracao){
 		
@@ -97,5 +102,19 @@ public class TermoEstagioServices {
 			PersistenceManager.getTransaction().rollback();
 		}
 
+	}
+	
+	public static void alterarTermoEstagio(TermoEstagio termoEstagio) {
+		
+		GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);		
+		
+		try {
+			PersistenceManager.getTransaction().begin();
+			termoEstagioDao.alterar(termoEstagio);
+			PersistenceManager.getTransaction().commit();
+		} catch (Exception e) {			
+			e.printStackTrace();
+			PersistenceManager.getTransaction().rollback();
+		}
 	}
 }

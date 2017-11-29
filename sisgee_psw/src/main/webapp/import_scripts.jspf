@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	    $('#dataInicioTermoEstagio, #dataFimTermoEstagio').datepicker({
+	    $('#dataInicioTermoEstagio, #dataFimTermoEstagio, #dataRescisao').datepicker({
 	    	<c:if test="${ lang eq 'pt_BR' }">
 	    	language: 'pt-BR'
 	        </c:if>

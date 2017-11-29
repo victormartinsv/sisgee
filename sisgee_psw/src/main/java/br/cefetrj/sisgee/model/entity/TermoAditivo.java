@@ -27,7 +27,7 @@ public class TermoAditivo {
 	private Integer cargaHorariaTermoAditivo;
 
 	@Column(nullable = false)
-	private float valorBolsaTermoAditivo;
+	private Float valorBolsaTermoAditivo;
 
 	@Column(length = 255, nullable = false)
 	private String enderecoTermoAditivo;
@@ -100,11 +100,11 @@ public class TermoAditivo {
 		this.cargaHorariaTermoAditivo = cargaHorariaTermoAditivo;
 	}
 
-	public float getValorBolsaTermoAditivo() {
+	public Float getValorBolsaTermoAditivo() {
 		return valorBolsaTermoAditivo;
 	}
 
-	public void setValorBolsaTermoAditivo(float valorBolsaTermoAditivo) {
+	public void setValorBolsaTermoAditivo(Float valorBolsaTermoAditivo) {
 		this.valorBolsaTermoAditivo = valorBolsaTermoAditivo;
 	}
 

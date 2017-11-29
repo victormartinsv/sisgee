@@ -1,4 +1,4 @@
-package br.cefetrj.sisgee.view;
+package br.cefetrj.sisgee.view.termoestagio;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -15,12 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.control.AgenteIntegracaoServices;
 import br.cefetrj.sisgee.control.AlunoServices;
-import br.cefetrj.sisgee.control.ConvenioServices;
 import br.cefetrj.sisgee.control.EmpresaServices;
 import br.cefetrj.sisgee.control.ProfessorOrientadorServices;
 import br.cefetrj.sisgee.model.entity.AgenteIntegracao;
 import br.cefetrj.sisgee.model.entity.Aluno;
-import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
@@ -612,21 +610,31 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		 * Validação do idAgenteIntegração campo obrigatório se usuário selecionou 
 		 * que Empresa Conveniada é agente de integração, inteiro e já existente no banco
 		 */
-		if(isAgenteIntegracao.equals("sim")) {
-			AgenteIntegracao agenteIntegracao = null;
-			String agenteIntegracaoMsg = "";
-			campo = "Agente de Integração";
-			Integer idAI;
-			agenteIntegracaoMsg = ValidaUtils.validaObrigatorio(campo, idAgenteIntegracao);
-			if (agenteIntegracaoMsg.trim().isEmpty()) {
-				agenteIntegracaoMsg = ValidaUtils.validaInteger(campo, idAgenteIntegracao);
+		String isAgenteIntegracaoMsg = "";
+		campo = "É agente de integração";
+		isAgenteIntegracaoMsg = ValidaUtils.validaObrigatorio(campo, isAgenteIntegracao);
+		if (isAgenteIntegracaoMsg.trim().isEmpty()) {
+		
+			if(isAgenteIntegracao.equals("sim")) {
+				AgenteIntegracao agenteIntegracao = null;
+				String agenteIntegracaoMsg = "";
+				campo = "Agente de Integração";
+				Integer idAI;
+				agenteIntegracaoMsg = ValidaUtils.validaObrigatorio(campo, idAgenteIntegracao);
 				if (agenteIntegracaoMsg.trim().isEmpty()) {
-					idAI = Integer.parseInt(idAgenteIntegracao);
-					agenteIntegracao = AgenteIntegracaoServices.buscarAgenteIntegracao(idAI);
-					if(agenteIntegracao != null) {
-						request.setAttribute("idAI", idAI);
-					}else {
-						agenteIntegracaoMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.agente_integracao_invalido");
+					agenteIntegracaoMsg = ValidaUtils.validaInteger(campo, idAgenteIntegracao);
+					if (agenteIntegracaoMsg.trim().isEmpty()) {
+						idAI = Integer.parseInt(idAgenteIntegracao);
+						agenteIntegracao = AgenteIntegracaoServices.buscarAgenteIntegracao(idAI);
+						if(agenteIntegracao != null) {
+							request.setAttribute("idAI", idAI);
+						}else {
+							agenteIntegracaoMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.agente_integracao_invalido");
+							request.setAttribute("agenteIntegracaoMsg", agenteIntegracaoMsg);
+							isValid = false;
+						}
+					} else {
+						agenteIntegracaoMsg = messages.getString(agenteIntegracaoMsg);
 						request.setAttribute("agenteIntegracaoMsg", agenteIntegracaoMsg);
 						isValid = false;
 					}
@@ -635,13 +643,16 @@ public class FormTermoEstagioServlet extends HttpServlet {
 					request.setAttribute("agenteIntegracaoMsg", agenteIntegracaoMsg);
 					isValid = false;
 				}
-			} else {
-				agenteIntegracaoMsg = messages.getString(agenteIntegracaoMsg);
-				request.setAttribute("agenteIntegracaoMsg", agenteIntegracaoMsg);
-				isValid = false;
 			}
+		
 		}
-		request.setAttribute("isAgenteIntegracao", isAgenteIntegracao);
+		else {
+			isAgenteIntegracaoMsg = messages.getString(isAgenteIntegracaoMsg);
+			System.out.println("msg AI: " + isAgenteIntegracaoMsg);
+			request.setAttribute("isAgenteIntegracaoMsg", isAgenteIntegracaoMsg);
+			isValid = false;
+		}
+		
 		
 		
 		/**

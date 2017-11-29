@@ -1,9 +1,11 @@
 package br.cefetrj.sisgee.control;
 
+import java.util.Date;
 import java.util.List;
 
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
+import br.cefetrj.sisgee.model.dao.TermoAditivoDAO;
 import br.cefetrj.sisgee.model.entity.TermoAditivo;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 
@@ -53,6 +55,32 @@ public class TermoAditivoServices {
 		GenericDAO<TermoAditivo> termoAditivoDao = PersistenceManager.createGenericDAO(TermoAditivo.class);	
 		return termoAditivoDao.buscar(idTermoAditivo);
 	}
+	
+	/**
+	 * 
+	 * Metodo para receber uma matriz de com conteudo do banco
+	 * @author Marcos Eduardo
+	 * @param  obrigatorio boolean do form para filtrar resultado
+	 * @param  inicio date do form para filtrar resultado
+	 * @param  termino date do form para filtrar resultado
+	 * @return   List<Object[]> matriz com conteúdo obtido do banco
+	 */
+	public static List<Object[]> listarTermoAditivoFiltrado(Boolean obrigatorio, Date inicio, Date termino){
+		TermoAditivoDAO termoAditivoDAO = new TermoAditivoDAO();
+		
+		try{
+			List<Object[]> author = null;
+			
+			if(obrigatorio == null) {
+				author = termoAditivoDAO.buscarFiltrado( inicio, termino);
+			}else {
+				author = termoAditivoDAO.buscarFiltrado(obrigatorio , inicio, termino);
+			}
+			return author;
+		}catch(Exception e){
+			return null;
+		}
+	}	
 	
 	/**
 	 * 

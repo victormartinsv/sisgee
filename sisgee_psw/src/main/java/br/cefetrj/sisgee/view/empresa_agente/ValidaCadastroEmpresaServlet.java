@@ -146,7 +146,7 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 					}
 				}
 				else{
-					nomeEmpresa = messages.getString(nomeEmpresa);
+					nomeEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_empresa_duplicada");
 					request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
 					isValid = false;
 				}

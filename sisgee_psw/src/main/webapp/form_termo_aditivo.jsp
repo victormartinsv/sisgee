@@ -91,7 +91,7 @@ div.form-row {
 		</div>
 		
 			
-		<form action="FormTermoAditivoServlet" method="post">
+		<form action="TermoAditivoServlet" method="post">
 				
 		<br>
 			

@@ -62,46 +62,47 @@ public class TermoAditivoServices {
 	public static TermoEstagio termoEstagioAtualizadoByTermoAditivo(TermoAditivo termoAditivo) {
 		TermoEstagio termoEstagio = TermoEstagioServices.buscarTermoEstagio(termoAditivo.getTermoEstagio().getIdTermoEstagio());
 		
-		if(termoAditivo.getDataFimTermoAditivo() != null) {
-			termoEstagio.setDataFimTermoEstagio(termoAditivo.getDataFimTermoAditivo());
+		if (termoAditivo != null) {
+			if (termoAditivo.getDataFimTermoAditivo() != null) {
+				termoEstagio.setDataFimTermoEstagio(termoAditivo.getDataFimTermoAditivo());
+			}
+
+			if (termoAditivo.getCargaHorariaTermoAditivo() != null) {
+				termoEstagio.setCargaHorariaTermoEstagio(termoAditivo.getCargaHorariaTermoAditivo());
+			}
+
+			if (termoAditivo.getValorBolsaTermoAditivo() != null) {
+				termoEstagio.setValorBolsa(termoAditivo.getValorBolsaTermoAditivo());
+			}
+
+			if (termoAditivo.getEnderecoTermoAditivo() != null) {
+				termoEstagio.setEnderecoTermoEstagio(termoAditivo.getEnderecoTermoAditivo());
+			}
+
+			if (termoAditivo.getNumeroEnderecoTermoAditivo() != null) {
+				termoEstagio.setNumeroEnderecoTermoEstagio(termoAditivo.getNumeroEnderecoTermoAditivo());
+			}
+
+			if (termoAditivo.getComplementoEnderecoTermoAditivo() != null) {
+				termoEstagio.setComplementoEnderecoTermoEstagio(termoAditivo.getComplementoEnderecoTermoAditivo());
+			}
+
+			if (termoAditivo.getBairroEnderecoTermoAditivo() != null) {
+				termoEstagio.setBairroEnderecoTermoEstagio(termoAditivo.getBairroEnderecoTermoAditivo());
+			}
+
+			if (termoAditivo.getCepEnderecoTermoAditivo() != null) {
+				termoEstagio.setCepEnderecoTermoEstagio(termoAditivo.getCepEnderecoTermoAditivo());
+			}
+
+			if (termoAditivo.getCidadeEnderecoTermoAditivo() != null) {
+				termoEstagio.setCidadeEnderecoTermoEstagio(termoAditivo.getCidadeEnderecoTermoAditivo());
+			}
+
+			if (termoAditivo.getProfessorOrientador() != null) {
+				termoEstagio.setProfessorOrientador(termoAditivo.getProfessorOrientador());
+			}
 		}
-		
-		if(termoAditivo.getCargaHorariaTermoAditivo() != null) {
-			termoEstagio.setCargaHorariaTermoEstagio(termoAditivo.getCargaHorariaTermoAditivo());
-		}
-		
-		if(termoAditivo.getValorBolsaTermoAditivo() != null) {
-			termoEstagio.setValorBolsa(termoAditivo.getValorBolsaTermoAditivo());			
-		}
-		
-		if(termoAditivo.getEnderecoTermoAditivo() != null) {
-			termoEstagio.setEnderecoTermoEstagio(termoAditivo.getEnderecoTermoAditivo());
-		}
-		
-		if(termoAditivo.getNumeroEnderecoTermoAditivo() != null) {
-			termoEstagio.setNumeroEnderecoTermoEstagio(termoAditivo.getNumeroEnderecoTermoAditivo());
-		}
-		
-		if(termoAditivo.getComplementoEnderecoTermoAditivo() != null) {
-			termoEstagio.setComplementoEnderecoTermoEstagio(termoAditivo.getComplementoEnderecoTermoAditivo());
-		}
-		
-		if(termoAditivo.getBairroEnderecoTermoAditivo() != null) {
-			termoEstagio.setBairroEnderecoTermoEstagio(termoAditivo.getBairroEnderecoTermoAditivo());
-		}
-		
-		if(termoAditivo.getCepEnderecoTermoAditivo() != null) {
-			termoEstagio.setCepEnderecoTermoEstagio(termoAditivo.getCepEnderecoTermoAditivo());
-		}
-		
-		if(termoAditivo.getCidadeEnderecoTermoAditivo() != null) {
-			termoEstagio.setCidadeEnderecoTermoEstagio(termoAditivo.getCidadeEnderecoTermoAditivo());
-		}
-		
-		if(termoAditivo.getProfessorOrientador() != null) {
-			termoEstagio.setProfessorOrientador(termoAditivo.getProfessorOrientador());
-		}
-		
 		
 		return termoEstagio;
 	}

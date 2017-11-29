@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.control.AlunoServices;
+import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.model.entity.Aluno;
+import br.cefetrj.sisgee.model.entity.TermoAditivo;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
@@ -39,9 +41,12 @@ public class TermoAditivoServlet extends HttpServlet {
 		
 		Aluno aluno = null;
 		TermoEstagio termoEstagio = null;
+		List<TermoAditivo> termosAditivos = null;
+		TermoAditivo termoAditivo = null;
 		
 		boolean isValid = true;
 		String campo = "";
+		String msg = "";
 		
 		
 			
@@ -54,7 +59,7 @@ public class TermoAditivoServlet extends HttpServlet {
 		idAlunoMsg = ValidaUtils.validaObrigatorio(campo, idAluno);
 		if (idAlunoMsg.trim().isEmpty()) {
 			idAlunoMsg = ValidaUtils.validaInteger(campo, idAluno);
-			if (idAlunoMsg.trim().isEmpty()) {
+			if (idAlunoMsg.trim().isEmpty()) {				
 				Integer idAlunoInt = Integer.parseInt(idAluno);
 				aluno = AlunoServices.buscarAluno(new Aluno(idAlunoInt));
 				if (aluno != null) {
@@ -73,12 +78,37 @@ public class TermoAditivoServlet extends HttpServlet {
 				}
 
 			} else {
+				idAlunoMsg = messages.getString(idAlunoMsg);
 				request.setAttribute("idAlunoMsg", idAlunoMsg);
 				isValid = false;
 			}
 		} else {
+			idAlunoMsg = messages.getString(idAlunoMsg);
 			request.setAttribute("idAlunoMsg", idAlunoMsg);
 			isValid = false;
+		}
+		
+		
+		if(termoEstagio != null) {
+			//TODO implementar lógica de encaminhamento para a tela de registro
+			termosAditivos = termoEstagio.getTermosAditivos();
+			if(termosAditivos != null && !termosAditivos.isEmpty()) {
+				termoAditivo = termosAditivos.get(termosAditivos.size() - 1);
+			}
+			termoEstagio = TermoAditivoServices.termoEstagioAtualizadoByTermoAditivo(termoAditivo);
+			request.setAttribute("termoEstagio", termoEstagio);
+			request.setAttribute("termoAditivo", termoAditivo);
+			
+		}else {
+			msg = messages.getString("br.cefetrj.sisgee.form_termo_aditivo_servlet.msg_termo_estagio_invalido");
+			request.setAttribute("msg", msg);
+			isValid = false;
+		}
+		
+		if (isValid) {
+			request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("/form_termo_aditivo.jsp").forward(request, response);
 		}
 
 	}

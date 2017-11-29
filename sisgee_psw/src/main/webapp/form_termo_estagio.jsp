@@ -163,7 +163,7 @@ div.form-row {
 			<c:if test="${ not empty periodoMsg }">
 				<div class="alert alert-danger" role="alert">${ periodoMsg }</div>
 			</c:if>
-			<fieldset class="form-group">
+			<fieldset class="form-group" ${ isVisualizacao eq true ? 'disabled' :'' }>
 				<legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.vigenciaEstagio"/></legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
@@ -185,7 +185,7 @@ div.form-row {
 			</fieldset>
 			
 			
-			<fieldset class="form-group">
+			<fieldset class="form-group" ${ isVisualizacao eq true ? 'disabled' :'' }>
 				<legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.cargaHorariaAluno"/></legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
@@ -199,7 +199,7 @@ div.form-row {
 			</fieldset>
 			
 			
-			<fieldset class="form-group">
+			<fieldset class="form-group" ${ isVisualizacao eq true ? 'disabled' :'' }>
 				<legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.valorBolsaEstagio"/></legend>
 				<div class="form-row">
 					<div class="form-group col-md-4">
@@ -213,7 +213,7 @@ div.form-row {
 			</fieldset>
 			
 			
-			<fieldset class="form-group">
+			<fieldset class="form-group" ${ isVisualizacao eq true ? 'disabled' :'' }>
 				<legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.localEstagio"/></legend>
 				<div class="form-row">
 					<div class="form-group col-md-12">
@@ -280,11 +280,11 @@ div.form-row {
 
 		
 			<div class="form-row" >
-				<div class="form-group col-md-3" >
+				<div class="form-group col-md-3" ${ isVisualizacao eq true ? 'disabled' :'' } >
 					<label for="eEstagioObrigatorio"><fmt:message key = "br.cefetrj.sisgee.resources.form.estagioObrigatorio"/></label>
 				</div>
 
-				<div class="custom-controls-stacked d-block my-3">
+				<div class="custom-controls-stacked d-block my-3" ${ isVisualizacao eq true ? 'disabled' :'' }>
 					<label class="custom-control custom-radio"> 
 						<input id="estagioSim" name="eEstagioObrigatorio" type="radio" class="custom-control-input ${ not empty eEstagioObrigatorioMsg ? 'is-invalid' : '' }" value = "sim" ${ not empty aditivo ? 'disabled' :'' } ${ not empty eEstagioObrigatorioMsg ? '' : param.eEstagioObrigatorio == 'sim' ? 'checked' : '' }> 
 						<span class="custom-control-indicator"></span> 
@@ -298,25 +298,31 @@ div.form-row {
 				</div>				
 			</div>
 			
+			<fieldset ${ isVisualizacao eq true ? 'disabled' :'' }>
+				<div class="form-group col-md-8">
+					<label for="idProfessorOrientador"><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/></label>
+					<select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control ${ not empty idProfessorMsg ? 'is-invalid': not empty idProfessorMsg ? 'is-invalid' : 'is-valid' }">
+						<option value="" selected>---</option>
+						<c:forEach items="${ professores }" var="professor">
+							<option value="${ professor.idProfessorOrientador }">${ professor.nomeProfessorOrientador }</option>
+						</c:forEach>					
+					</select>
+					<c:if test="${ not empty idProfessorMsg }">
+					    		<div class="invalid-feedback">${ idProfessorMsg }</div>
+			        		</c:if>				
+				</div>
+			</fieldset>
 			
-			<div class="form-group col-md-8">
-				<label for="idProfessorOrientador"><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/></label>
-				<select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control ${ not empty idProfessorMsg ? 'is-invalid': not empty idProfessorMsg ? 'is-invalid' : 'is-valid' }">
-					<option value="" selected>---</option>
-					<c:forEach items="${ professores }" var="professor">
-						<option value="${ professor.idProfessorOrientador }">${ professor.nomeProfessorOrientador }</option>
-					</c:forEach>					
-				</select>
-				<c:if test="${ not empty idProfessorMsg }">
-				    		<div class="invalid-feedback">${ idProfessorMsg }</div>
-		        		</c:if>				
-			</div>
 			
-			
-			
-			<button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.resources.form.salvar"/></button>
-			<button type="button" class="btn btn-secondary"><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
-			
+			<button type="submit" class="btn btn-primary" ${ isVisualizacao eq true ? 'disabled' :'' }><fmt:message key = "br.cefetrj.sisgee.resources.form.salvar"/></button>
+			<c:choose>
+				<c:when test="${ not empty aditivo }">
+					<button type="button" class="btn btn-secondary" onclick="javascript:location.href='form_termo_aditivo.jsp'"><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-secondary" onclick="javascript:location.href='index.jsp'"><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
+				</c:otherwise>
+			</c:choose>	
 		</form>
 		
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -21,7 +21,7 @@ div.form-row {
 }
 </style>
 
-<title><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo" /></title>
+<title><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_titulo"/></title>
 </head>
 
 <body>
@@ -50,36 +50,38 @@ div.form-row {
 					<label class="custom-control custom-radio"> 
 						<input id="agenteSim" name="agenteIntegracao" type="radio" class="custom-control-input" required value = "sim" ${ not empty aditivo ? 'disabled' :'' }> 
 						<span class="custom-control-indicator"></span> 
-						<span class="custom-control-description" ><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_sim" /></span>
+						<span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_sim"/></span>
 					</label> 
 					<label class="custom-control custom-radio"> 
 						<input id="agenteNao" name="agenteIntegracao" type="radio" class="custom-control-input" required value = "nao" ${ not empty aditivo ? 'disabled' :'' }> 
 						<span class="custom-control-indicator"></span> 
-						<span class="custom-control-description"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_nao" /></span>
+						<span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_nao"/></span>
 					</label>
-				</div>				
+				</div>					
 			</div>
-				
-					<div class="form-group col-md-4">
-						<label for="cnpjEmpresa"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_cnpj" /></label>
-						<input type="text" class="form-control ${ not empty cnpjEmpresaMsg ? 'is-invalid': 'is-valid' }" id="cnpjEmpresa" name="cnpjEmpresa" required value="${ param.cnpjEmpresa }">
+				<div class="form-group col-md-6">
+					<label for="cnpjEmpresa"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_cnpj"/></label>
+					<input type="text" class="form-control ${ not empty cnpjEmpresaMsg ? 'is-invalid': 'is-valid' }" id="cnpjEmpresa" name="cnpjEmpresa" required value="${ param.cnpjEmpresa }">
 						<c:if test="${ not empty cnpjEmpresaMsg }">
 				    		<div class="invalid-feedback">${ cnpjEmpresaMsg }</div>
 		        		</c:if>
-					</div>
-					<div class="form-group col-md-6">
-
-						<label for="nomeEmpresa"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_razao_social" /></label>
-						<input type="text" class="form-control ${ not empty nomeEmpresaMsg ? 'is-invalid': 'is-valid' }" id="nomeEmpresa" name="nomeEmpresa" required value="${ param.nomeEmpresa }">
+				</div>
+																			
+				<div class="form-group col-md-6">
+					<label for="nomeEmpresa"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_razao_social"/></label>
+					<input type="text" class="form-control ${ not empty nomeEmpresaMsg ? 'is-invalid': 'is-valid' }" id="nomeEmpresa" name="nomeEmpresa" required value="${ param.nomeEmpresa }">
 						<c:if test="${ not empty nomeEmpresaMsg }">
 				    		<div class="invalid-feedback">${ nomeEmpresaMsg }</div>
 		        		</c:if>
-					</div>
+				</div>
 		</fieldset>
+					
+			<button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_salvar"/></button>
+			<button type="button" class="btn btn-secondary" onclick="javascript:location.href='index.jsp'"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_cancelar"/></button>
+				
 			
-				<button type="submit" class="btn btn-primary"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_salvar" /></button>
-			<button type="button" class="btn btn-secondary"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_cancelar" /></button>
 			
+				
 		</form>
 	</div>
 	<%@include file="import_footer.jspf"%>

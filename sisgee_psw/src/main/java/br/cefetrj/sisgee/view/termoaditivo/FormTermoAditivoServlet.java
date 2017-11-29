@@ -530,6 +530,10 @@ public class FormTermoAditivoServlet extends HttpServlet {
 				termoAditivo.setIdTermoAditivo(null);
 				
 				TermoAditivoServices.incluirTermoAditivo(termoAditivo);
+				String registroAditivoConcluido = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_registroAditivoConcluido");
+				request.setAttribute("msg", registroAditivoConcluido);
+				
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
 								
 			}else {
 				
@@ -543,7 +547,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
 			
 			
 			
-			request.getRequestDispatcher("/IncluirTermoAditivoServlet").forward(request, response);
+			
 		} else {
 			request.setAttribute("updVigencia", updVigencia);
 			request.setAttribute("updCargaHoraria", updCargaHoraria);

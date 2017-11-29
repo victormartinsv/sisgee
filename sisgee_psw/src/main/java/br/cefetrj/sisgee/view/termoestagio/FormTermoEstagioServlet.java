@@ -1,6 +1,8 @@
 package br.cefetrj.sisgee.view.termoestagio;
 
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,7 @@ import br.cefetrj.sisgee.model.entity.AgenteIntegracao;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
+import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.UF;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
@@ -221,6 +224,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			if (valorBolsaMsg.trim().isEmpty()) {
 				Float valor = Float.parseFloat(valorBolsa);
 				request.setAttribute("valor", valor);
+				/*NumberFormat nf = NumberFormat.getInstance(new Locale("pt", "BR"));
+				Number n;
+				float valor = 0;
+				try {
+					n = nf.parse(valorBolsa);
+					valor = n.floatValue();
+				} catch (ParseException e) {
+				}*/				
 			} else {
 				valorBolsaMsg = messages.getString(valorBolsaMsg);
 				request.setAttribute("valorBolsaMsg", valorBolsaMsg);
@@ -507,6 +518,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		 * Validação do Id do Aluno, usando métodos da Classe ValidaUtils.
 		 * Valor obrigatório e Integer
 		 */
+		Boolean alunoExiste = false;
 		String idAlunoMsg = "";
 		campo = "Aluno";
 		idAlunoMsg = ValidaUtils.validaObrigatorio(campo, idAluno);
@@ -518,6 +530,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				if (listaAlunos != null) {
 					if (listaAlunos.contains(new Aluno(idAlunoInt))) {
 						request.setAttribute("idAluno", idAlunoInt);
+						alunoExiste = true;
 					} else {
 						idAlunoMsg = "Aluno escolhido não está cadastrado";
 						isValid = false;
@@ -610,6 +623,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		 * Validação do idAgenteIntegração campo obrigatório se usuário selecionou 
 		 * que Empresa Conveniada é agente de integração, inteiro e já existente no banco
 		 */
+		request.setAttribute("isAgenteIntegracao", isAgenteIntegracao);
 		String isAgenteIntegracaoMsg = "";
 		campo = "É agente de integração";
 		isAgenteIntegracaoMsg = ValidaUtils.validaObrigatorio(campo, isAgenteIntegracao);
@@ -654,14 +668,32 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		}
 		
 		
-		
 		/**
 		 * *************************************************************************
-		 * 
 		 * Se aluno já possui estágio aberto, não pode cadastrar outro
-		 * 
 		 * *************************************************************************
 		 */
+		if(alunoExiste) {
+			Integer idAlunoInt = Integer.parseInt(idAluno);
+			Aluno a = new Aluno(idAlunoInt);
+			Aluno aluno = AlunoServices.buscarAluno(a);
+			Boolean hasTermoAberto = false;
+			
+			List<TermoEstagio> termosEstagio = aluno.getTermoEstagios();	
+			for (TermoEstagio t : termosEstagio) {				
+				if(t.getDataRescisaoTermoEstagio() == null) {
+					hasTermoAberto = true;
+					break;
+				}
+			}
+			
+			if(hasTermoAberto) {
+				String msg2 = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.msg_aluno_has_termo_aberto");
+				request.setAttribute("msg2", msg2);
+				isValid = false;
+			}
+		}
+		
 		
 		
 		/**

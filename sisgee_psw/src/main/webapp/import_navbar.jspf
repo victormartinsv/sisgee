@@ -1,3 +1,5 @@
+<%@include file="import_head.jspf"%>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<a class="navbar-brand" href="index.jsp"><img
 		src="http://www.cefet-rj.br/arquivos_download/logo_cefet__home_site.jpg"
@@ -17,39 +19,39 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Termo de Estágio 
+					<fmt:message key = "br.cefetrj.sisgee.resources.form.termoEstagio"/> 
 				</a>					
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a class="dropdown-item" href="FormTermoEstagioServlet"> 
-						Registro de Termo 
+						<fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermo"/>
 					</a> 
 					<a class="dropdown-item" href="form_termo_aditivo.jsp">
-						Registro de Aditivo
+						<fmt:message key = "br.cefetrj.sisgee.resources.form.registroAditivo"/>
 					</a> 
 					<a class="dropdown-item" href="form_rescisao.jsp"> 
-						Registro de Rescisão 
+						<fmt:message key = "br.cefetrj.sisgee.resources.form.registroRescisao"/>
 					</a>
 				</div>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Empresa 
+					<fmt:message key = "br.cefetrj.sisgee.resources.form.empresa"/>
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a class="dropdown-item" href="form_empresa.jsp">
-						CadastrarEmpresa
+						<fmt:message key = "br.cefetrj.sisgee.resources.form.cadastrarEmpresa"/>
 					</a>
 				</div>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Relatórios 
+					<fmt:message key = "br.cefetrj.sisgee.resources.form.relatorios"/>
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a class="dropdown-item" href="relatorio_consolidado.jsp">
-						Relatório Consolidado
+						<fmt:message key = "br.cefetrj.sisgee.resources.form.relatorioConsolidado"/>
 					</a>
 				</div>
 			</li>
@@ -57,10 +59,10 @@
 		<!--  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">  -->
 			<c:choose>
 				<c:when test="${ lang eq 'en_US' }">
-					<a href="?lang=pt_BR">Portugês</a>
+					<a href="?lang=pt_BR"><fmt:message key = "br.cefetrj.sisgee.resources.form.portugues"/></a>
 				</c:when>
 				<c:otherwise>
-					<a href="?lang=en_US">Inglês</a>
+					<a href="?lang=en_US"><fmt:message key = "br.cefetrj.sisgee.resources.form.ingles"/></a>
 				</c:otherwise>
 			</c:choose>
 		<!--  </button>  -->

@@ -2,6 +2,8 @@ package br.cefetrj.sisgee.view;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,7 @@ import org.apache.log4j.Logger;
 import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoAditivo;
+import br.cefetrj.sisgee.view.utils.ServletUtils;
 
 /**
  * 
@@ -29,6 +32,9 @@ public class IncluirTermoAditivoServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		Locale locale = ServletUtils.getLocale(request);
+		ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
 		//TODO remover saída do console		
 		System.out.println("iniciando o Incluir do Termo Aditivo");
 		
@@ -41,30 +47,31 @@ public class IncluirTermoAditivoServlet extends HttpServlet {
 		TermoAditivo termoAditivo = new TermoAditivo(dataFimTermoAditivo, cargaHorariaTermoAditivo,
 				valorBolsaTermoAditivo, enderecoTermoAditivo, professorOrientador);
 		
-		String msg = "";
+		String registroAditivoConcluido = "";
+		String msgOcorreuErro = "";
 		Logger lg = Logger.getLogger(IncluirTermoAditivoServlet.class);
 		try{
 			TermoAditivoServices.incluirTermoAditivo(termoAditivo);
-			msg = "Registro de Termo Aditivo concluído com sucesso.";
-			request.setAttribute("msg", msg);
-			lg.info(msg);
+			registroAditivoConcluido = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_registroAditivoConcluido");
+			request.setAttribute("msg", registroAditivoConcluido);
+			lg.info(registroAditivoConcluido);
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 			
 			//TODO remover saída do console
 			
 			
 		}catch(Exception e) {
-			msg = "Ocorreu um erro inesperado ao tentar registrar o termo aditivo. Tente novamente ou contate o suporte caso o erro persita.";
-			request.setAttribute("msg", msg);
+			msgOcorreuErro = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_ocorreuErro");
+			request.setAttribute("msg", msgOcorreuErro);
 			
 			lg.error("Exception ao tentar inserir o Termo Aditivo", e);
 			request.getRequestDispatcher("FormTermoAditivoServlet").forward(request, response);
 			
 			//TODO remover saída do console
-			System.out.println(msg);
+			System.out.println(msgOcorreuErro);
 		}
 		
-		System.out.println(msg);
+		System.out.println(registroAditivoConcluido);
 		
 	}
 

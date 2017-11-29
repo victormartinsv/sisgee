@@ -5,7 +5,7 @@
 	        </c:if>
 	    });
 	    
-	    $('.isAI, .notAI').hide();
+	    //$('.isAI, .notAI').hide();
 	    
 	    $('.isAgenteChk').change(function(){
 	    	$('.AI').hide();

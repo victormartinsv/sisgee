@@ -6,18 +6,23 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.control.AlunoServices;
+import br.cefetrj.sisgee.control.ProfessorOrientadorServices;
 import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.model.entity.Aluno;
+import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoAditivo;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
+import br.cefetrj.sisgee.view.utils.UF;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 
+@WebServlet("/TermoAditivoServlet")
 public class TermoAditivoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,8 +40,7 @@ public class TermoAditivoServlet extends HttpServlet {
 		String professor = request.getParameter("professor");
 		String valorBolsa = request.getParameter("valor");
 		
-		
-		String idAluno = request.getParameter("idAluno");
+		String idAluno = request.getParameter("idAlunoAdt");
 		
 		
 		Aluno aluno = null;
@@ -47,7 +51,6 @@ public class TermoAditivoServlet extends HttpServlet {
 		boolean isValid = true;
 		String campo = "";
 		String msg = "";
-		
 		
 			
 		/**
@@ -63,9 +66,9 @@ public class TermoAditivoServlet extends HttpServlet {
 				Integer idAlunoInt = Integer.parseInt(idAluno);
 				aluno = AlunoServices.buscarAluno(new Aluno(idAlunoInt));
 				if (aluno != null) {
-					List<TermoEstagio> termosEstagio = aluno.getTermoEstagios();
-					
+					List<TermoEstagio> termosEstagio = aluno.getTermoEstagios();	
 					for (TermoEstagio termoEstagio2 : termosEstagio) {
+						
 						if(termoEstagio2.getDataRescisaoTermoEstagio() == null) {
 							termoEstagio = termoEstagio2;
 							break;
@@ -95,9 +98,25 @@ public class TermoAditivoServlet extends HttpServlet {
 			if(termosAditivos != null && !termosAditivos.isEmpty()) {
 				termoAditivo = termosAditivos.get(termosAditivos.size() - 1);
 			}
-			termoEstagio = TermoAditivoServices.termoEstagioAtualizadoByTermoAditivo(termoAditivo);
+			
+			// se existe algum termo aditivo para o termo estagio
+			if(termoAditivo != null) {
+				termoEstagio = TermoAditivoServices.termoEstagioAtualizadoByTermoAditivo(termoAditivo);
+			}
+			
+			List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
+			UF[] uf = UF.asList();
+			
 			request.setAttribute("termoEstagio", termoEstagio);
-			request.setAttribute("termoAditivo", termoAditivo);
+			//request.setAttribute("termoAditivo", termoAditivo);
+			request.setAttribute("professores", professores);
+			request.setAttribute("uf", uf);
+			
+			request.setAttribute("updVigencia", vigencia);
+			request.setAttribute("updCargaHoraria", carga);
+			request.setAttribute("updProfessor", professor);
+			request.setAttribute("updValorBolsa", valorBolsa);
+			request.setAttribute("updEndereco", endereco);
 			
 		}else {
 			msg = messages.getString("br.cefetrj.sisgee.form_termo_aditivo_servlet.msg_termo_estagio_invalido");

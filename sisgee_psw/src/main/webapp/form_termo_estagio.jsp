@@ -25,7 +25,7 @@ div.form-row {
 
 <title>
 	<c:choose>
-		<c:when test="${ not empty aditivo }">
+		<c:when test="${ not empty termoEstagio }">
 			<fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermoAditivo"/>
 		</c:when>
 		<c:otherwise>
@@ -48,7 +48,7 @@ div.form-row {
 
 		<h5>		
 		<c:choose>
-			<c:when test="${ not empty aditivo }">
+			<c:when test="${ not empty termoEstagio }">
 				<fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermoAditivo"/>
 			</c:when>
 			<c:otherwise>
@@ -59,15 +59,15 @@ div.form-row {
 		</p>		
 		
 		<c:choose>
-			<c:when test="${ not empty aditivo }">
-				<form action="ValidaTermoAditivoServlet" method="post">
+			<c:when test="${ not empty termoEstagio }">
+				<form action="FormTermoAditivoServlet" method="post">
 			</c:when>
 			<c:otherwise>
 				<form action="FormTermoEstagioServlet" method="post">
 			</c:otherwise>
 		</c:choose>
 		
-			<fieldset class="form-group" ${ not empty aditivo ? 'disabled' :'' }>
+			<fieldset class="form-group" ${ not empty termoEstagio ? 'disabled' : '' }>
 				<legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.dadosEmpresaConveniada"/></legend>
 				<div class="form-group col-md-6">
 					<label for="numeroConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.numeroConvenio"/></label>
@@ -155,7 +155,7 @@ div.form-row {
 			</fieldset>
 			
 			
-			<fieldset class="form-group dadosAluno" ${ not empty aditivo ? 'disabled' :'' }>
+			<fieldset class="form-group dadosAluno" ${ not empty termoEstagio ? 'disabled' :'' }>
 			<%@include file="import_busca_aluno.jspf"%>
 			</fieldset>
 
@@ -169,14 +169,14 @@ div.form-row {
 					<div class="form-group col-md-4">
 
 						<label for="dataInicioTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.dataInicio"/></label>
-						<input type="text" class="form-control ${ not empty dataInicioMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataInicioTermoEstagio"  name="dataInicioTermoEstagio" value="${ param.dataInicioTermoEstagio }" >
+						<input type="text" class="form-control ${ not empty dataInicioMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataInicioTermoEstagio"  name="dataInicioTermoEstagio" value="${ param.dataInicioTermoEstagio }" ${ not empty termoEstagio ? 'disabled' : '' } >
 					<c:if test="${ not empty dataInicioMsg }">
 				    	<div class="invalid-feedback">${ dataInicioMsg }</div>
 		        	</c:if>
 					</div>
 					<div class="form-group col-md-4">
 						<label for="dataFimTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.dataTermino"/></label>
-						<input type="text" class="form-control ${ not empty dataFimMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataFimTermoEstagio"   name="dataFimTermoEstagio" value="${ param.dataFimTermoEstagio }" >
+						<input type="text" class="form-control ${ not empty dataFimMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataFimTermoEstagio"   name="dataFimTermoEstagio" value="${ param.dataFimTermoEstagio }" ${ empty termoEstagio ? '' : empty updVigencia ? 'disabled' : '' } >
 						<c:if test="${ not empty dataFimMsg }">
 				    		<div class="invalid-feedback">${ dataFimMsg }</div>
 		        	</c:if>
@@ -190,7 +190,7 @@ div.form-row {
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="cargaHorariaTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.horasDia"/></label>
-						<input type="text" class="form-control ${ not empty cargaHorariaMsg ? 'is-invalid': 'is-valid' }" id="cargaHorariaTermoEstagio" name="cargaHorariaTermoEstagio" value="${ param.cargaHorariaTermoEstagio }" >
+						<input type="text" class="form-control ${ not empty cargaHorariaMsg ? 'is-invalid': 'is-valid' }" id="cargaHorariaTermoEstagio" name="cargaHorariaTermoEstagio" value="${ param.cargaHorariaTermoEstagio }" ${ empty termoEstagio ? '' : empty updCargaHoraria ? 'disabled' : '' }>
 						<c:if test="${ not empty cargaHorariaMsg }">
 				    		<div class="invalid-feedback">${ cargaHorariaMsg }</div>
 		        		</c:if>
@@ -204,7 +204,7 @@ div.form-row {
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="valorBolsa">Valor</label>
-						<input type="text" class="form-control ${ not empty valorBolsaMsg ? 'is-invalid': 'is-valid' }" id="valorBolsa" name="valorBolsa" value="${ param.valorBolsa }" >
+						<input type="text" class="form-control ${ not empty valorBolsaMsg ? 'is-invalid': 'is-valid' }" id="valorBolsa" name="valorBolsa" value="${ param.valorBolsa }" ${ empty termoEstagio ? '' : empty updValorBolsa ? 'disabled' : '' }>
 						<c:if test="${ not empty valorBolsaMsg }">
 				    		<div class="invalid-feedback">${ valorBolsaMsg }</div>
 		        		</c:if>
@@ -213,7 +213,7 @@ div.form-row {
 			</fieldset>
 			
 			
-			<fieldset class="form-group" ${ isVisualizacao eq true ? 'disabled' :'' }>
+			<fieldset class="form-group" ${ isVisualizacao eq true ? 'disabled' :'' } ${ empty termoEstagio ? '' : empty updEndereco ? 'disabled' : '' }>
 				<legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.localEstagio"/></legend>
 				<div class="form-row">
 					<div class="form-group col-md-12">
@@ -286,12 +286,12 @@ div.form-row {
 
 				<div class="custom-controls-stacked d-block my-3" ${ isVisualizacao eq true ? 'disabled' :'' }>
 					<label class="custom-control custom-radio"> 
-						<input id="estagioSim" name="eEstagioObrigatorio" type="radio" class="custom-control-input ${ not empty eEstagioObrigatorioMsg ? 'is-invalid' : '' }" value = "sim" ${ not empty aditivo ? 'disabled' :'' } ${ not empty eEstagioObrigatorioMsg ? '' : param.eEstagioObrigatorio == 'sim' ? 'checked' : '' }> 
+						<input id="estagioSim" name="eEstagioObrigatorio" type="radio" class="custom-control-input ${ not empty eEstagioObrigatorioMsg ? 'is-invalid' : '' }" value = "sim" ${ not empty termoEstagio ? 'disabled' :'' } ${ not empty eEstagioObrigatorioMsg ? '' : param.eEstagioObrigatorio == 'sim' ? 'checked' : '' }> 
 						<span class="custom-control-indicator"></span> 
 						<span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.resources.form.sim"/></span>
 					</label> 
 					<label class="custom-control custom-radio"> 
-						<input id="estagioNao" name="eEstagioObrigatorio" type="radio" class="custom-control-input ${ not empty eEstagioObrigatorioMsg ? 'is-invalid' : '' }" value = "nao" ${ not empty aditivo ? 'disabled' :'' } ${ not empty eEstagioObrigatorioMsg ? '' : param.eEstagioObrigatorio == 'nao' ? 'checked' : '' }> 
+						<input id="estagioNao" name="eEstagioObrigatorio" type="radio" class="custom-control-input ${ not empty eEstagioObrigatorioMsg ? 'is-invalid' : '' }" value = "nao" ${ not empty termoEstagio ? 'disabled' :'' } ${ not empty eEstagioObrigatorioMsg ? '' : param.eEstagioObrigatorio == 'nao' ? 'checked' : '' }> 
 						<span class="custom-control-indicator"></span> 
 						<span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.resources.form.nao"/></span>
 					</label>
@@ -301,7 +301,7 @@ div.form-row {
 			<fieldset ${ isVisualizacao eq true ? 'disabled' :'' }>
 				<div class="form-group col-md-8">
 					<label for="idProfessorOrientador"><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/></label>
-					<select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control ${ not empty idProfessorMsg ? 'is-invalid': not empty idProfessorMsg ? 'is-invalid' : 'is-valid' }">
+					<select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control ${ not empty idProfessorMsg ? 'is-invalid': not empty idProfessorMsg ? 'is-invalid' : 'is-valid' }" ${ empty termoEstagio ? '' : empty updProfessor ? 'disabled' : '' }>
 						<option value="" selected>---</option>
 						<c:forEach items="${ professores }" var="professor">
 							<option value="${ professor.idProfessorOrientador }">${ professor.nomeProfessorOrientador }</option>
@@ -313,10 +313,12 @@ div.form-row {
 				</div>
 			</fieldset>
 			
-			
+			<c:if test="${ not empty termoEstagio }">
+	    		<input type="hidden" name="idTermoEstagio" value="${ termoEstagio.idTermoEstagio }" />
+       		</c:if>
 			<button type="submit" class="btn btn-primary" ${ isVisualizacao eq true ? 'disabled' :'' }><fmt:message key = "br.cefetrj.sisgee.resources.form.salvar"/></button>
 			<c:choose>
-				<c:when test="${ not empty aditivo }">
+				<c:when test="${ not empty termoEstagio }">
 					<button type="button" class="btn btn-secondary" onclick="javascript:location.href='form_termo_aditivo.jsp'"><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
 				</c:when>
 				<c:otherwise>

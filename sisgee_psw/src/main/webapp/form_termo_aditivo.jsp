@@ -142,7 +142,7 @@ div.form-row {
 				</div>
 			</div>			
 			<br>			
-		
+			<input type="hidden" id="idAlunoAdt" name="idAlunoAdt" value="" />
 			<button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.resources.form.salvar"/></button>
 			<button type="button" class="btn btn-secondary"><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>			
 		</form>
@@ -168,6 +168,11 @@ div.form-row {
 	<%@include file="import_footer.jspf"%>
 	<%@include file="import_finalbodyscripts.jspf"%>
 	<%@include file="import_scripts.jspf"%>
+	<script type="text/javascript">
+		$(".form-check-input").change(function(){
+			$('#idAlunoAdt').val($("#idAluno").val());
+		});
+	</script>
     
 </body>
 </html>

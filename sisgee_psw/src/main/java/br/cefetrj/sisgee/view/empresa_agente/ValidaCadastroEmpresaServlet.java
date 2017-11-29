@@ -1,4 +1,4 @@
-package br.cefetrj.sisgee.view;
+package br.cefetrj.sisgee.view.empresa_agente;
 
 import java.io.IOException;
 import java.util.Locale;

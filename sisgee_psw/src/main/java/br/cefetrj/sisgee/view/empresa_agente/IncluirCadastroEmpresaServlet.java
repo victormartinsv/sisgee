@@ -1,4 +1,4 @@
-package br.cefetrj.sisgee.view;
+package br.cefetrj.sisgee.view.empresa_agente;
 
 import java.io.IOException;
 
@@ -38,7 +38,7 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
 			Logger lg = Logger.getLogger(IncluirCadastroEmpresaServlet.class);
 			try {
 				EmpresaServices.incluirEmpresa(empresa);
-				msg = "Empresa cadastrada com sucesso.";
+				msg = "Agente Integração cadastrada com sucesso.";
 				request.setAttribute("msg", msg);
 				lg.info(msg);
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
@@ -49,8 +49,6 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
 				lg.error("Exception ao tentar inserir uma Empresa", e);
 				request.getRequestDispatcher("ValidaCadastroEmpresaServlet").forward(request, response);
 
-				// TODO remover saída do console
-				System.out.println(msg);
 			}
 
 		} else {
@@ -69,12 +67,9 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
 				lg.error("Exception ao tentar inserir uma Empresa", e);
 				request.getRequestDispatcher("ValidaCadastroEmpresaServlet").forward(request, response);
 
-				// TODO remover saída do console
-				System.out.println(msg);
 			}
 
 		}
 	}
 
 }
-

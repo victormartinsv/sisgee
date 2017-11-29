@@ -1,4 +1,4 @@
-package br.cefetrj.sisgee.view;
+package br.cefetrj.sisgee.view.termoaditivo;
 
 import java.io.IOException;
 import java.util.Date;

@@ -72,7 +72,7 @@ div.form-row {
 				<div class="form-group col-md-6">
 					<label for="numeroConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.numeroConvenio"/></label>
 					<input type="hidden" id="idEmpresa" name="idEmpresa" value="${ param.idEmpresa }">
-					<input type="text" class="form-control ${ not empty convenioMsg ? 'is-invalid': 'is-valid' }" id="numeroConvenio" name="numeroConvenio" value="${ param.numeroConvenio }" >
+					<input type="text" class="form-control ${ not empty numeroConvenioMsg ? 'is-invalid': 'is-valid' }" id="numeroConvenio" name="numeroConvenio" value="${ param.numeroConvenio }" >
 					<c:if test="${ not empty numeroConvenioMsg }">
 				    	<div class="invalid-feedback">${ numeroConvenioMsg }</div>
 		        	</c:if>
@@ -85,20 +85,23 @@ div.form-row {
 					
 					<div class="custom-controls-stacked d-block my-3">							
 						  <label class="custom-control custom-radio">
-						    <input id="agenteSim" class="custom-control-input isAgenteChk" type="radio" name="isAgenteIntegracao" required value="sim"> 
+						    <input id="agenteSim" class="custom-control-input isAgenteChk ${ not empty isAgenteIntegracaoMsg ? 'is-invalid' : '' }" type="radio" name="isAgenteIntegracao" value="sim" ${ not empty isAgenteIntegracaoMsg ? '' : param.isAgenteIntegracao == 'sim' ? 'checked' : '' }> 
 								<span class="custom-control-indicator"></span> 
 								<span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.resources.form.sim"/></span>
 						  </label>						
 						
 						  <label class="custom-control custom-radio">
-						    <input id="agenteNao" class="custom-control-input isAgenteChk" type="radio" name="isAgenteIntegracao" required value="nao"> 
+						    <input id="agenteNao" class="custom-control-input isAgenteChk ${ not empty isAgenteIntegracaoMsg ? 'is-invalid' : '' }" type="radio" name="isAgenteIntegracao" value="nao" ${ not empty isAgenteIntegracaoMsg ? '' : param.isAgenteIntegracao == 'nao' ? 'checked' : '' }> 
 								<span class="custom-control-indicator"></span> 
 								<span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.resources.form.nao"/></span>
 						  </label>
+						  <c:if test="${ not empty isAgenteIntegracaoMsg }">
+						      <div class="invalid-feedback">${ isAgenteIntegracaoMsg }</div>
+				          </c:if>
 					</div>
 				</div>							
 				
-				<div class="form-row notAI AI">
+				<div class="form-row notAI AI" ${ empty param.isAgenteIntegracao ? "style='display:none'" : param.isAgenteIntegracao == "sim" ? "style='display:none'" : "" }>
 					<div class="form-group col-md-4">
 						<label for="cnpjEmpresa"><fmt:message key = "br.cefetrj.sisgee.resources.form.cnpj"/></label>
 						<div class="input-group">						  
@@ -117,7 +120,7 @@ div.form-row {
 					</div>
 				</div>
 				
-				<div class="form-row isAI AI">
+				<div class="form-row isAI AI" ${ empty param.isAgenteIntegracao ? "style='display:none'" : param.isAgenteIntegracao == "nao" ? "style='display:none'" : "" }>
 					<div class="form-group col-md-6">
 						<label for="idAgenteIntegracao"><fmt:message key = "br.cefetrj.sisgee.resources.form.razaoSocial"/></label>
 						<select id="idAgenteIntegracao" name="idAgenteIntegracao" class="form-control">
@@ -131,7 +134,7 @@ div.form-row {
 						<button type="button" class="btn btn-primary addAgenteIntegracao">+</button>
 					</div>
 				</div>
-				<div class="form-row isAI AI">
+				<div class="form-row isAI AI" ${ empty param.isAgenteIntegracao ? "style='display:none'" : param.isAgenteIntegracao == "nao" ? "style='display:none'" : "" }>
 					<div class="form-group col-md-5">
 						<label for="cnpjEmpresa"><fmt:message key = "br.cefetrj.sisgee.resources.form.cnpjEmpresaAgenteIntegracao"/></label>
 						<div class="input-group">
@@ -283,12 +286,12 @@ div.form-row {
 
 				<div class="custom-controls-stacked d-block my-3">
 					<label class="custom-control custom-radio"> 
-						<input id="estagioSim" name="eEstagioObrigatorio" type="radio" class="custom-control-input" required value = "sim" ${ not empty aditivo ? 'disabled' :'' }> 
+						<input id="estagioSim" name="eEstagioObrigatorio" type="radio" class="custom-control-input ${ not empty eEstagioObrigatorioMsg ? 'is-invalid' : '' }" value = "sim" ${ not empty aditivo ? 'disabled' :'' } ${ not empty eEstagioObrigatorioMsg ? '' : param.eEstagioObrigatorio == 'sim' ? 'checked' : '' }> 
 						<span class="custom-control-indicator"></span> 
 						<span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.resources.form.sim"/></span>
 					</label> 
 					<label class="custom-control custom-radio"> 
-						<input id="estagioNao" name="eEstagioObrigatorio" type="radio" class="custom-control-input" required value = "nao" ${ not empty aditivo ? 'disabled' :'' }> 
+						<input id="estagioNao" name="eEstagioObrigatorio" type="radio" class="custom-control-input ${ not empty eEstagioObrigatorioMsg ? 'is-invalid' : '' }" value = "nao" ${ not empty aditivo ? 'disabled' :'' } ${ not empty eEstagioObrigatorioMsg ? '' : param.eEstagioObrigatorio == 'nao' ? 'checked' : '' }> 
 						<span class="custom-control-indicator"></span> 
 						<span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.resources.form.nao"/></span>
 					</label>

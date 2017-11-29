@@ -63,7 +63,7 @@ public class ValidaUtils {
 	 */
 	public static String validaObrigatorio(String nomeCampo, String param) {
 		String msg = "";
-		if(param == null || param.isEmpty()) {
+		if(param == null || param.trim().isEmpty()) {
 			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio";
 		}		
 		return msg;

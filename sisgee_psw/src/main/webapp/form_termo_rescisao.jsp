@@ -22,7 +22,10 @@ div.form-row {
 </style>
 
 <title>
+
 	<fmt:message key = "br.cefetrj.sisgee.resources.form_termo_rescisao.registro_termo"/>
+
+
 </title>
 
 </head>
@@ -39,7 +42,9 @@ div.form-row {
 		<p class="tituloForm">
 
 		<h5>		
+
 			<fmt:message key = "br.cefetrj.sisgee.resources.form_termo_rescisao.registro_termo"/>
+
 		</h5>		
 
 		</p>		
@@ -58,6 +63,7 @@ div.form-row {
 				<div class="form-row">
 					<div class="form-group col-md-4">
 
+
 						<label for="dataRescisao"><fmt:message key = "br.cefetrj.sisgee.resources.form_termo_rescisao.data_rescisao"/></label>
 						<input type="text" class="form-control ${ not empty dataTermoRescisaoMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataRescisao"  name="dataTermoRescisao" value="${ param.dataRescisao }" >
 					<c:if test="${ not empty dataTermoRescisaoMsg }">
@@ -65,6 +71,8 @@ div.form-row {
 		        	</c:if>
 					</div>					
 				</div>
+
+
 			</fieldset>
 		
 			<button type="submit" class="btn btn-primary">Salvar</button>

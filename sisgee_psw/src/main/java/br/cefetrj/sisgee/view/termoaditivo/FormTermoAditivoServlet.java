@@ -1,4 +1,4 @@
-package br.cefetrj.sisgee.view;
+package br.cefetrj.sisgee.view.termoaditivo;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -15,15 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.control.AlunoServices;
 import br.cefetrj.sisgee.control.ProfessorOrientadorServices;
+import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
+import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.UF;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 
 /**
  * Servlet para trazer os dados do banco para a tela de cadastro de Termo
- * de Estágio.
+ * Aditivo.
  * 
  * @author Paulo Cantuária
  * @since 1.0
@@ -53,59 +55,89 @@ public class FormTermoAditivoServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		Locale locale = ServletUtils.getLocale(request);
-		ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
+		ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);			
 		
-		String dataInicioTermoAditivo = request.getParameter("dataInicio");
-		String dataFimTermoAditivo = request.getParameter("dataFim");		
-		String cargaHorariaTermoAditivo = request.getParameter("cargaHoraria");
-		String valorBolsaTermoAditivo = request.getParameter("valorBolsaTermoAditivo");
-		String enderecoTermoAditivo = request.getParameter("enderecoTermoAditivo");
-		String idProfessorOrientador = request.getParameter("idProfessor");
+		
+		String dataFimTermoAditivo = request.getParameter("dataFimTermoEstagio");		
+		String cargaHorariaTermoAditivo = request.getParameter("cargaHorariaTermoEstagio");
+		String valorBolsaTermoAditivo = request.getParameter("valorBolsa");
+		String enderecoTermoAditivo = request.getParameter("enderecoTermoEstagio");
+		String numeroEnderecoTermoAditivo = request.getParameter("numeroEnderecoTermoEstagio");
+		String complementoEnderecoTermoAditivo = request.getParameter("complementoEnderecoTermoEstagio");
+		String bairroEnderecoTermoAditivo = request.getParameter("bairroEnderecoTermoEstagio");
+		String cepEnderecoTermoAditivo = request.getParameter("cepEnderecoTermoEstagio");
+		String cidadeEnderecoTermoAditivo = request.getParameter("cidadeEnderecoTermoEstagio");
+		String estadoEnderecoTermoAditivo = request.getParameter("estadoEnderecoTermoEstagio");
+		
+		String idProfessorOrientador = request.getParameter("idProfessorOrientador");
 		String idAluno = request.getParameter("idAluno");
-
-		/**
-		 * Validação da Data de início do aditivo usando os métodos da Classe ValidaUtils
-		 * Campo obrigatório
-		 */
+		
+		ProfessorOrientador professorOrientador = null;
+		Aluno aluno = null;
+		TermoEstagio termoEstagio = null;
+		
+		
+		
 		boolean isValid = true;
 		String campo = "";
 		Integer tamanho = 0;
-
-		Date dataInicio = null;
-		String dataInicioMsg = "";
-		campo = "Data de Início";
 		
-		dataInicioMsg = ValidaUtils.validaObrigatorio(campo, dataInicioTermoAditivo);
-		if (dataInicioMsg.trim().isEmpty()) {
-			dataInicioMsg = ValidaUtils.validaDate(campo, dataInicioTermoAditivo);
-			if (dataInicioMsg.trim().isEmpty()) {				
-				try {
-					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-					dataInicio = format.parse(dataInicioTermoAditivo);
-					//System.out.println("dataInicio no FormTermoEstagioServlet: " + dataInicio);
-					request.setAttribute("dataInicio", dataInicio);
-				} catch (Exception e) {
-					//TODO trocar saída de console por Log
-					System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
-					isValid = false;
+			
+		/**
+		 * Validação do Id do Aluno, usando métodos da Classe ValidaUtils.
+		 * Instanciando o objeto e pegando o TermoEstagio válido (sem data de rescisão)
+		 */
+		String idAlunoMsg = "";
+		idAlunoMsg = ValidaUtils.validaObrigatorio("Aluno", idAluno);
+		if (idAlunoMsg.trim().isEmpty()) {
+			idAlunoMsg = ValidaUtils.validaInteger("Aluno", idAluno);
+			if (idAlunoMsg.trim().isEmpty()) {
+				Integer idAlunoInt = Integer.parseInt(idAluno);
+				aluno = AlunoServices.buscarAluno(new Aluno(idAlunoInt));
+				if (aluno != null) {
+					List<TermoEstagio> termosEstagio = aluno.getTermoEstagios();
+					
+					for (TermoEstagio termoEstagio2 : termosEstagio) {
+						if(termoEstagio2.getDataRescisaoTermoEstagio() == null) {
+							termoEstagio = termoEstagio2;
+							break;
+						}
+					}					
+					
+				} else {
+					idAlunoMsg = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_AlunoEscolhido");
+					request.setAttribute("idAlunoMsg", idAlunoMsg);
 				}
-			}else {
-				dataInicioMsg = messages.getString(dataInicioMsg);
-				request.setAttribute("dataInicioMsg", dataInicioMsg);
+
+			} else {
+				request.setAttribute("idAlunoMsg", idAlunoMsg);
 				isValid = false;
-				//TODO Fazer log
-				System.out.println(dataInicioMsg);
 			}
 		} else {
-			dataInicioMsg = messages.getString(dataInicioMsg);
-			request.setAttribute("dataInicioMsg", dataInicioMsg);
+			request.setAttribute("idAlunoMsg", idAlunoMsg);
 			isValid = false;
-			//TODO Fazer log
-			System.out.println(dataInicioMsg);
 		}
+		
+		/**
+		 * Validação da existência de um termo de estágio disponível para receber termo aditivo
+		 * instanciando o termo para validação conjunta com o termo aditivo a ser registrado
+		 */
+		String termoEstagioMsg = "";
+		if(termoEstagio != null) {
+			//TODO prosseguir com a lógica para inclusão do termo aditivo
+			
+			
+			
+			
+		}else {
+			termoEstagioMsg = messages.getString("br.cefetrj.sisgee.form_termo_aditivo_servlet.msg_termo_estagio_invalido");
+			isValid = false;
+			
+		}
+		
 
 		/**
-		 * Validação da Data de fim do estágio usando os métodos da Classe ValidaUtils		 * 
+		 * Validação da Data de fim do estágio usando os métodos da Classe ValidaUtils	 
 		 */
 		Date dataFim = null;
 		campo = "Data de Término";
@@ -271,37 +303,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
 		}
 		request.setAttribute("hasProfessor", hasProfessor);
 
-		/**
-		 * Validação do Id do Aluno, usando métodos da Classe ValidaUtils.
-		 * Instanciando o objeto e passando como Atributo para a inclusão, caso seja validado.
-		 */
-		String idAlunoMsg = "";
-		idAlunoMsg = ValidaUtils.validaObrigatorio("Aluno", idAluno);
-		if (idAlunoMsg.trim().isEmpty()) {
-			idAlunoMsg = ValidaUtils.validaInteger("Aluno", idAluno);
-			if (idAlunoMsg.trim().isEmpty()) {
-				Integer idAlunoInt = Integer.parseInt(idAluno);
-				List<Aluno> listaAlunos = AlunoServices.listarAlunos();
-				if (listaAlunos != null) {
-					if (listaAlunos.contains(new Aluno(idAlunoInt))) {
-						request.setAttribute("id", idAlunoInt);
-					} else {
-						idProfessorMsg = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_AlunoEscolhido");
-						request.setAttribute("idAlunoMsg", idAlunoMsg);
-					}
-				} else {
-					idProfessorMsg = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_nenhumAluno");
-					request.setAttribute("idAlunoMsg", idAlunoMsg);
-				}
-
-			} else {
-				request.setAttribute("idAlunoMsg", idAlunoMsg);
-				isValid = false;
-			}
-		} else {
-			request.setAttribute("idAlunoMsg", idAlunoMsg);
-			isValid = false;
-		}
+		
 
 		if (isValid) {
 			request.getRequestDispatcher("/IncluirTermoAditivoServlet").forward(request, response);

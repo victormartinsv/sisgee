@@ -1,4 +1,4 @@
-package br.cefetrj.sisgee.view;
+package br.cefetrj.sisgee.view.termoaditivo;
 
 import java.io.IOException;
 import java.util.List;
@@ -47,8 +47,7 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
 		} else {
 			msg = messages.getString(msg);
 		}
-		//TODO remover saída de console
-		System.out.println(idAluno);
+		
 
 
 		Aluno aluno = AlunoServices.buscarAluno(new Aluno(id));
@@ -59,7 +58,7 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
 			aluno = AlunoServices.buscarAluno(new Aluno(id));				
 			termoEstagios = aluno.getTermoEstagios();			
 		}
-		System.out.println(termoEstagios);
+		
 		List<TermoAditivo> termosAditivos = null;
 
 		if (termoEstagios != null) {

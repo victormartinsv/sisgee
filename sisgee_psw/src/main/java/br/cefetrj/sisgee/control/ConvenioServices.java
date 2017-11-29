@@ -6,6 +6,7 @@ import br.cefetrj.sisgee.model.dao.ConvenioDAO;
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.entity.Convenio;
+import br.cefetrj.sisgee.model.entity.Empresa;
 
 /**
  * Serviços de alunos. Trata a lógica de negócios
@@ -42,10 +43,10 @@ public class ConvenioServices {
 		}
 	}
 	
-	public static Convenio buscarConvenioByNumero(String numero) {
+	public static Convenio buscarConvenioByNumeroEmpresa(String numero, Empresa emp) {
 		ConvenioDAO convenioDao = new ConvenioDAO();
 		try{
-			Convenio c = convenioDao.buscarByNumero(numero);
+			Convenio c = convenioDao.buscarByNumeroEmpresa(numero, emp);
 			return c;
 		}catch(Exception e){
 			return null;

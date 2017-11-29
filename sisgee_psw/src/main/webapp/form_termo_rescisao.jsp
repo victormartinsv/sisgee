@@ -22,7 +22,9 @@ div.form-row {
 </style>
 
 <title>
+
 	<fmt:message key = "br.cefetrj.sisgee.resources.form_termo_rescisao.registro_termo"/>
+
 </title>
 
 </head>
@@ -39,11 +41,14 @@ div.form-row {
 		<p class="tituloForm">
 
 		<h5>		
+
 			<fmt:message key = "br.cefetrj.sisgee.resources.form_termo_rescisao.registro_termo"/>
+
 		</h5>		
 
 		</p>		
 		
+
 		<form action="FormTermoRescisaoServlet" method="post">
 			
 			<fieldset class="form-group dadosAluno">
@@ -65,6 +70,7 @@ div.form-row {
 		        	</c:if>
 					</div>					
 				</div>
+
 			</fieldset>
 		
 			<button type="submit" class="btn btn-primary">Salvar</button>

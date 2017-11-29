@@ -60,9 +60,18 @@ public class TermoEstagioServices {
 			
 			// É Agente de Integração?
 			if(agenteIntegracao != null) {
+				
 				// Empresa já está ligada ao Agente de Integração?
-				if(emp.getAgenteIntegracao().getIdAgenteIntegracao() != agenteIntegracao.getIdAgenteIntegracao()) {
-					// NÃO - Atualizar Empresa.idAgenteIntegracao
+				Boolean atualizarAI = true;
+				
+				if(emp.getAgenteIntegracao() != null) {
+					if(emp.getAgenteIntegracao().getIdAgenteIntegracao() == agenteIntegracao.getIdAgenteIntegracao()) {
+						atualizarAI = false;
+					}
+				}
+				
+				// NÃO - Atualizar Empresa.idAgenteIntegracao
+				if(atualizarAI) {
 					GenericDAO<AgenteIntegracao> agenteIntegracaoDao = PersistenceManager.createGenericDAO(AgenteIntegracao.class);
 					AgenteIntegracao ai = agenteIntegracaoDao.buscar(agenteIntegracao.getIdAgenteIntegracao());
 					emp.setAgenteIntegracao(ai);
@@ -71,7 +80,7 @@ public class TermoEstagioServices {
 			}
 			
 			// Convênio já existe para a Empresa selecionada?
-			Convenio conv = ConvenioServices.buscarConvenioByNumero(termoEstagio.getConvenio().getNumeroConvenio());
+			Convenio conv = ConvenioServices.buscarConvenioByNumeroEmpresa(termoEstagio.getConvenio().getNumeroConvenio(), emp);
 			if(conv != null) {
 				// SIM - Encapsular em termo estagio
 				termoEstagio.setConvenio(conv);
@@ -79,8 +88,11 @@ public class TermoEstagioServices {
 			else {
 				// NÃO - Criar novo convênio e encapsular
 				GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
-				convenioDao.incluir(termoEstagio.getConvenio());
-				conv = ConvenioServices.buscarConvenioByNumero(termoEstagio.getConvenio().getNumeroConvenio());
+				conv = termoEstagio.getConvenio();
+				conv.setEmpresa(emp);
+				convenioDao.incluir(conv);
+				conv = ConvenioServices.buscarConvenioByNumeroEmpresa(termoEstagio.getConvenio().getNumeroConvenio(), emp);
+				System.out.println("Dados conv: " + conv.getIdConvenio() + ", " + conv.getNumeroConvenio() + ", " + conv.getEmpresa().getNomeEmpresa());
 				termoEstagio.setConvenio(conv);
 			}
 			

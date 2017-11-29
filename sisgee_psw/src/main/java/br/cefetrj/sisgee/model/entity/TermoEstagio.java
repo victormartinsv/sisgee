@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -61,9 +62,11 @@ public class TermoEstagio {
 	private Boolean eEstagioObrigatorio;
 
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false)
 	private Aluno aluno;
 
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false)
 	private Convenio convenio;
 
 	@ManyToOne(fetch = FetchType.EAGER)

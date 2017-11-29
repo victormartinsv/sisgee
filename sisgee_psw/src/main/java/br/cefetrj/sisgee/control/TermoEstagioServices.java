@@ -1,9 +1,11 @@
 package br.cefetrj.sisgee.control;
 
+import java.util.Date;
 import java.util.List;
 
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
+import br.cefetrj.sisgee.model.dao.TermoEstagioDAO;
 import br.cefetrj.sisgee.model.entity.AgenteIntegracao;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.Convenio;
@@ -33,6 +35,32 @@ public class TermoEstagioServices {
 	public static TermoEstagio buscarTermoEstagio(Integer idTermoEstagio) {
 		GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
 		return termoEstagioDao.buscar(idTermoEstagio);
+	}
+	
+	/**
+	 * 
+	 * Metodo para receber uma matriz de com conteudo do banco
+	 * @author Marcos Eduardo
+	 * @param  obrigatorio boolean do form para filtrar resultado
+	 * @param  inicio date do form para filtrar resultado
+	 * @param  termino date do form para filtrar resultado
+	 * @return   List<Object[]> matriz com conteúdo obtido do banco
+	 */
+	public static List<Object[]> listarTermoEstagioFiltrado(Boolean obrigatorio, Date inicio, Date termino){
+		TermoEstagioDAO termoEstagioDAO = new TermoEstagioDAO();
+		
+		try{
+			List<Object[]> author = null;
+			
+			if(obrigatorio == null) {
+				author = termoEstagioDAO.buscarFiltrado( inicio, termino);
+			}else {
+				author = termoEstagioDAO.buscarFiltrado(obrigatorio , inicio, termino);
+			}
+			return author;
+		}catch(Exception e){
+			return null;
+		}
 	}
 	
 	public static void incluirTermoEstagio(TermoEstagio termoEstagio, Empresa empresa, AgenteIntegracao agenteIntegracao){

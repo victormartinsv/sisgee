@@ -34,7 +34,7 @@ public class TermoAditivoDAO {
 						"on cur.campus_idcampus = c.idcampus  \r\n" + 
 						"where te.datainiciotermoestagio >= :inicio \r\n" + 
 						"and  :termino >= te.datainiciotermoestagio \r\n" + 
-						"and te.estagioobrigatorio = :obrigatorio ");
+						"and te.eestagioobrigatorio = :obrigatorio ");
 		
 		query.setParameter("obrigatorio", obrigatorio);
 		query.setParameter("inicio", inicio);

@@ -33,7 +33,7 @@ public class TermoEstagioDAO  {
 						"on cur.campus_idcampus = c.idcampus " + 
 						"where te.datainiciotermoestagio > :inicio " + 
 						"and te.datainiciotermoestagio < :termino " + 
-						"and te.estagioobrigatorio = :obrigatorio");
+						"and te.eestagioobrigatorio = :obrigatorio");
 		
 		query.setParameter("obrigatorio", obrigatorio);
 		query.setParameter("inicio", inicio);

@@ -53,7 +53,9 @@ div.form-row {
 				<%@include file="import_busca_aluno.jspf"%>
 				<div class="container">
 					
+
 					<button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.resources.form.listarAditivos"/></button>
+
 				</div>				
 				
 			</fieldset>
@@ -72,14 +74,14 @@ div.form-row {
 			<tbody>
 				<c:forEach items = "${termosAditivos}" var = "termoAditivo">
 						<tr>
-						<td> ${ termoAditivo.termoEstagio.dataInicioTermoEstagio } </td>
-						<td> ${ termoAditivo.termoEstagio.idConvenio.idEmpresa.cnpjEmpresa }</td>
-						<td> ${ termoAditivo.termoEstagio.idConvenio.idEmpresa.cnpjEmpresa }</td> <!-- por que duas vezes cnpjEmpresa? -->
+						<td><a href = "${buscaTermoAditivoUrl}" >${ termoAditivo.termoEstagio.dataInicioTermoEstagio }</a></td>						
+						<td> ${ termoAditivo.termoEstagio.convenio.empresa.cnpjEmpresa }</td>
+						<td> ${ termoAditivo.termoEstagio.convenio.empresa.cnpjEmpresa }</td>
 							
 							<c:url value = "/BuscaTermoAditivoServlet" var = "buscaTermoAditivoUrl" scope = "page">
-								<c:param name="id" value = "${termoAditivo.id}">  </c:param>
+								<c:param name="id" value = "${termoAditivo.idTermoAditivo}">  </c:param>
 							</c:url>
-							<td><a href = "${buscaTermoAditivoUrl}" ><fmt:message key = "br.cefetrj.sisgee.resources.form.dataRegistro"/></a></td>
+							
 						</tr>
 				</c:forEach>
 			</tbody>

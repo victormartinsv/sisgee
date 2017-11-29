@@ -71,6 +71,16 @@
 	
 							<input type="text" class="form-control " id="dataFim"   name="dataDeTermino" value="${ param.dataDeTermino }">
 						</div>
+						<c:if test="${ not empty msgDataTermino }">
+						<div class="alert alert-warning" role="alert">
+							${ msgDataTermino }
+						</div>
+					</c:if>
+					<c:if test="${ not empty msgDataInicio }">
+						<div class="alert alert-warning" role="alert">
+							${ msgDataInicio }
+						</div>
+					</c:if>
 					</div>
 					<div class="form-row "style="margin-left: 5px; margin-bottom: 15px;">
 						<div class="form-check form-check-inline " >

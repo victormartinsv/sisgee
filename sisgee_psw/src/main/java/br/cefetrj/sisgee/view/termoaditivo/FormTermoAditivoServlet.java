@@ -490,9 +490,10 @@ public class FormTermoAditivoServlet extends HttpServlet {
 		}		
 
 		if (isValid) {
+			TermoAditivo termoAditivo = null;
 			List <TermoAditivo> termosAditivos = termoEstagio.getTermosAditivos();
 			if(termosAditivos.size() > 1) {
-				TermoAditivo termoAditivo = termosAditivos.get(termosAditivos.size() -1);
+				termoAditivo = termosAditivos.get(termosAditivos.size() -1);
 				if(updVigencia != null && !updVigencia.trim().isEmpty()) {
 					termoAditivo.setDataFimTermoAditivo(dataFim);
 				}else {
@@ -525,9 +526,18 @@ public class FormTermoAditivoServlet extends HttpServlet {
 					termoAditivo.setCidadeEnderecoTermoAditivo(cidadeEnderecoTermoAditivo);
 					termoAditivo.setEstadoEnderecoTermoAditivo(estadoEnderecoTermoAditivo);
 					termoAditivo.setCepEnderecoTermoAditivo(cepEnderecoTermoAditivo);
+				}else {
+					termoAditivo.setEnderecoTermoAditivo(termoEstagio.getEnderecoTermoEstagio());
+					termoAditivo.setNumeroEnderecoTermoAditivo(termoEstagio.getNumeroEnderecoTermoEstagio());
+					termoAditivo.setComplementoEnderecoTermoAditivo(termoEstagio.getComplementoEnderecoTermoEstagio());
+					termoAditivo.setBairroEnderecoTermoAditivo(termoEstagio.getBairroEnderecoTermoEstagio());
+					termoAditivo.setCidadeEnderecoTermoAditivo(termoEstagio.getCidadeEnderecoTermoEstagio());
+					termoAditivo.setEstadoEnderecoTermoAditivo(termoEstagio.getEstadoEnderecoTermoEstagio());
+					termoAditivo.setCepEnderecoTermoAditivo(termoEstagio.getCepEnderecoTermoEstagio());
 				}
 				
 				termoAditivo.setIdTermoAditivo(null);
+				termoAditivo.setTermoEstagio(termoEstagio);
 				
 				TermoAditivoServices.incluirTermoAditivo(termoAditivo);
 				String registroAditivoConcluido = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_registroAditivoConcluido");
@@ -536,16 +546,61 @@ public class FormTermoAditivoServlet extends HttpServlet {
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
 								
 			}else {
+				termoAditivo = new TermoAditivo();
+				if(updVigencia != null && !updVigencia.trim().isEmpty()) {
+					termoAditivo.setDataFimTermoAditivo(dataFim);
+				}else {
+					termoAditivo.setDataFimTermoAditivo(termoEstagio.getDataFimTermoEstagio());
+				}
 				
+				if(updCargaHoraria != null && !updCargaHoraria.trim().isEmpty()) {
+					termoAditivo.setCargaHorariaTermoAditivo(cargaHoraria);
+				}else {
+					termoAditivo.setCargaHorariaTermoAditivo(termoEstagio.getCargaHorariaTermoEstagio());
+				}
+				
+				if(updProfessor != null && !updProfessor.trim().isEmpty()) {
+					termoAditivo.setProfessorOrientador(professorOrientador);
+				}else {
+					termoAditivo.setProfessorOrientador(termoEstagio.getProfessorOrientador());
+				}
+				
+				if(updValorBolsa != null && !updValorBolsa.trim().isEmpty()) {
+					termoAditivo.setValorBolsaTermoAditivo(valor);
+				}else {
+					termoAditivo.setValorBolsaTermoAditivo(termoEstagio.getValorBolsa());
+				}
+				
+				if(updEndereco != null && !updEndereco.trim().isEmpty()) {
+					termoAditivo.setEnderecoTermoAditivo(enderecoTermoAditivo);
+					termoAditivo.setNumeroEnderecoTermoAditivo(numeroEnderecoTermoAditivo);
+					termoAditivo.setComplementoEnderecoTermoAditivo(complementoEnderecoTermoAditivo);
+					termoAditivo.setBairroEnderecoTermoAditivo(bairroEnderecoTermoAditivo);
+					termoAditivo.setCidadeEnderecoTermoAditivo(cidadeEnderecoTermoAditivo);
+					termoAditivo.setEstadoEnderecoTermoAditivo(estadoEnderecoTermoAditivo);
+					termoAditivo.setCepEnderecoTermoAditivo(cepEnderecoTermoAditivo);
+				}else {
+					termoAditivo.setEnderecoTermoAditivo(termoEstagio.getEnderecoTermoEstagio());
+					termoAditivo.setNumeroEnderecoTermoAditivo(termoEstagio.getNumeroEnderecoTermoEstagio());
+					termoAditivo.setComplementoEnderecoTermoAditivo(termoEstagio.getComplementoEnderecoTermoEstagio());
+					termoAditivo.setBairroEnderecoTermoAditivo(termoEstagio.getBairroEnderecoTermoEstagio());
+					termoAditivo.setCidadeEnderecoTermoAditivo(termoEstagio.getCidadeEnderecoTermoEstagio());
+					termoAditivo.setEstadoEnderecoTermoAditivo(termoEstagio.getEstadoEnderecoTermoEstagio());
+					termoAditivo.setCepEnderecoTermoAditivo(termoEstagio.getCepEnderecoTermoEstagio());
+				}
+				
+				termoAditivo.setIdTermoAditivo(null);
+				termoAditivo.setTermoEstagio(termoEstagio);
+				
+				TermoAditivoServices.incluirTermoAditivo(termoAditivo);
+				String registroAditivoConcluido = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_registroAditivoConcluido");
+				request.setAttribute("msg", registroAditivoConcluido);
+				
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
 								
 				
 			
-			}
-			
-				
-			
-			
-			
+			}		
 			
 			
 		} else {

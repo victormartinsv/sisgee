@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -51,6 +52,7 @@ public class TermoAditivo {
 	private String estadoEnderecoTermoAditivo;
 
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false)
 	private TermoEstagio termoEstagio;
 	
 	@ManyToOne(fetch = FetchType.EAGER)

@@ -73,7 +73,7 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
 				
 				
 				}catch(Exception e){
-					System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
+					System.out.println("Data em formato incorreto, mesmo apÃ³s validaÃ§Ã£o na classe ValidaUtils");
 				}
 		
 		msgComparaDatas = ValidaUtils.validaDatas(dataInicio, dataTermino);
@@ -120,7 +120,7 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
 		}else {
 			request.getRequestDispatcher("/BuscaRelatorioConsolidadoServlet").forward(request, response);
 		}
-		//TermoEstagio termoEstagioFiltro = new ;
+		
 		
 		
 		
@@ -137,7 +137,7 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
 	 * @return   locale 
 	 */
 	private Locale getLocale(HttpServletRequest request) throws ServletException {
-		//Busca o locale no request, senão pega da sessão, senão pega o padrão
+		
 		Locale locale = null;
 		
 		Object localeFound = request.getParameter("lang");

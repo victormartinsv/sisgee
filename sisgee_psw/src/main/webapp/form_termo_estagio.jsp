@@ -35,7 +35,8 @@ div.form-row {
 </title>
 </head>
 <body>
-	<%@include file="import_navbar.jspf"%>
+	<%@include file="import_navbar.jspf"%>	
+	
 	
 	<div class="container">
 		<c:if test="${ not empty msg }">
@@ -315,7 +316,13 @@ div.form-row {
 			
 			<c:if test="${ not empty termoEstagio }">
 	    		<input type="hidden" name="idTermoEstagio" value="${ termoEstagio.idTermoEstagio }" />
+	    		<input type="hidden" name="updVigencia" value="${ updVigencia }" />
+	    		<input type="hidden" name="updCargaHoraria" value="${ updCargaHoraria }" />
+	    		<input type="hidden" name="updProfessor" value="${ updProfessor }" />
+	    		<input type="hidden" name="updValorBolsa" value="${ updValorBolsa }" />
+	    		<input type="hidden" name="updEndereco" value="${ updEndereco }" />
        		</c:if>
+       		
 			<button type="submit" class="btn btn-primary" ${ isVisualizacao eq true ? 'disabled' :'' }><fmt:message key = "br.cefetrj.sisgee.resources.form.salvar"/></button>
 			<c:choose>
 				<c:when test="${ not empty termoEstagio }">

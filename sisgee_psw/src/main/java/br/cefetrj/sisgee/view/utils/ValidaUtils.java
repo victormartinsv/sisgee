@@ -4,15 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Classe criada para mÃ©todos de validaÃ§Ã£o, para melhor reuso de cÃ³digo.
- * @author Paulo CantuÃ¡ria
+ * Classe criada para métodos de validação, para melhor reuso de código.
+ * @author Paulo Cantuária
  * @since 1.0
  */
 public class ValidaUtils {
 	
 	/**
-	 * MÃ©todo para validar campo por tamanho, para valores de texto(String)
-	 * @param campo texto com o nome do campo.
+	 * Método para validar campo por tamanho, para valores de texto(String)
+	 * @param nomeCampo texto com o nome do campo.
 	 * @param tamanho tamanho do campo.
 	 * @param param valor do texto a ser testado.
 	 * @return String com mensagem de erro ou vazia
@@ -26,7 +26,7 @@ public class ValidaUtils {
 	}
 	
 	/**
-	 * MÃ©todo para validar campo por tamanho, para valores inteiros
+	 * Método para validar campo por tamanho, para valores inteiros
 	 * @param nomeCampo texto com o nome do campo.
 	 * @param tamanho tamanho do campo.
 	 * @param param valor inteiro a ser testado.
@@ -41,8 +41,8 @@ public class ValidaUtils {
 	}	
 	
 	/**
-	 * MÃ©todo para validar campo com tamanho restito, para valores de texto(String)
-	  * @param campo texto com o nome do campo.
+	 * Método para validar campo com tamanho restito, para valores de texto(String)
+	  * @param nomeCampo texto com o nome do campo.
 	 * @param tamanho tamanho do campo.
 	 * @param param valor do texto a ser testado.
 	 * @return String com mensagem de erro ou vazia
@@ -56,9 +56,9 @@ public class ValidaUtils {
 	}
 	
 	/**
-	 * MÃ©todo para validar campo obrigatÃ³rio
+	 * Método para validar campo obrigatório
 	 * @param nomeCampo texto com o nome do campo.
-	 * @param param valor a ser testado como obrigatÃ³rio.
+	 * @param param valor a ser testado como obrigatório.
 	 * @return String com mensagem de erro ou vazia
 	 */
 	public static String validaObrigatorio(String nomeCampo, String param) {
@@ -70,7 +70,7 @@ public class ValidaUtils {
 	}
 	
 	/**
-	 * MÃ©todo para validar campos numÃ©ricos inteiros
+	 * Método para validar campos numéricos inteiros
 	 * @param nomeCampo texto com o nome do campo.
 	 * @param param com o valor a ser convertido para integer.
 	 * @return String com mensagem de erro ou vazia
@@ -84,7 +84,7 @@ public class ValidaUtils {
 	}
 	
 	/**
-	 * MÃ©todo para validar campos numÃ©ricos de ponto flutuante
+	 * Método para validar campos numéricos de ponto flutuante
 	 * @param nomeCampo texto com o nome do campo.
 	 * @param param String com o valor a ser convertido para float.
 	 * @return String com mensagem de erro ou vazia.
@@ -101,7 +101,7 @@ public class ValidaUtils {
 	}
 	
 	/**
-	 * MÃ©todo para validar campos booleanos
+	 * Método para validar campos booleanos
 	 * @param nomeCampo texto com o nome do campo.
 	 * @param param String com o valor a ser convertido para boolean.
 	 * @return String com mensagem de erro ou vazia.
@@ -119,7 +119,7 @@ public class ValidaUtils {
 	
 	
 	/**
-	 * MÃ©todo para validar campos de data (java.util.Date)
+	 * Método para validar campos de data (java.util.Date)
 	 * @param nomeCampo texto com o nome do campo.
 	 * @param param data a ser convertida para Date
 	 * @return String com mensagem de erro ou vazia.
@@ -138,9 +138,10 @@ public class ValidaUtils {
 	}
 	
 	/**
-	 * MÃ©todo para validar duas datas (inÃ­cio e fim de um perÃ­odo)
-	 * @param dataInicio data que marca o inÃ­cio do perÃ­odo.
-	 * @param dataFim data que marca o final do perÃ­odo.
+	 * Método para validar duas datas (iní­cio e fim de um perí­odo)
+	 * 
+	 * @param dataInicio data que marca o iní­cio do período.
+	 * @param dataFim data que marca o final do perí­odo.
 	 * @return String com mensagem de erro ou vazia.
 	 */
 	public static String validaDatas(Date dataInicio, Date dataFim) {
@@ -153,11 +154,11 @@ public class ValidaUtils {
 	
 	
 	/**
-	 * MÃ©todo para validar a seleÃ§Ã£o de Estados (UFs)
+	 * Método para validar a seleção de Estados (UFs)
 	 * 
-	 * @param nomeCampo
-	 * @param param
-	 * @return
+	 * @param nomeCampo texto com o nome do campo.
+	 * @param param texto com a UF
+	 * @return String com mensagem de erro ou vazia.
 	 */
 	public static String validaUf(String nomeCampo, String param) {
 		String msg = "";
@@ -175,6 +176,22 @@ public class ValidaUtils {
 		
 		return msg;
 	}
-		
+	
+	/**
+	 * Método que combina a validação de campo obrigatório e tamanho de campo
+	 * 
+	 * @param nomeCampo texto com o nome do campo.
+	 * @param tamanho tamanho do campo
+	 * @param param valor do texto a ser testado.
+	 * @return String com mensagem de erro ou vazia.
+	 */
+	public static String validaObrigatorioETamanho(String nomeCampo, int tamanho, String param) {
+		String msg = "";
+		msg = validaObrigatorio(nomeCampo, param);
+		if(msg.trim().isEmpty()) {
+			msg = validaTamanho(nomeCampo, tamanho, param);
+		}
+		return msg;
+	}		
 }
 

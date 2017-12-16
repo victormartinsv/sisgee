@@ -106,7 +106,7 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
     		
     		
     	}else {
-    		System.out.println("Nenhum registro encontrado nesse período de tempo");
+    		System.out.println("Nenhum registro encontrado nesse perÃ­odo de tempo");
     		String msgRelatorio = messages.getString("br.cefetrj.sisgee.relatorio.busca_relatorio_consolidado_servlet.nenhum_resultado");
     		request.setAttribute("msgRelatorio", msgRelatorio);
     	}
@@ -119,13 +119,12 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
     	
     }
     
+   
     /**
-	 * 
-	 * Metodo para relacionar nomecurso com termo estagio e termo rescisao.
-	 * @param  List<Object[]> matriz com conteúdo obtido do banco
-	 * @return   List<Object[]>
-	 */
-    
+     * Metodo para relacionar nomecurso com termo estagio e termo rescisao.
+     * @param termosEstagioLista matriz com conteÃºdo obtido do banco
+     * @return listaItemRelatorio
+     */
     public static List<ItemRelatorio> qntdPorCurso(List<Object []> termosEstagioLista ){
     	List <ItemRelatorio> listaItemRelatorio = new ArrayList <ItemRelatorio> ();
     	

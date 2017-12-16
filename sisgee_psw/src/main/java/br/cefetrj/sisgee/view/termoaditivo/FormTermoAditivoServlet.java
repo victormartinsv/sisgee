@@ -491,8 +491,9 @@ public class FormTermoAditivoServlet extends HttpServlet {
 
 		if (isValid) {
 			TermoAditivo termoAditivo = null;
-			List <TermoAditivo> termosAditivos = termoEstagio.getTermosAditivos();
-			if(termosAditivos.size() > 1) {
+			List <TermoAditivo> termosAditivos = termoEstagio.getTermosAditivos();		
+			
+			if(termosAditivos.size() >= 1) {
 				termoAditivo = termosAditivos.get(termosAditivos.size() -1);
 				if(updVigencia != null && !updVigencia.trim().isEmpty()) {
 					termoAditivo.setDataFimTermoAditivo(dataFim);
@@ -536,7 +537,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
 					termoAditivo.setCepEnderecoTermoAditivo(termoEstagio.getCepEnderecoTermoEstagio());
 				}
 				
-				termoAditivo.setIdTermoAditivo(null);
+				//termoAditivo.setIdTermoAditivo(null);
 				termoAditivo.setTermoEstagio(termoEstagio);
 				
 				TermoAditivoServices.incluirTermoAditivo(termoAditivo);

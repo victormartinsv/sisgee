@@ -48,12 +48,12 @@ div.form-row {
 
 				<div class="custom-controls-stacked d-block my-3">
 					<label class="custom-control custom-radio"> 
-						<input id="agenteSim" name="agenteIntegracao" type="radio" class="custom-control-input" required value = "sim" ${ not empty aditivo ? 'disabled' :'' }> 
+						<input id="agenteSim" name="agenteIntegracao" type="radio" class="custom-control-input" required value = "sim" > 
 						<span class="custom-control-indicator"></span> 
 						<span class="custom-control-description" ><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_sim" /></span>
 					</label> 
 					<label class="custom-control custom-radio"> 
-						<input id="agenteNao" name="agenteIntegracao" type="radio" class="custom-control-input" required value = "nao" ${ not empty aditivo ? 'disabled' :'' }> 
+						<input id="agenteNao" name="agenteIntegracao" type="radio" class="custom-control-input" required value = "nao" > 
 						<span class="custom-control-indicator"></span> 
 						<span class="custom-control-description"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_nao" /></span>
 					</label>
@@ -78,7 +78,7 @@ div.form-row {
 		</fieldset>
 			
 				<button type="submit" class="btn btn-primary"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_salvar" /></button>
-			<button type="button" class="btn btn-secondary"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_cancelar" /></button>
+			<button type="button" class="btn btn-secondary" onclick="javascript:location.href='index.jsp'"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_cancelar" /></button>
 			
 		</form>
 	</div>

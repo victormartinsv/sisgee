@@ -40,6 +40,7 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 
 		boolean isValid = true;
 		Integer tamanho = 0;
+		
 		/**
 		 * Validação do campo Agente Integração, usando métodos da Classe
 		 * ValidaUtils. Deve ser campo booleano
@@ -50,7 +51,7 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 			agenteIntegracaoMsg = ValidaUtils.validaBoolean("Agente Integração", agenteIntegracao);
 			if (agenteIntegracaoMsg.trim().isEmpty()) {
 				Boolean obrigatorio = Boolean.parseBoolean(agenteIntegracao);
-				request.setAttribute("obrigatório", obrigatorio);
+				request.setAttribute("obrigatorio", obrigatorio);
 			} else {
 				agenteIntegracaoMsg = messages.getString(agenteIntegracaoMsg);
 				request.setAttribute("agenteIntegracaoMsg", agenteIntegracaoMsg);
@@ -61,6 +62,7 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 			request.setAttribute("agenteIntegracaoMsg", agenteIntegracaoMsg);
 			isValid = false;
 		}
+		
 		/**
 		 * Validação do CNPJ da empresa usando os métodos da Classe ValidaUtils
 		 * Campo obrigatório;
@@ -131,39 +133,38 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 				Empresa e = EmpresaServices.buscarEmpresaByNome(nomeEmpresa);
 				if (e == null) {
 					if(nomeEmpresaMsg.trim().isEmpty()){
-						AgenteIntegracao a = AgenteIntegracaoServices.buscarAgenteIntegracaoByCnpj (cnpjEmpresa);
+						AgenteIntegracao a = AgenteIntegracaoServices.buscarAgenteIntegracaoByNome (nomeEmpresa);
 						if(a == null){
-							request.setAttribute("cnpjEmpresa", cnpjEmpresa);
-						}//if
+							request.setAttribute("nomeEmpresa", nomeEmpresa);
+						}
 						else{
 							nomeEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_empresa_duplicada");
 							request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
 							isValid = false;
-						}//else
-					}//if
+						}
+					}
 					else{
-						request.setAttribute("cnpjEmpresa", cnpjEmpresa);
-					}//else
-				}//if
+						request.setAttribute("nomeEmpresa", nomeEmpresa);
+					}
+				}
 				else{
-					nomeEmpresa = messages.getString(nomeEmpresa);
+					nomeEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_empresa_duplicada");
 					request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
 					isValid = false;
-				}//else
-			}//if
+				}
+			}
 			else {
-				nomeEmpresa = messages.getString(nomeEmpresa);
+				nomeEmpresaMsg = messages.getString(nomeEmpresaMsg);
 				nomeEmpresaMsg = ServletUtils.mensagemFormatada(nomeEmpresaMsg, locale, tamanho);
 				request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
 				isValid = false;
-			}//else
-		}//if
+			}
+		}
 		else {
-				nomeEmpresa = messages.getString(nomeEmpresa);
-				nomeEmpresaMsg = ServletUtils.mensagemFormatada(nomeEmpresaMsg, locale, tamanho);
-				request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
-				isValid = false;
-		}//else
+			nomeEmpresa = messages.getString(nomeEmpresa);
+			request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
+			isValid = false;
+		}
 		
 		
 		/**
@@ -173,10 +174,9 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 		if (isValid) {
 			request.getRequestDispatcher("/IncluirCadastroEmpresaServlet").forward(request, response);
 		} else {
-			//String msg = messages.getString("br.cefetrj.sisgee.form_empresa.msg_atencao");
-			String msg = "Alguns campos precisam de atenção";
+			String msg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_atencao");
 			request.setAttribute("msg", msg);
 			request.getRequestDispatcher("/form_empresa.jsp").forward(request, response);
 		}
-		}
+	}
 }

@@ -25,7 +25,7 @@ import br.cefetrj.sisgee.view.utils.ServletUtils;
 /**
  * 
  * @author Paulo Cantuária
- * @since1.0
+ * @since 1.0
  *
  */
 
@@ -74,9 +74,14 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 			professorOrientador = new ProfessorOrientador((Integer)request.getAttribute("idProfessor"));
 		}		
 		
-		if(isAgenteIntegracao.equals("sim")) {
-			agenteIntegracao = new AgenteIntegracao((Integer)request.getAttribute("idAI"));
+		if(isAgenteIntegracao != null) {
+			if(isAgenteIntegracao.equals("sim")) {
+				agenteIntegracao = new AgenteIntegracao((Integer)request.getAttribute("idAI"));
+			}
+			
 		}
+		
+		
 		
 
 		TermoEstagio termoEstagio = new TermoEstagio(dataInicioTermoEstagio, dataFimTermoEstagio, cargaHorariaTermoEstagio,

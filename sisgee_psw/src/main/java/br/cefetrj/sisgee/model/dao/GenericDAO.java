@@ -5,12 +5,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
- * Implementação do padrão DAO
- * conforme mostrado nas aulas
+ * Implementação do padrão DAO conforme mostrado nas aulas
  * @author Paulo Cantuária
  * @since 1.0
  *
- * @param <T>
+ * @param <T> Tipo da classe
  */
 public class GenericDAO<T> {
 

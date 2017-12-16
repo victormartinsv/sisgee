@@ -21,7 +21,7 @@ import br.cefetrj.sisgee.view.utils.ServletUtils;
 /**
  * 
  * @author Paulo Cantuária
- * @since1.0
+ * @since 1.0
  *
  */
 
@@ -35,8 +35,6 @@ public class IncluirTermoAditivoServlet extends HttpServlet {
 		
 		Locale locale = ServletUtils.getLocale(request);
 		ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
-		//TODO remover saída do console		
-		System.out.println("iniciando o Incluir do Termo Aditivo");
 		
 		Date dataFimTermoAditivo = (Date)request.getAttribute("dataFim");		
 		Integer cargaHorariaTermoAditivo = (Integer)request.getAttribute("cargaHoraria");

@@ -44,8 +44,9 @@ public class TermoEstagioServices {
 	 * @param  obrigatorio boolean do form para filtrar resultado
 	 * @param  inicio date do form para filtrar resultado
 	 * @param  termino date do form para filtrar resultado
-	 * @return   List<Object[]> matriz com conteúdo obtido do banco
+	 * @return author matriz com conteÃºdo obtido do banco ou null
 	 */
+
 	public static List<Object[]> listarTermoEstagioFiltrado(Boolean obrigatorio, Date inicio, Date termino){
 		TermoEstagioDAO termoEstagioDAO = new TermoEstagioDAO();
 		

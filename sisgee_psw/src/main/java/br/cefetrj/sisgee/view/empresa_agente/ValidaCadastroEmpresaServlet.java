@@ -20,7 +20,7 @@ import br.cefetrj.sisgee.view.utils.ValidaUtils;
 /**
  * Servlet para validar os dados da tela de cadastro de empresa.
  *
- * @author Natália Nunes
+ * @author NatÃ¡lia Nunes
  * @since 1.0
  *
  */
@@ -64,7 +64,7 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 		}
 		
 		/**
-		 * Validação do CNPJ da empresa usando os métodos da Classe ValidaUtils
+		 * ValidaÃ§Ã£o do CNPJ da empresa usando os mÃ©todos da Classe ValidaUtils
 		 * Campo obrigatório;
 		 * Tamanho de 14 caracteres;
 		 * CNPJ repetido.
@@ -73,9 +73,9 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 		tamanho = 14;
 		cnpjEmpresaMsg = ValidaUtils.validaObrigatorio("CNPJ", cnpjEmpresa);	
 		if (cnpjEmpresaMsg.trim().isEmpty()) {
-			cnpjEmpresaMsg = ValidaUtils.validaTamanhoExato("CNPJ", tamanho, cnpjEmpresa);	
+			cnpjEmpresaMsg = ValidaUtils.validaInteger("CNPJ", cnpjEmpresa);			
 			if (cnpjEmpresaMsg.trim().isEmpty()) {
-				cnpjEmpresaMsg = ValidaUtils.validaInteger("CNPJ", cnpjEmpresa);
+				cnpjEmpresaMsg = ValidaUtils.validaTamanhoExato("CNPJ", tamanho, cnpjEmpresa);
 					if (cnpjEmpresaMsg.trim().isEmpty()) {
 						Empresa e = EmpresaServices.buscarEmpresaByCnpj(cnpjEmpresa);
 						if (e == null) {
@@ -83,50 +83,50 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 								AgenteIntegracao a = AgenteIntegracaoServices.buscarAgenteIntegracaoByCnpj (cnpjEmpresa);
 								if(a == null){
 									request.setAttribute("cnpjEmpresa", cnpjEmpresa);
-								}//if
+								}
 								else{
 									cnpjEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_empresa_duplicada");
 									request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
 									isValid = false;
-								}//else
-							}//if
+								}
+							}
 							else {
 								request.setAttribute("cnpjEmpresa", cnpjEmpresa);
-							}//else
-						} //if 
+							}
+						}
 						else {
 							cnpjEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_empresa_duplicada");
 							request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
 							isValid = false;
-						}//else
-					}//if
+						}
+					}
 					else{
 						cnpjEmpresaMsg = messages.getString(cnpjEmpresaMsg);
+						cnpjEmpresaMsg = ServletUtils.mensagemFormatada(cnpjEmpresaMsg, locale, tamanho);
 						request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
 						isValid = false;
-					}//else
-				}//if
+					}
+				}
 				else{
 					cnpjEmpresaMsg = messages.getString(cnpjEmpresaMsg);
-					cnpjEmpresaMsg = ServletUtils.mensagemFormatada(cnpjEmpresaMsg, locale, tamanho);
 					request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
 					isValid = false;
-				}//else
-		}//if
+				}
+		}
 		else {
 			cnpjEmpresaMsg = messages.getString(cnpjEmpresaMsg);
 			request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
 			isValid = false;
-		}//else
+		}
 		
 		/**
-		 * Validação da Razão Social do Cadastro Empresa usando métodos da Classe ValidaUtils. 
-		 * Campo obrigatório;
-		 * Tamanho máximo de 100 caracteres;
-		 * Razão Social já existente.
+		 * ValidaÃ§Ã£o da RazÃ£o Social do Cadastro Empresa usando mÃ©todos da Classe ValidaUtils. 
+		 * Campo obrigatÃ³rio;
+		 * Tamanho mÃ¡ximo de 100 caracteres;
+		 * RazÃ£o Social jÃ¡ existente.
 		 */
 		String nomeEmpresaMsg = "";
-		nomeEmpresaMsg = ValidaUtils.validaObrigatorio("Razão Social", nomeEmpresa);
+		nomeEmpresaMsg = ValidaUtils.validaObrigatorio("RazÃ£o Social", nomeEmpresa);
 		if (nomeEmpresaMsg.trim().isEmpty()) {
 			nomeEmpresaMsg = ValidaUtils.validaTamanho("Razão Social", 100, nomeEmpresa);
 			if (nomeEmpresaMsg.trim().isEmpty()) {
@@ -161,15 +161,15 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 			}
 		}
 		else {
-			nomeEmpresa = messages.getString(nomeEmpresa);
+			nomeEmpresaMsg = messages.getString(nomeEmpresaMsg);
 			request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
 			isValid = false;
 		}
 		
 		
 		/**
-		 * Teste das variáveis booleanas após validação. Redirecionamento para a
-		 * inclusão ou devolver para o formulário com as mensagens.
+		 * Teste das variÃ¡veis booleanas apÃ³s validaÃ§Ã£o. Redirecionamento para a
+		 * inclusÃ£o ou devolver para o formulÃ¡rio com as mensagens.
 		 */
 		if (isValid) {
 			request.getRequestDispatcher("/IncluirCadastroEmpresaServlet").forward(request, response);

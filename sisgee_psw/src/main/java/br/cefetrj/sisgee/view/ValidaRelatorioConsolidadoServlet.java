@@ -56,12 +56,43 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
 		String msgDataObrig = null;
 		String msgCheckEstagio =  null;
 		String msgComparaDatas = null;
+		String msgDataInicio = null;
+		String msgDataTermino = null;
 		
 		Date dataInicio = null;
 		Date dataTermino = null;
 		
 		Boolean estagioObrig;
 		Boolean estagioNaoObrig;
+		
+		Boolean validDate = false;
+		
+		msgDataInicio = ValidaUtils.validaDate( "" , dataDeInicio);
+		msgDataTermino = ValidaUtils.validaDate( "" , dataDeTermino);
+		
+		if(!(msgDataInicio.isEmpty())) {
+			msgDataInicio = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.alert_data_inicio");
+			request.setAttribute("msgDataInicio", msgDataInicio );
+			validDate = false;
+		}else {
+			validDate = true;
+		}
+		
+		if(!(msgDataTermino.isEmpty())) {
+			msgDataTermino = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.alert_data_termino");
+			request.setAttribute("msgDataTermino", msgDataTermino );
+			validDate = false;
+		}else {
+			
+			validDate = true;
+		}
+		
+		
+		if(validDate == false) {
+			msgDataObrig = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.msg_data_obrigatoria");
+			request.setAttribute("msgDataObrig", msgDataObrig );
+			msg += msgDataObrig;
+		}
 		
 		if(!(dataDeInicio.isEmpty() || dataDeTermino.isEmpty())) {
 			try {
@@ -75,6 +106,7 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
 				}catch(Exception e){
 					System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
 				}
+		
 		
 		msgComparaDatas = ValidaUtils.validaDatas(dataInicio, dataTermino);
 		if(msgComparaDatas != "") {
@@ -92,6 +124,7 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
 			msg += msgDataObrig;
 			
 		}
+		
 		
 		if(estagioObrigatorio == null && estagioNaoObrigatorio == null) {
 			msgCheckEstagio = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.msg_check_estagio_not_null");

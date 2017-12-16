@@ -44,6 +44,11 @@ div.form-row {
 				${ msg }
 			</div>
 		</c:if>
+		<c:if test="${ not empty msg2 }">
+			<div class="alert alert-warning" role="alert">
+				${ msg2 }
+			</div>
+		</c:if>
 
 		<p class="tituloForm">
 

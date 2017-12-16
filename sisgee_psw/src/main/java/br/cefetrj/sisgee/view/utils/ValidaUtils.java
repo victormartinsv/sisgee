@@ -1,7 +1,10 @@
 package br.cefetrj.sisgee.view.utils;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Classe criada para métodos de validação, para melhor reuso de código.
@@ -91,13 +94,32 @@ public class ValidaUtils {
 	 */
 	public static String validaFloat(String nomeCampo, String param) {
 		String msg = "";		
+		
 		try {
-			@SuppressWarnings("unused")
-			Float valorFloat = Float.parseFloat(param);				
+		@SuppressWarnings("unused")
+		Float valorFloat = Float.parseFloat(param);				
+		
 		}catch(Exception e) {
 			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_numerico";
-		}		
+		}
+		
+		return msg;	
+		
+		/*NumberFormat nf = NumberFormat.getInstance(new Locale("pt", "BR"));
+		Number n;
+		try {
+			n = nf.parse(param);
+			//double d = n.doubleValue();
+			float d = n.floatValue();
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_numerico";
+		}
+		
 		return msg;
+		*/
+
 	}
 	
 	/**

@@ -16,9 +16,10 @@ public class ServletUtils {
 	
 	/**
 	 * Método estático para buscar o locale no request, senão pega da sessão, senão pega o padrão
-	 * @param request
-	 * @return Locale
-	 * @throws ServletException
+	 * @param request requisição do usuário
+	 * @return Locale localização do usuário ou selecionado pela página
+	 * @throws ServletException caso a Locale não seja encontrada
+	 * @return locale do user ou selecionado
 	 */
 	public static Locale getLocale(HttpServletRequest request) throws ServletException {
 		
@@ -46,7 +47,7 @@ public class ServletUtils {
 	/**
 	 * Método estático para formatar mensagens que precisam de formatação
 	 * @param msg chave que deverá ser formatada
-	 * @param locale 
+	 * @param locale localização do usuário ou selecionado pela página
 	 * @param param O valor variável da mensagem
 	 * @return Mensagem formatada
 	 */	

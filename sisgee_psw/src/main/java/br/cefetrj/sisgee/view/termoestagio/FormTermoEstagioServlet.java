@@ -313,9 +313,10 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		tamanho = 150;
 		complementoEnderecoMsg = ValidaUtils.validaObrigatorio(campo, complementoEnderecoTermoEstagio);
 		if(complementoEnderecoMsg.trim().isEmpty()) {
-			numeroEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, complementoEnderecoTermoEstagio);
+			complementoEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, complementoEnderecoTermoEstagio);
 			if(complementoEnderecoMsg.trim().isEmpty()) {
 				request.setAttribute("complementoEnderecoTermoEstagio", complementoEnderecoTermoEstagio);
+				System.out.println("Tamanho complemento válido");
 			}else {				
 				complementoEnderecoMsg = messages.getString(complementoEnderecoMsg);
 				complementoEnderecoMsg = ServletUtils.mensagemFormatada(complementoEnderecoMsg, locale, tamanho);
@@ -323,6 +324,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				isValid = false;
 				//TODO Fazer log
 				System.out.println(complementoEnderecoMsg);
+				System.out.println("Tamanho complemento inválido");
 			}
 		}else {
 			complementoEnderecoMsg = messages.getString(complementoEnderecoMsg);
@@ -627,8 +629,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		String isAgenteIntegracaoMsg = "";
 		campo = "É agente de integração";
 		isAgenteIntegracaoMsg = ValidaUtils.validaObrigatorio(campo, isAgenteIntegracao);
-		if (isAgenteIntegracaoMsg.trim().isEmpty()) {
-		
+		if (isAgenteIntegracaoMsg.trim().isEmpty()) {		
 			if(isAgenteIntegracao.equals("sim")) {
 				AgenteIntegracao agenteIntegracao = null;
 				String agenteIntegracaoMsg = "";
@@ -642,6 +643,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 						agenteIntegracao = AgenteIntegracaoServices.buscarAgenteIntegracao(idAI);
 						if(agenteIntegracao != null) {
 							request.setAttribute("idAI", idAI);
+							request.setAttribute(isAgenteIntegracao, isAgenteIntegracao);
 						}else {
 							agenteIntegracaoMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.agente_integracao_invalido");
 							request.setAttribute("agenteIntegracaoMsg", agenteIntegracaoMsg);

@@ -20,7 +20,7 @@ import br.cefetrj.sisgee.view.utils.ValidaUtils;
 /**
  * Servlet para validar os dados da tela de cadastro de empresa.
  *
- * @author Natália Nunes
+ * @author NatÃ¡lia Nunes
  * @since 1.0
  *
  */
@@ -40,14 +40,15 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 
 		boolean isValid = true;
 		Integer tamanho = 0;
+		
 		/**
-		 * Valida��o do campo Agente Integra��o, usando m�todos da Classe
+		 * Validação do campo Agente Integração, usando métodos da Classe
 		 * ValidaUtils. Deve ser campo booleano
 		 */
 		String agenteIntegracaoMsg = "";
-		agenteIntegracaoMsg = ValidaUtils.validaObrigatorio("Agente Integra��o", agenteIntegracao);
+		agenteIntegracaoMsg = ValidaUtils.validaObrigatorio("Agente Integração", agenteIntegracao);
 		if (agenteIntegracaoMsg.trim().isEmpty()) {
-			agenteIntegracaoMsg = ValidaUtils.validaBoolean("Agente Integra��o", agenteIntegracao);
+			agenteIntegracaoMsg = ValidaUtils.validaBoolean("Agente Integração", agenteIntegracao);
 			if (agenteIntegracaoMsg.trim().isEmpty()) {
 				Boolean obrigatorio = Boolean.parseBoolean(agenteIntegracao);
 				request.setAttribute("obrigatorio", obrigatorio);
@@ -61,9 +62,10 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 			request.setAttribute("agenteIntegracaoMsg", agenteIntegracaoMsg);
 			isValid = false;
 		}
+		
 		/**
-		 * Validação do CNPJ da empresa usando os métodos da Classe ValidaUtils
-		 * Campo obrigat�rio;
+		 * ValidaÃ§Ã£o do CNPJ da empresa usando os mÃ©todos da Classe ValidaUtils
+		 * Campo obrigatório;
 		 * Tamanho de 14 caracteres;
 		 * CNPJ repetido.
 		 */
@@ -118,15 +120,15 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 		}
 		
 		/**
-		 * Validação da Razão Social do Cadastro Empresa usando métodos da Classe ValidaUtils. 
-		 * Campo obrigatório;
-		 * Tamanho máximo de 100 caracteres;
-		 * Razão Social já existente.
+		 * ValidaÃ§Ã£o da RazÃ£o Social do Cadastro Empresa usando mÃ©todos da Classe ValidaUtils. 
+		 * Campo obrigatÃ³rio;
+		 * Tamanho mÃ¡ximo de 100 caracteres;
+		 * RazÃ£o Social jÃ¡ existente.
 		 */
 		String nomeEmpresaMsg = "";
-		nomeEmpresaMsg = ValidaUtils.validaObrigatorio("Razão Social", nomeEmpresa);
+		nomeEmpresaMsg = ValidaUtils.validaObrigatorio("RazÃ£o Social", nomeEmpresa);
 		if (nomeEmpresaMsg.trim().isEmpty()) {
-			nomeEmpresaMsg = ValidaUtils.validaTamanho("Raz�o Social", 100, nomeEmpresa);
+			nomeEmpresaMsg = ValidaUtils.validaTamanho("Razão Social", 100, nomeEmpresa);
 			if (nomeEmpresaMsg.trim().isEmpty()) {
 				Empresa e = EmpresaServices.buscarEmpresaByNome(nomeEmpresa);
 				if (e == null) {
@@ -152,22 +154,22 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 				}
 			}
 			else {
-				nomeEmpresa = messages.getString(nomeEmpresa);
+				nomeEmpresaMsg = messages.getString(nomeEmpresaMsg);
 				nomeEmpresaMsg = ServletUtils.mensagemFormatada(nomeEmpresaMsg, locale, tamanho);
 				request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
 				isValid = false;
 			}
 		}
 		else {
-				nomeEmpresa = messages.getString(nomeEmpresa);
-				request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
-				isValid = false;
+			nomeEmpresaMsg = messages.getString(nomeEmpresaMsg);
+			request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
+			isValid = false;
 		}
 		
 		
 		/**
-		 * Teste das variáveis booleanas após validação. Redirecionamento para a
-		 * inclusão ou devolver para o formulário com as mensagens.
+		 * Teste das variÃ¡veis booleanas apÃ³s validaÃ§Ã£o. Redirecionamento para a
+		 * inclusÃ£o ou devolver para o formulÃ¡rio com as mensagens.
 		 */
 		if (isValid) {
 			request.getRequestDispatcher("/IncluirCadastroEmpresaServlet").forward(request, response);
@@ -176,5 +178,5 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 			request.setAttribute("msg", msg);
 			request.getRequestDispatcher("/form_empresa.jsp").forward(request, response);
 		}
-		}
+	}
 }

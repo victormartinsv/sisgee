@@ -3,37 +3,10 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<%@include file="import_head.jspf"%>
-		
-		<style type="text/css">
-		
-			div.container {
-				margin-bottom: 2em;
-			}
-			form {
-				margin-top: 50px;
-			}
-			fieldset.form-group {
-				 border:1px solid #999999;
-			}
-			fieldset legend.col-form-legend {
-				font-weight: bold;
-			}
-			div.form-row {
-				padding: 0px 15px;
-			}
-			div.form-check {
-				margin-top: 25px;
-				margin-left: 10px;
-				position: relative;
-			}
-			
-			bgdiv {
-				background-color: #DCDCDC;
-			}
-			
-		</style>
-		
-		<title><fmt:message key="br.cefetrj.sisgee.relatorio.relatorio_consolidado.title"/>	</title>
+				
+		<title>
+			<fmt:message key="br.cefetrj.sisgee.relatorio.relatorio_consolidado.title"/>	
+		</title>
 	</head>
 	
 	<body>

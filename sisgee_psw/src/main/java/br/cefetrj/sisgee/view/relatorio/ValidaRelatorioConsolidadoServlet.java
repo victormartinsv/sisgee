@@ -1,4 +1,4 @@
-package br.cefetrj.sisgee.view;
+package br.cefetrj.sisgee.view.relatorio;
 
 
 import java.io.IOException;

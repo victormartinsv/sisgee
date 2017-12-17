@@ -1,27 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <%@include file="import_head.jspf"%>
-
-<style type="text/css">
-
-div.container {
-	margin-bottom: 2em;
-}
-form {
-	margin-top: 50px;
-}
-fieldset.form-group {
-	 border:1px solid #999999;
-}
-fieldset legend.col-form-legend {
-	font-weight: bold;
-}
-div.form-row {
-	padding: 0px 15px;
-}
-
-</style>
 
 <title>
 	<fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermoAditivo"/>
@@ -39,20 +20,16 @@ div.form-row {
 		</c:if>
 
 		<p class="tituloForm">
-
 		<h5>		
 			<fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermoAditivo"/>
 		</h5>		
-
-		</p>		
 		
 		<form action=BuscaTermoAditivoServlet method="post">
 			
 			<fieldset class="form-group dadosAluno" >
 				
 				<%@include file="import_busca_aluno.jspf"%>
-				<div class="container">
-					
+				<div class="container">					
 
 					<button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.resources.form.listarAditivos"/></button>
 
@@ -81,7 +58,7 @@ div.form-row {
 						<a href = "${verTermoAditivoUrl}" >${ termoAditivo.termoEstagio.dataInicioTermoEstagio }</a></td>	
 												
 						<td> ${ termoAditivo.termoEstagio.convenio.empresa.cnpjEmpresa }</td>
-						<td> ${ termoAditivo.termoEstagio.convenio.empresa.cnpjEmpresa }</td>						
+						<td> ${ termoAditivo.termoEstagio.convenio.empresa.nomeEmpresa }</td>						
 							
 						</tr>
 				</c:forEach>

@@ -1,10 +1,7 @@
 package br.cefetrj.sisgee.view.utils;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Classe criada para métodos de validação, para melhor reuso de código.

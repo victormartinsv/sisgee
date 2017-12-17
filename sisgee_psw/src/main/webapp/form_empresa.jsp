@@ -1,27 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <%@include file="import_head.jspf"%>
 
-<style type="text/css">
-div.container {
-	margin-bottom: 2em;
-}
-form {
-	margin-top: 50px;
-}
-fieldset.form-group {
-	 border:1px solid #999999;
-}
-fieldset legend.col-form-legend {
-	font-weight: bold;
-}
-div.form-row {
-	padding: 0px 15px;
-}
-</style>
+<title>
+	<fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_titulo"/>
+</title>
 
-<title><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_titulo"/></title>
 </head>
 
 <body>
@@ -35,9 +21,7 @@ div.form-row {
 		</c:if>
 
 		<p class="tituloForm">
-
 		<h5><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo" /></h5>		
-		</p>
 		
 		<form action="ValidaCadastroEmpresaServlet" method="post">
 			<fieldset class="form-group">

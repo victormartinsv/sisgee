@@ -1,8 +1,6 @@
 package br.cefetrj.sisgee.view.termoestagio;
 
 import java.io.IOException;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +27,7 @@ import br.cefetrj.sisgee.view.utils.UF;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 
 /**
- * Servlet para trazer os dados do banco para a tela de cadastro de Termo
+ * Servlet para tratar os dados da tela de cadastro de Termo
  * de Estágio.
  * 
  * @author Paulo Cantuária
@@ -42,7 +40,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 
 	
 	/**
-	 * Método doGet: carrega as listas necessárias para seleção dos atributos de relacionamento e redireciona para a tela de Registro de Termo
+	 * Método doGet: carrega as listas necessárias para seleção dos atributos de relacionamento e redireciona para a tela de Registro de Termo de Estágio
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,7 +52,11 @@ public class FormTermoEstagioServlet extends HttpServlet {
 
 	}
 	
-	
+	/**
+	 * Método doPost: Valida os campos da tela de Registro de Termo de Estágio. 
+	 * Retorna para a tela caso não passe em alguma validação 
+	 * ou encaminha para o servlet de inclusão de Termo.
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -82,6 +84,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		String idAgenteIntegracao = request.getParameter("idAgenteIntegracao");
 			
 		boolean isValid = true;
+		String msg = "";
 		String campo = "";
 		Integer tamanho = 0;		
 		
@@ -100,7 +103,6 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				try {
 					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 					dataInicio = format.parse(dataInicioTermoEstagio);
-					//System.out.println("dataInicio no FormTermoEstagioServlet: " + dataInicio);
 					request.setAttribute("dataInicio", dataInicio);
 				} catch (Exception e) {
 					//TODO trocar saída de console por Log
@@ -123,7 +125,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		}
 		
 		/**
-		 * Validação da Data de fim do estágio usando os métodos da Classe ValidaUtils		 * 
+		 * Validação da Data de fim do estágio usando os métodos da Classe ValidaUtils
 		 */
 		Date dataFim = null;
 		campo = "Data de Término";
@@ -534,25 +536,27 @@ public class FormTermoEstagioServlet extends HttpServlet {
 						request.setAttribute("idAluno", idAlunoInt);
 						alunoExiste = true;
 					} else {
-						idAlunoMsg = "Aluno escolhido não está cadastrado";
+						idAlunoMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.aluno_invalido");
 						isValid = false;
 						//TODO Fazer log
 						System.out.println(idAlunoMsg);
 					}
 				} else {
-					idAlunoMsg = "Nenhum aluno cadastrado no banco";
+					idAlunoMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.lista_alunos_vazia");
 					isValid = false;
 					//TODO Fazer log
 					System.out.println(idAlunoMsg);
 				}
 
 			} else {
+				idAlunoMsg = messages.getString(idAlunoMsg);
 				request.setAttribute("idAlunoMsg", idAlunoMsg);
 				isValid = false;
 				//TODO Fazer log
 				System.out.println(idAlunoMsg);
 			}
 		} else {
+			idAlunoMsg = messages.getString(idAlunoMsg);
 			request.setAttribute("idAlunoMsg", idAlunoMsg);
 			isValid = false;
 			//TODO Fazer log
@@ -705,7 +709,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		if (isValid) {
 			request.getRequestDispatcher("/IncluirTermoEstagioServlet").forward(request, response);
 		} else {
-			String msg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.msg_atencao");
+			msg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.msg_atencao");
 			request.setAttribute("msg", msg);
 			request = carregarListas(request);
 

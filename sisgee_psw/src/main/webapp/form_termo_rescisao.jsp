@@ -1,31 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <%@include file="import_head.jspf"%>
 
-<style type="text/css">
-div.container {
-	margin-bottom: 2em;
-}
-form {
-	margin-top: 50px;
-}
-fieldset.form-group {
-	 border:1px solid #999999;
-}
-fieldset legend.col-form-legend {
-	font-weight: bold;
-}
-div.form-row {
-	padding: 0px 15px;
-}
-</style>
-
 <title>
-
 	<fmt:message key = "br.cefetrj.sisgee.resources.form_termo_rescisao.registro_termo"/>
-
-
 </title>
 
 </head>
@@ -40,14 +20,9 @@ div.form-row {
 		</c:if>
 
 		<p class="tituloForm">
-
-		<h5>		
-
+		<h5>
 			<fmt:message key = "br.cefetrj.sisgee.resources.form_termo_rescisao.registro_termo"/>
-
 		</h5>		
-
-		</p>		
 		
 		<form action="FormTermoRescisaoServlet" method="post">
 			
@@ -71,8 +46,6 @@ div.form-row {
 		        	</c:if>
 					</div>					
 				</div>
-
-
 			</fieldset>
 		
 			<button type="submit" class="btn btn-primary">Salvar</button>
@@ -95,7 +68,6 @@ div.form-row {
 		    </div>
 		  </div>
 		</div>
-
 	</div>
 	<%@include file="import_footer.jspf"%>
 	<%@include file="import_finalbodyscripts.jspf"%>

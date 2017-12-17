@@ -1,4 +1,4 @@
-package br.cefetrj.sisgee.view;
+package br.cefetrj.sisgee.view.AJAX;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -12,13 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.cefetrj.sisgee.control.AlunoServices;
 import br.cefetrj.sisgee.control.EmpresaServices;
-import br.cefetrj.sisgee.model.entity.Aluno;
-import br.cefetrj.sisgee.model.entity.Campus;
-import br.cefetrj.sisgee.model.entity.Curso;
 import br.cefetrj.sisgee.model.entity.Empresa;
-import br.cefetrj.sisgee.model.entity.Pessoa;
 
 /**
  * Servlet para trazer os dados da Empresa para a tela de cadastro de Termo

@@ -1,4 +1,4 @@
-package br.cefetrj.sisgee.view;
+package br.cefetrj.sisgee.view.AJAX;
 
 import java.io.IOException;
 import java.io.StringWriter;

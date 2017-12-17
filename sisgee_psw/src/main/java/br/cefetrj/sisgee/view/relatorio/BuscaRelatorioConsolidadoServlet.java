@@ -1,4 +1,4 @@
-package br.cefetrj.sisgee.view;
+package br.cefetrj.sisgee.view.relatorio;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -150,8 +150,7 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
 				item.setQntTermoAditivo(item.getQntTermoEstagio() + 1);
 				item.setQntRescReg(item.getQntRescReg() + verifResc);
 			 }else {
-				 listaItemRelatorio.add(new ItemRelatorio(stg, 1 , verifResc));
-				 
+				 listaItemRelatorio.add(new ItemRelatorio(stg, 1 , verifResc));				 
 			 }
 		 }
     	

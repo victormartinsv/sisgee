@@ -14,3 +14,21 @@
   <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" >
     <link rel="stylesheet" href="css/bootstrap-datepicker.min.css" >
+    
+    <style type="text/css">
+div.container {
+	margin-bottom: 2em;
+}
+form {
+	margin-top: 50px;
+}
+fieldset.form-group {
+	 border:1px solid #999999;
+}
+fieldset legend.col-form-legend {
+	font-weight: bold;
+}
+div.form-row {
+	padding: 0px 15px;
+}
+</style>

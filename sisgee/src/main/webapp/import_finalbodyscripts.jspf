@@ -5,3 +5,4 @@
     <script src="js/bootstrap.min.js" ></script>
     <script src="js/bootstrap-datepicker.min.js" ></script>
     <script src="locales/bootstrap-datepicker.pt-BR.min.js" ></script>
+    <script src="js/jquery.mask-1.14.13.min.js" ></script>

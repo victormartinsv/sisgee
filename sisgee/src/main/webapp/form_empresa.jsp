@@ -67,4 +67,9 @@
 	</div>
 	<%@include file="import_footer.jspf"%>
 	<%@include file="import_finalbodyscripts.jspf"%>
+        <script>
+            $(document).ready(function(){
+                $('#cnpjEmpresa').mask('99.999.999/9999-99');
+            });
+        </script>
 </body>

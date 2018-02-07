@@ -29,6 +29,8 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
 		Locale locale = ServletUtils.getLocale(request);
 		ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
 		String cnpjEmpresa = request.getParameter("cnpjEmpresa");
+                //remove caracteres especiais antes de salvar o CNPJ
+                cnpjEmpresa = cnpjEmpresa.replaceAll("[.|/|-]", "");
 		String nomeEmpresa = request.getParameter("nomeEmpresa");
 		String agenteIntegracao = request.getParameter("agenteIntegracao");
 
@@ -52,7 +54,7 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
 				msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_empresa_servlet.msg_ocorreu_erro");
 				request.setAttribute("msg", msg);
 				lg.error("Exception ao tentar inserir uma Empresa", e);
-				request.getRequestDispatcher("ValidaCadastroEmpresaServlet").forward(request, response);
+				request.getRequestDispatcher("/form_empresa.jsp").forward(request, response);
 
 			}
 
@@ -70,7 +72,8 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
 				msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_empresa_servlet.msg_ocorreu_erro");
 				request.setAttribute("msg", msg);
 				lg.error("Exception ao tentar inserir uma Empresa", e);
-				request.getRequestDispatcher("ValidaCadastroEmpresaServlet").forward(request, response);
+				request.getRequestDispatcher("/form_empresa.jsp").forward(request, response);
+                                
 
 			}
 

@@ -73,6 +73,8 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 		tamanho = 14;
 		cnpjEmpresaMsg = ValidaUtils.validaObrigatorio("CNPJ", cnpjEmpresa);	
 		if (cnpjEmpresaMsg.trim().isEmpty()) {
+                        //remove caracteres especiais antes de vazer a validação numérica do CNPJ
+                        cnpjEmpresa = cnpjEmpresa.replaceAll("[.|/|-]", "");
 			cnpjEmpresaMsg = ValidaUtils.validaInteger("CNPJ", cnpjEmpresa);			
 			if (cnpjEmpresaMsg.trim().isEmpty()) {
 				cnpjEmpresaMsg = ValidaUtils.validaTamanhoExato("CNPJ", tamanho, cnpjEmpresa);
@@ -177,6 +179,7 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 			String msg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_atencao");
 			request.setAttribute("msg", msg);
 			request.getRequestDispatcher("/form_empresa.jsp").forward(request, response);
+                        
 		}
 	}
 }

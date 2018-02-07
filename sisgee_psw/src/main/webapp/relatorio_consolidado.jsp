@@ -87,7 +87,7 @@
 						</div>
 			</c:if>
   		<c:forEach items="${ relatorio }" var="relatorio">
-  		<table class="table table-hover" style="width=100%; margin-top: 20px;">
+  		<table class="table table-hover" style="width: 100%; margin-top: 20px;">
   			<thead>
   				<tr>
   					<th>${ relatorio.nomeCurso }</th>

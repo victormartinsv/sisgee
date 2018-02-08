@@ -33,7 +33,8 @@ public class TodasRequisicoesFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 				
 		try{			
-			chain.doFilter(request, response);	
+                    request.setCharacterEncoding("UTF-8");
+                    chain.doFilter(request, response);	
 			
 		}catch(Exception e) {
 			Logger lg = Logger.getLogger(TodasRequisicoesFilter.class);

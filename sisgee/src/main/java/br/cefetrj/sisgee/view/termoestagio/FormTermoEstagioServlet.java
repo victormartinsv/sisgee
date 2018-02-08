@@ -222,6 +222,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		campo = "Valor";
 		valorBolsaMsg = ValidaUtils.validaObrigatorio(campo, valorBolsa);
 		if (valorBolsaMsg.trim().isEmpty()) {
+                        valorBolsa = valorBolsa.replaceAll("[.|,]", "");
 			valorBolsaMsg = ValidaUtils.validaFloat(campo, valorBolsa);
 			if (valorBolsaMsg.trim().isEmpty()) {
 				Float valor = Float.parseFloat(valorBolsa);

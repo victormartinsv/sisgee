@@ -35,6 +35,9 @@ public class BuscaEmpresaServlet extends HttpServlet {
 		String cnpjEmpresa = request.getParameter("cnpjEmpresa");
 		String idEmpresa = "";
 		String nomeEmpresa = "";
+                if(cnpjEmpresa != null){
+                    cnpjEmpresa = cnpjEmpresa.replaceAll("[.|/|-]", "");
+                }
 		
 		Empresa empresa = EmpresaServices.buscarEmpresaByCnpj(cnpjEmpresa.trim());
 		if(empresa != null) {

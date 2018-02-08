@@ -53,7 +53,7 @@
 																			
 				<div class="form-group col-md-6">
 					<label for="nomeEmpresa"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_razao_social"/></label>
-					<input type="text" class="form-control ${ not empty nomeEmpresaMsg ? 'is-invalid': 'is-valid' }" id="nomeEmpresa" name="nomeEmpresa" required value="${ param.nomeEmpresa }">
+                                        <input type="text" class="form-control ${ not empty nomeEmpresaMsg ? 'is-invalid': 'is-valid' }" id="nomeEmpresa" name="nomeEmpresa" maxlength="100" required value="${ param.nomeEmpresa }">
 						<c:if test="${ not empty nomeEmpresaMsg }">
 				    		<div class="invalid-feedback">${ nomeEmpresaMsg }</div>
 		        		</c:if>

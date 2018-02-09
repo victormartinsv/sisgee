@@ -1,8 +1,9 @@
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-3.2.1.min.js" ></script>
-    <script src="js/popper.min.js" ></script>
-    <script src="js/bootstrap.min.js" ></script>
-    <script src="js/bootstrap-datepicker.min.js" ></script>
-    <script src="locales/bootstrap-datepicker.pt-BR.min.js" ></script>
-    <script src="js/jquery.mask-1.14.13.min.js" ></script>
+    <script src="node_modules/jquery/dist/jquery.min.js" ></script>
+    <script src="node_modules/popper.js/dist/popper.js" ></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" ></script>
+    <script src="node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" ></script>
+    <script src="node_modules/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js" ></script>
+    <script src="node_modules/jquery-mask-plugin/dist/jquery.mask.min.js" ></script>
+    

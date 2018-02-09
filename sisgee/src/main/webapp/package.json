@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/diogosmendonca/sisgee#readme",
   "dependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "4.0.0-beta.2",
     "bootstrap-datepicker": "^1.7.1",
     "jquery-mask-plugin": "^1.14.13",
-    "popper.js": "^1.12.9"
+    "popper.js": "^1.12.3"
   }
 }

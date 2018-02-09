@@ -1,4 +1,5 @@
 <script type="text/javascript">
+            
 	    $('#dataInicioTermoEstagio, #dataFimTermoEstagio, #dataRescisao').datepicker({
 	    	<c:if test="${ lang eq 'pt_BR' }">
 	    	language: 'pt-BR'
@@ -81,37 +82,42 @@
 	    $('#btnBuscarMatricula').click(function(){
 	    	
 	    	if($.trim($('#matricula').val()) == ""){
-	    		$(".dadosAluno input:not([id=matricula])").val("");
-	    		$("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.campo_vazio"/>");
-	        	$(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.matricula_vazia"/>");      	
-	        	$('#myModal').modal('show');
-    			return;
+                    $(".dadosAluno input:not([id=matricula])").val("");
+                    $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.campo_vazio"/>");
+                    $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.matricula_vazia"/>");      	
+                    $('#myModal').modal('show');
+                    return;
 	    	}
 	    	
 	    	var result = null;
+                
 	        $.ajax({
 	            type: 'GET',
 	            url: 'BuscaAlunoServlet', //Servlet
-	            async: false, // habilita a função ajax() repassar os dados para a função pai
+	            async: true, // habilita a função ajax() repassar os dados para a função pai
 	            data: $('#matricula').serialize(),
 	            dataType: "json",
 	            success: function(json){
 	                result = json;
+                        if(result.idAluno != ""){
+                            $("#idAluno").val(result.idAluno);
+                            $("#nome").val(result.nome);
+                            $("#nomeCurso").val(result.nomeCurso);
+                            $("#nomeCampus").val(result.nomeCampus);
+                        }
+                        else{
+                            $(".dadosAluno input:not([id=matricula])").val("");
+                            $("#myModalLabel").html("Aluno não encontrado");
+                            $(".modal-body").html("A matrícula não corresponde a um aluno cadastrado.");	        	
+                            $('#myModal').modal('show');	        	
+                        }
+                        if(typeof buscarAlunoCallback != 'undefined'){
+                            buscarAlunoCallback(result);
+                        }
 	            }
 	        });
 	        
-	        if(result.idAluno != ""){
-	        	$("#idAluno").val(result.idAluno);
-	        	$("#nome").val(result.nome);
-	        	$("#nomeCurso").val(result.nomeCurso);
-	        	$("#nomeCampus").val(result.nomeCampus);
-	        }
-	        else{
-	        	$(".dadosAluno input:not([id=matricula])").val("");
-	        	$("#myModalLabel").html("Aluno não encontrado");
-	        	$(".modal-body").html("A matrícula não corresponde a um aluno cadastrado.");	        	
-	        	$('#myModal').modal('show');	        	
-	        }
+	        
 	        
 	    });
 	    

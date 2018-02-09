@@ -17,6 +17,8 @@ import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.Campus;
 import br.cefetrj.sisgee.model.entity.Curso;
 import br.cefetrj.sisgee.model.entity.Pessoa;
+import br.cefetrj.sisgee.model.entity.TermoEstagio;
+import java.util.List;
 
 /**
  * Servlet para trazer os dados do Aluno por meio de requisição AJAX.
@@ -39,6 +41,7 @@ public class BuscaAlunoServlet extends HttpServlet {
 		String nome = "";
 		String nomeCurso = "";
 		String nomeCampus = "";
+                String idTermoEstagioAtivo = "";
 		
 		Aluno aluno = AlunoServices.buscarAlunoByMatricula(matricula.trim());
 		if(aluno != null) {
@@ -50,6 +53,21 @@ public class BuscaAlunoServlet extends HttpServlet {
 			nome = pessoa.getNome();
 			nomeCurso = curso.getNomeCurso();
 			nomeCampus = campus.getNomeCampus();
+                        List<TermoEstagio> termos = aluno.getTermoEstagios();
+                        if(termos != null){
+                            for (TermoEstagio termo : termos) {
+                                if(termo.getDataFimTermoEstagio() == null){
+                                    idTermoEstagioAtivo = 
+                                           (termo.getIdTermoEstagio() != null ? 
+                                            termo.getIdTermoEstagio().toString() : 
+                                            "" );
+                                    termo.getDataInicioTermoEstagio();
+                                    termo.getConvenio().getEmpresa().getCnpjEmpresa();
+                                    termo.getConvenio().getEmpresa().getNomeEmpresa();
+                                   
+                                }
+                            }
+                        }
 		}
 		
 		//JSON
@@ -58,6 +76,7 @@ public class BuscaAlunoServlet extends HttpServlet {
 				.add("nome", nome)
 				.add("nomeCurso", nomeCurso)
 				.add("nomeCampus", nomeCampus)
+                                .add("idTermoEstagioAtivo", idTermoEstagioAtivo)
 				.build();
 		
 		StringWriter stWriter = new StringWriter();

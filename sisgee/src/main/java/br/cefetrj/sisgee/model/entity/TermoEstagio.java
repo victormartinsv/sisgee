@@ -1,7 +1,16 @@
 package br.cefetrj.sisgee.model.entity;
 
+import java.io.StringReader;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.annotation.JsonbTransient;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -61,17 +70,21 @@ public class TermoEstagio {
 	@Column(nullable = false)
 	private Boolean eEstagioObrigatorio;
 
+        @JsonbTransient
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false)
 	private Aluno aluno;
-
+        
+        @JsonbTransient
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false)
 	private Convenio convenio;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonbTransient
+        @ManyToOne(fetch = FetchType.EAGER)
 	private ProfessorOrientador professorOrientador;
-
+        
+        @JsonbTransient
 	@OneToMany(mappedBy = "termoEstagio")
 	private List<TermoAditivo> termosAditivos;
 
@@ -273,4 +286,19 @@ public class TermoEstagio {
 			return false;
 		return true;
 	}
+        
+        public String toJson(){
+            Jsonb jsonb = JsonbBuilder.create();
+            String result = jsonb.toJson(this);
+            
+            JsonReader jsonReader = Json.createReader(new StringReader(result));
+            JsonObject jobj = jsonReader.readObject();
+            
+            JsonObjectBuilder builder = Json.createObjectBuilder();
+            builder.add("convenio", this.getConvenio().toJsonObj());
+            jobj.entrySet().
+                    forEach(e -> builder.add(e.getKey(), e.getValue()));
+            return builder.build().toString();
+            
+        }
 }

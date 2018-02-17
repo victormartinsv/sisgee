@@ -1,6 +1,13 @@
 package br.cefetrj.sisgee.model.entity;
 
+import java.io.StringReader;
 import java.util.List;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.annotation.JsonbTransient;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,11 +34,13 @@ public class Convenio {
 	@Column(length = 10, nullable = false)
 	private String numeroConvenio;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+        @JsonbTransient
+	@ManyToOne()
 	@JoinColumn(nullable = false)
 	private Empresa empresa;
 
-	@OneToMany(mappedBy = "convenio")
+        @JsonbTransient
+	@OneToMany(mappedBy = "convenio", fetch = FetchType.LAZY)
 	private List <TermoEstagio> termoEstagios;
 
 	public Convenio() {}
@@ -101,5 +110,15 @@ public class Convenio {
 	public String toString() {
 		return numeroConvenio;
 	}
+        
+        public JsonObject toJsonObj(){
+            Jsonb jsonb = JsonbBuilder.create();
+            String result = jsonb.toJson(this);
+            
+            JsonReader jsonReader = Json.createReader(new StringReader(result));
+            JsonObject jobj = jsonReader.readObject();
+            return jobj;
+        }
+
 
 }

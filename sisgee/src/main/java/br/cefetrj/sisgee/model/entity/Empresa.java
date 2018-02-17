@@ -1,6 +1,7 @@
 package br.cefetrj.sisgee.model.entity;
 
 import java.util.List;
+import javax.json.bind.annotation.JsonbTransient;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -32,6 +34,7 @@ public class Empresa {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private AgenteIntegracao agenteIntegracao;
 
+        @JsonbTransient
 	@OneToMany(mappedBy = "empresa")
 	private List<Convenio> convenios;
 
@@ -60,6 +63,39 @@ public class Empresa {
 
 	public String getCnpjEmpresa() {
 		return cnpjEmpresa;
+	}
+        
+        public String getCnpjEmpresaFormatado() {
+            if(cnpjEmpresa != null && cnpjEmpresa.trim().length() > 0){
+                StringBuilder cnpjFormatado = new StringBuilder();
+                try{
+                    cnpjFormatado.append(cnpjEmpresa.charAt(0));
+                    cnpjFormatado.append(cnpjEmpresa.charAt(1));
+                    cnpjFormatado.append(".");
+                    cnpjFormatado.append(cnpjEmpresa.charAt(2));
+                    cnpjFormatado.append(cnpjEmpresa.charAt(3));
+                    cnpjFormatado.append(cnpjEmpresa.charAt(4));
+                    cnpjFormatado.append(".");
+                    cnpjFormatado.append(cnpjEmpresa.charAt(5));
+                    cnpjFormatado.append(cnpjEmpresa.charAt(6));
+                    cnpjFormatado.append(cnpjEmpresa.charAt(7));
+                    cnpjFormatado.append("/");
+                    cnpjFormatado.append(cnpjEmpresa.charAt(8));
+                    cnpjFormatado.append(cnpjEmpresa.charAt(9));
+                    cnpjFormatado.append(cnpjEmpresa.charAt(10));
+                    cnpjFormatado.append(cnpjEmpresa.charAt(11));
+                    cnpjFormatado.append("-");
+                    cnpjFormatado.append(cnpjEmpresa.charAt(12));
+                    cnpjFormatado.append(cnpjEmpresa.charAt(13));
+                }catch(IndexOutOfBoundsException e){
+                    Logger lg = Logger.getLogger(Empresa.class);
+                    lg.error("CNPJ com menos de 14 caracteres. Cnpj = " + cnpjEmpresa + " empresaId = " + idEmpresa, e);
+                    return cnpjEmpresa;
+                }
+                return cnpjFormatado.toString();
+            }else{
+                return null;
+            }
 	}
 
 	public void setCnpjEmpresa(String cnpjEmpresa) {

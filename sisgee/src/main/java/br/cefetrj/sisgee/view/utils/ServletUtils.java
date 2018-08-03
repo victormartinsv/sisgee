@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class ServletUtils {
 	
-        public enum ErrorCode {INVALID, REQUIRED}
-    
 	/**
 	 * Método estático para buscar o locale no request, senão pega da sessão, senão pega o padrão
 	 * @param request requisição do usuário

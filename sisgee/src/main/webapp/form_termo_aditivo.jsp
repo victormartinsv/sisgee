@@ -2,14 +2,20 @@
 <html lang="en">
     <head>
 
+
         <%@include file="import_head.jspf"%>
 
         <title>
             <fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermoAditivo"/>
         </title>
+        <style>
 
+            table{
+                white-space: nowrap ;
+            }
+        </style>
     </head>
-    <body>
+    <body onLoad="termoAditivo()">
         <%@include file="import_navbar.jspf"%>
 
         <div class="container">
@@ -18,210 +24,217 @@
                     ${ msg }
                 </div>
             </c:if>
-
+            <c:if test="${ not empty periodoMsg }">
+                <div class="alert alert-warning" role="alert">
+                    ${periodoMsg}
+                </div>
+            </c:if>  
+            
             <p class="tituloForm">
-            <h5>
+            <h5>		
                 <fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermoAditivo"/>
             </h5>		
+            
+            
+            <form action=BuscaTermoAditivoServlet method="post">
 
-            <form action=BuscaTermoAditivoServlet method="post" name="dadosAluno">
                 <fieldset class="form-group dadosAluno" >
                     <%@include file="import_busca_aluno.jspf"%>
+                    
+                    <div class="container">					
+
+                        <button id="btnListarAditivo" type="submit" class="btn btn-primary" ><fmt:message key = "br.cefetrj.sisgee.resources.form.listarAditivos"/></button>
+                        <a id="btnListarAditivo" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><fmt:message key = "br.cefetrj.sisgee.resources.form.rescisao"/></a>
+                        <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'" ><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
+                    </div>				
+                <input type="hidden" name="termoAditivo" id="termoAditivo" value="${ param.termoAditivo }">
                 </fieldset>
             </form>
-                
+        </div>
+        <c:if test="${not empty listaTermoEstagio}">
             <div class="container">
-                <button id="btnListarAditivo" type="button" onclick="document.forms['dadosAluno'].submit()" class="btn btn-secondary" disabled="true"><fmt:message key = "br.cefetrj.sisgee.resources.form.listarAditivos"/></button>
-                <button type="button" id="btnNovoAditivo" class="btn btn-secondary" disabled="true" onclick="abrirModalAditivo()"><fmt:message key = "br.cefetrj.sisgee.resources.form.novo_aditivo"/></button>
-                <button type="button" id="btnRescisao" class="btn btn-secondary" disabled="true" onclick=""><fmt:message key = "br.cefetrj.sisgee.resources.form.registrar_reciscisao"/></button>
-                <button type="button" class="btn btn-secondary" onclick="location.href = 'index.jsp'"><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
+                <div class="table-responsive">
+                    <table class="table table-info table-bordered container table-hover table-striped">
+                        <tr>
+                            <th><fmt:message key="br.cefetrj.sisgee.21" /></th>
+                            <th><fmt:message key="br.cefetrj.sisgee.22" /></th>
+                            <th><fmt:message key="br.cefetrj.sisgee.23" /></th>
+                            <th><fmt:message key="br.cefetrj.sisgee.10" /></th>
+                            <th><fmt:message key="br.cefetrj.sisgee.13" /></th>
+                            <th><fmt:message key="br.cefetrj.sisgee.12" /></th>
+                            <th>Visualizar</th>
+
+                        </tr>
+
+                        <c:forEach items="${listaTermoEstagio}" var="b">
+                            <tr>
+                                <td><fmt:message key="br.cefetrj.sisgee.4" /></td>
+                                <td>${b.getEstado()}</td>
+                                <td>${b.getDataInicioTermoEstagio2()}</td>
+                                <td>${b.getDataFimTermoEstagio2()}</td>
+                                <td>${b.getConvenio().pegaCpf()}</td>
+                                <td>${b.getConvenio().pegaNome()}</td>
+                                <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
+                            </tr>
+                            <c:forEach items="${b.getTermosAditivos()}" var="c">
+                                <tr>
+                                    <td>${c.getTipoAditivo()}</td>
+                                    <td>--</td>
+                                    <td>${c.getDataCadastramentoTermoAditivo2()}</td>
+                                    <td>${c.getDataFimTermoAditivo2()}</td>
+                                    <td>${b.getConvenio().pegaCpf()}</td>
+                                    <td>${b.getConvenio().pegaNome()}</td>
+                                    <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ida=${c.idTermoAditivo}&ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
+                                </tr>   
+                            </c:forEach>
+                        </c:forEach>
+                    </table>
+                </div>
             </div>
 
-            <div class="container" id="tabela" style="display: ${not empty termoAtivo ? 'block' : 'none' }">
-                <table class = "table table">
-                    <thead>		
-                        <tr>
-                            <th><fmt:message key = "br.cefetrj.sisgee.resources.form.visualizar"/></th>
-                            <th><fmt:message key = "br.cefetrj.sisgee.resources.form.dataRegistro"/></th>
-                            <th><fmt:message key = "br.cefetrj.sisgee.resources.form.cnpj"/></th>
-                            <th><fmt:message key = "br.cefetrj.sisgee.resources.form.razaoSocial"/></th>
-                        </tr>
-                    </thead>			
-                    <tbody>
-                        <c:url value = "/VerTermoServlet" var = "verTermoUrl" scope = "page">
-                            <c:param name="idTermoAtivo" value = "${termoAtivo.idTermoEstagio}"/>  
-                        </c:url>
-                        <tr>
-                            <td><a href = "${verTermoUrl}" ><fmt:message key = "br.cefetrj.sisgee.resources.form.termo"/></a></td>
-                            <td>
-                                <fmt:formatDate type="date" dateStyle="short" value="${ termoAtivo.dataInicioTermoEstagio }"/></td>	
-                            <td> ${ termoAtivo.convenio.empresa.cnpjEmpresaFormatado }</td>
-                            <td> ${ termoAtivo.convenio.empresa.nomeEmpresa }</td>						
-                        </tr>
-                        <c:forEach items = "${termosAditivos}" var = "termoAditivo">
-                            <c:url value = "/VerTermoAditivoServlet" var = "verTermoAditivoUrl" scope = "page">
-                                <c:param name="idTermoAditivo" value = "${termoAditivo.idTermoAditivo}"/>  
-                            </c:url>
-                            <tr>
-                                <td><a href = "${verTermoAditivoUrl}" ><fmt:message key = "br.cefetrj.sisgee.resources.form.aditivo"/></a></td>
-                                <td>
-                                    <fmt:formatDate type="date" dateStyle="short" value="${ termoAditivo.termoEstagio.dataInicioTermoEstagio }"/>
-                                </td>	
-                                <td> ${ termoAditivo.termoEstagio.convenio.empresa.cnpjEmpresa }</td>
-                                <td> ${ termoAditivo.termoEstagio.convenio.empresa.nomeEmpresa }</td>						
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+            <div class="container">                
+                <form action="TermoAditivoServlet" method="post">
+
+                    <br>
+
+                    <div class="mx-auto" style="width: 500px;">
+                        <div class="row">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" id="vigencia" name="alvigencia"  value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.vigenciaEstagio"/>
+                                    <input type="hidden" name="alvigencia" value=${alvigencia}>
+                                </label>
+                            </div>
+
+                            <div class="mx-auto" style="width: 200px;">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" id="enderecoTermoEstagio" name="alendereco" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.endereco"/>
+                                        <input type="hidden" name="alendereco" value=${alendereco}>
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="mx-auto" style="width: 500px;">
+                        <div class="row">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" id="cargaHorariaTermoEstagio" name="alcargaHoraria" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.cargaHorariaAluno"/>
+                                    <input type="hidden" name="alcargaHoraria" value=${alcargaHoraria}>
+                                </label>
+                            </div>
+
+                            <div class="mx-auto" style="width: 200px;">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" id="professorOrientador" name="alprofessor" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/>
+                                        <input type="hidden" name="alprofessor" value=${alprofessor}>
+                                    </label>
+                                </div>
+                            </div>				
+                        </div>
+                    </div>
+
+                    <div class="mx-auto" style="width: 500px;">
+                        <div class="row">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" id="alsupervisor" name="alsupervisor" value="sim"><fmt:message key="br.cefetrj.sisgee.24" />
+                                    <input type="hidden" name="alsupervisor" value=${alsupervisor}>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" id="valorBolsa" name="alvalor" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.valorBolsaEstagio"/>
+                                    <input type="hidden" name="alvalor" value=${alvalor}>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>			
+                    <br>			
+                    <input type="hidden" name="idAlunoAdt" value="${param.matricula}">
+
+
+                    <button type="submit" id="btnNovoAditivo" class="btn btn-secondary" ${ empty param.nome ? 'disabled' : '' }><fmt:message key = "br.cefetrj.sisgee.resources.form.novo_aditivo"/></button>
+                    <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'"><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>			
+                </form>
+                    
+            </c:if>
+                
 
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel"></h5>
+                            <h5 class="modal-title" id="myModalLabel"><fmt:message key = "br.cefetrj.sisgee.resources.form_termo_rescisao.registro_termo"/></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body"></div>
+                            <div class="modal-body">
+                                <form action="FormTermoRescisaoServlet" method="post">
+                                    <input type="hidden" id="idAluno" name="idAluno" value="${ param.idAluno }">
+                                        <div class="container">
+                                            <div class="col-xs-1" align="center">
+                                                <label for="dataRescisao"><fmt:message key = "br.cefetrj.sisgee.resources.form_termo_rescisao.data_rescisao"/></label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control ${ not empty dataTermoRescisaoMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataRescisao"  name="dataTermoRescisao" value="${ param.dataRescisao }" >
+                                                    <c:if test="${ not empty dataTermoRescisaoMsg }">
+                                                        <div class="invalid-feedback">${ dataTermoRescisaoMsg }</div>
+                                                    </c:if>
+                                                </div>
+                                            </div>					
+                                        </div>
+                                        <button type="submit" class="btn btn-primary"> <fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_salvar"/></button>
+                                        <!--<button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'form_termo_aditivo.jsp'"><i class="far fa-times-circle"></i> <fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_cancelar"/></button>-->		
+                                </form>                                   
+                            </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal"><fmt:message key = "br.cefetrj.sisgee.resources.form.fechar"/></button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="modal fade" id="novoAditivoModal" tabindex="-1" role="dialog" aria-labelledby="novoAditivoModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="novoAditivoModalLabel"><fmt:message key = "br.cefetrj.sisgee.resources.form.selecione_alteracoes_aditivo"/>:</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="container" style="margin-top: 0px" name="novoAditivoForm" action="TermoAditivoServlet" method="post" >
-                                <table border="0">
-                                    <tr>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="vigencia" name="vigencia"  value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.vigenciaEstagio"/>
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="enderecoTermoEstagio" name="endereco" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.endereco"/>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="cargaHorariaTermoEstagio" name="cargaHoraria" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.cargaHorariaAluno"/>
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="professorOrientador" name="professor" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="valorBolsa" name="valor" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.valorBolsaEstagio"/>
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                </table>
-                                <input type="hidden" id="idAlunoAdt" name="idAlunoAdt" value="" />
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="btnAbrirNovoAditivo" class="btn btn-primary" onclick="document.forms['novoAditivoForm'].submit();"><fmt:message key = "br.cefetrj.sisgee.resources.form.preencher_aditivo"/></button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key = "br.cefetrj.sisgee.resources.form.fechar"/></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+                      
+                        
+                        
+                        
+                     
+                        
+                        
+                        
+                        
+                        
         </div>
         <%@include file="import_footer.jspf"%>
         <%@include file="import_finalbodyscripts.jspf"%>
         <script type="text/javascript">
-            function showMessage(title, msg) {
-                $("#myModalLabel").html(title);
-                $(".modal-body").html(msg);
-                $('#myModal').modal('show');
-            }
             function hablitarButoes() {
-                $("#btnListarAditivo").prop("disabled", false);
-                $("#btnListarAditivo").removeClass("btn-secondary");
-                $("#btnListarAditivo").addClass("btn-primary");
-
                 $("#btnNovoAditivo").prop("disabled", false);
                 $("#btnNovoAditivo").removeClass("btn-secondary");
                 $("#btnNovoAditivo").addClass("btn-primary");
-                
-                $("#btnRescisao").prop("disabled", false);
-                $("#btnRescisao").removeClass("btn-secondary");
-                $("#btnRescisao").addClass("btn-primary");
-            }
-            function desablitarButoes() {
-                $("#btnListarAditivo").prop("disabled", true);
-                $("#btnListarAditivo").removeClass("btn-primary");
-                $("#btnListarAditivo").addClass("btn-secondary");
 
-                $("#btnNovoAditivo").prop("disabled", true);
-                $("#btnNovoAditivo").removeClass("btn-primary");
-                $("#btnNovoAditivo").addClass("btn-secondary");
-                
-                $("#btnRescisao").prop("disabled", true);
-                $("#btnRescisao").removeClass("btn-primary");
-                $("#btnRescisao").addClass("btn-secondary");
-                
-            }
-            function esconderTabela(){
-                $("#tabela").css("display", "none");
+                $("#btnListarAditivo").prop("disabled", false);
+                $("#btnListarAditivo").removeClass("btn-secondary");
+                $("#btnListarAditivo").addClass("btn-primary");
             }
             var buscarAlunoCallback = function myCallback(json) {
                 if (json != null) {
-                    if (json.idAluno != null && json.idAluno != "") {
-                        if (json.idTermoEstagioAtivo != null && json.idTermoEstagioAtivo != "") {
-                            //tem termo de estágio, ativa os botões
-                            hablitarButoes();
-                        } else {
-                            desablitarButoes();
-                            esconderTabela();
-                            titulo = '<fmt:message key = "br.cefetrj.sisgee.resources.form.termo_nao_encontrado_titulo"/>';
-                            msg = '<fmt:message key = "br.cefetrj.sisgee.resources.form.termo_nao_encontrado_msg"/>';
-                            //não tem termo de estágio
-                            showMessage(titulo, msg);
-                        }
+                    if (json.idTermoEstagioAtivo != null && json.idTermoEstagioAtivo != "") {
+                        //atribui o id do termo de estágio para o campo hidden
+
+                        //tem termo de estágio, ativa os botões
+                        hablitarButoes();
                     } else {
-                        desablitarButoes();
-                        titulo = '<fmt:message key = "br.cefetrj.sisgee.resources.form.aluno_nao_encontrado_titulo"/>';
-                        msg = '<fmt:message key = "br.cefetrj.sisgee.resources.form.aluno_nao_encontrado_msg"/>';
-                        showMessage(titulo, msg);
+                        //não tem termo de estágio
                     }
                 }
-            }
-
-            function abrirModalAditivo() {
-                $('#novoAditivoModal').modal('show');
             }
         </script>
         <%@include file="import_scripts.jspf"%>
@@ -231,14 +244,15 @@
                 $(".form-check-input").change(function () {
                     $('#idAlunoAdt').val($("#idAluno").val());
                 });
-                
-                <c:if test="${not empty termoAtivo.idTermoEstagio}">
-                    hablitarButoes();
-                </c:if>
-                
-                
-            });
 
+                if ($("#idAluno").val() != "") {
+
+                }
+            });
+            
+            function termoAditivo(){
+                document.getElementById("termoAditivo").value = "sim";
+            }
         </script>
 
     </body>

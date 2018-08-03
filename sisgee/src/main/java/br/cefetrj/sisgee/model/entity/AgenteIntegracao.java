@@ -1,7 +1,6 @@
 package br.cefetrj.sisgee.model.entity;
 
 import java.util.List;
-import javax.json.bind.annotation.JsonbTransient;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
+ * 
+ * 
+ * EXCLUIR
  * 
  * @author Paulo Cantuária
  * @since 1.0
@@ -28,7 +30,7 @@ public class AgenteIntegracao {
 	@Column(length=100, nullable=false)
 	private String nomeAgenteIntegracao;
 	
-	@JsonbTransient
+	
 	@OneToMany(mappedBy="agenteIntegracao")
 	private List<Empresa> empresas;
 		

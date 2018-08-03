@@ -42,7 +42,7 @@ public class BuscaEmpresaServlet extends HttpServlet {
 		Empresa empresa = EmpresaServices.buscarEmpresaByCnpj(cnpjEmpresa.trim());
 		if(empresa != null) {
 			idEmpresa = Integer.toString(empresa.getIdEmpresa());
-			nomeEmpresa = empresa.getNomeEmpresa();
+			nomeEmpresa = empresa.getRazaoSocial();
 		}
 		
 		//JSON

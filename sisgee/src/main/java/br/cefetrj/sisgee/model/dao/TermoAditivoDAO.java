@@ -14,10 +14,11 @@ import javax.persistence.Query;
  *
  */
 public class TermoAditivoDAO {
-	
+    
+
 	public List<Object[]> buscarFiltrado(Boolean obrigatorio , Date inicio, Date termino){
 
-		
+            
 		EntityManagerFactory factory =
 				Persistence.createEntityManagerFactory("sisgeePU");
 		EntityManager manager = factory.createEntityManager();
@@ -48,7 +49,7 @@ public class TermoAditivoDAO {
 		factory.close();
 		 return  authors;
 	}
-	
+
 	public List<Object[]> buscarFiltrado( Date inicio, Date termino){
 		
 		System.out.println("test 56");

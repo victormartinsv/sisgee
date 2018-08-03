@@ -18,7 +18,11 @@
 				${ msg }
 			</div>
 		</c:if>
-
+		<c:if test="${ not empty msg2 }">
+			<div class="alert alert-warning" role="alert">
+				${ msg2 }
+			</div>
+		</c:if>
 		<p class="tituloForm">
 		<h5>
 			<fmt:message key = "br.cefetrj.sisgee.resources.form_termo_rescisao.registro_termo"/>
@@ -37,8 +41,6 @@
 				
 				<div class="form-row">
 					<div class="form-group col-md-4">
-
-
 						<label for="dataRescisao"><fmt:message key = "br.cefetrj.sisgee.resources.form_termo_rescisao.data_rescisao"/></label>
 						<input type="text" class="form-control ${ not empty dataTermoRescisaoMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataRescisao"  name="dataTermoRescisao" value="${ param.dataRescisao }" >
 					<c:if test="${ not empty dataTermoRescisaoMsg }">
@@ -48,8 +50,8 @@
 				</div>
 			</fieldset>
 		
-			<button type="submit" class="btn btn-primary">Salvar</button>
-			<button type="button" class="btn btn-secondary">Cancelar</button>			
+			<button type="submit" class="btn btn-primary"> <fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_salvar"/></button>
+			<button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'form_termo_aditivo.jsp'"><i class="far fa-times-circle"></i> <fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_cancelar"/></button>			
 		</form>
 		
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

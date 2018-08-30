@@ -70,7 +70,9 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
 		
                 if (termoEstagios != null) {
                   //request.setAttribute("termosAditivos",TermoAditivoServices.listarTermoAditivo());
-                    request.setAttribute("termosAditivos", aluno.getTermoEstagios().get(aluno.getTermoEstagios().size()-1).getTermosAditivos());
+                  if(aluno.getTermoEstagios().size() > 0){
+                      request.setAttribute("termosAditivos", aluno.getTermoEstagios().get(aluno.getTermoEstagios().size()-1).getTermosAditivos());
+                  }
                 }
 		
                 request.setAttribute("listaTermoEstagio", aluno.getTermoEstagios());

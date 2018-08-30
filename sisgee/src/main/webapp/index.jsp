@@ -5,9 +5,7 @@
         <title><fmt:message key = "br.cefetrj.sisgee.resources.form.sisgee"/></title>
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" >
         <link rel="stylesheet" href="node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" >
-        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" ></script>
-        <script src="node_modules/jquery/dist/jquery.min.js" ></script>
-
+        
 
     </head>
     <body  onunload="window.opener.atualizaAgenteIntegracao()" >

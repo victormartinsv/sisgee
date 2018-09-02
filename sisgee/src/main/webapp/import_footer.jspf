@@ -4,10 +4,10 @@
 	<div class="alert alert-info" role="alert">
 		<div class="container">
 			<span class="text-muted">
-			<fmt:message key = "br.cefetrj.sisgee.resources.form.desenvolvimentoTrabalho"/>
-			<fmt:message key = "br.cefetrj.sisgee.resources.form.integrantesTrabalho"/><br>
-			<fmt:message key = "br.cefetrj.sisgee.resources.form.diogoMendonca"/>
-			</span>
+			<fmt:message key = "br.cefetrj.sisgee.resources.form.desenvolvimentoTrabalho"/><br>
+			<fmt:message key = "br.cefetrj.sisgee.resources.form.diogoMendonca"/><br>
+                        <fmt:message key = "br.cefetrj.sisgee.resources.form.integrantesTrabalho"/><br>
+                        </span>
 		</div>
 	</div>
 </footer>

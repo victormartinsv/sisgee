@@ -29,7 +29,7 @@ public class PrincipalMatricula {
         int cont = 0;
 
         try{
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\c18634659798\\Downloads\\matriculas_alunos.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\09513592740\\OneDrive\\Documentos\\CEFET\\Sistemas\\Diemp_dados_migracao\\matriculas_alunos.csv"));
             while(br.ready()){   
                 Matricula m= new Matricula();
                 String linha = br.readLine();

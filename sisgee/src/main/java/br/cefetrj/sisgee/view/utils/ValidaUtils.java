@@ -138,13 +138,14 @@ public class ValidaUtils {
     /**
      * Método para validar campo Matricula por tamanho
      *
-     * @param tamanho tamanho do campo.
+     * @param tamanhoMin tamanho mínimo do campo.
+     * * @param tamanhoMax tamanho máximo do campo.
      * @param param valor do texto a ser testado.
      * @return String com mensagem de erro ou vazia
      */
-    public static String validaTamanhoMatricula(int tamanho, String param) {
+    public static String validaTamanhoMatricula(int tamanhoMin, int tamanhoMax, String param) {
         String msg = "";
-        if (param != null && (param.length() < tamanho || param.length() > tamanho)) {
+        if (param != null && (param.length() < tamanhoMin || param.length() > tamanhoMax)) {
             msg = "br.cefetrj.sisgee.resources.form.matricula_aluno_tam";
         }
         return msg;

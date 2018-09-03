@@ -56,14 +56,15 @@ public class BuscaAlunoServlet extends HttpServlet {
                 String idTermoEstagioAtivo = "";
                 String tipoAluno = "";
                 String alunoMsg1 = "", alunoMsg2 = "", alunoMsg3 = "", alunoMsg4 = "", alunoMsg5 = "";
-                int tamanho = 10;
+                int tamanhoMin = 10;
+                int tamanhoMax = 13;
                 termoAditivo = request.getParameter("termoAditivo");
                                 
                 Locale locale = ServletUtils.getLocale(request);
                 ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
                 final Calendar cal = Calendar.getInstance();
                 
-                alunoMsg1 = ValidaUtils.validaTamanhoMatricula(tamanho, matricula);
+                alunoMsg1 = ValidaUtils.validaTamanhoMatricula(tamanhoMin, tamanhoMax, matricula);
                 
                 if(alunoMsg1.isEmpty() || alunoMsg1 == null ){
 

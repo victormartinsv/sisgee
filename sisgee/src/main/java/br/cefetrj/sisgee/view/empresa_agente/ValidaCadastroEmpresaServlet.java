@@ -218,8 +218,16 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                     if (telefoneEmpresaMsg.trim().isEmpty()) {
                         telefoneEmpresaMsg = ValidaUtils.validaTelefone("telefoneEmpresa", telefoneEmpresa);
                         if (telefoneEmpresaMsg.trim().isEmpty()) {
-                            request.setAttribute("telefoneEmpresa", telefoneEmpresa);
-                        } else {
+                            //Alterações, nova condição
+                            telefoneEmpresaMsg = ValidaUtils.validaNumeroDDD("telefoneEmpresa", telefoneEmpresa);
+                            if (telefoneEmpresaMsg.trim().isEmpty()) {
+                                 request.setAttribute("telefoneEmpresa", telefoneEmpresa);
+                            }else {
+                                telefoneEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                                request.setAttribute("telefoneEmpresaMsg", telefoneEmpresaMsg);
+                                isValid = false;
+                            }
+                        }else {
                             telefoneEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                             request.setAttribute("telefoneEmpresaMsg", telefoneEmpresaMsg);
                             isValid = false;

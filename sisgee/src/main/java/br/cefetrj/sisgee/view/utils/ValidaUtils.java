@@ -134,7 +134,20 @@ public class ValidaUtils {
         }
         return msg;
     }
-
+    /**
+     * Método para validar se o DDD e o primeiro número do telefone estão de acordo com o padrão brasileiro
+     *
+     * @param nomeCampo texto com o nome do campo.
+     * @param param com o valor a ser testado
+     * @return String com mensagem de erro ou vazia
+     */
+    public static String validaNumeroDDD(String nomeCampo, String param) {
+        String msg = "";
+        if (!param.matches("(10)|([1-9][1-9])[2-9]\\d{3,4}\\d{4}")) {
+            msg = "br.cefetrj.sisgee.valida_utils.msg_valida_ddd";
+        }
+        return msg;
+    }
     /**
      * Método para validar campo Matricula por tamanho
      *

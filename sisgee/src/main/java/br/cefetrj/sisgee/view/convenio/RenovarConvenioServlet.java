@@ -50,12 +50,16 @@ public class RenovarConvenioServlet extends HttpServlet {
             }
             req.setAttribute("cnpj", convenio.getEmpresa().getCnpjEmpresa());
             req.setAttribute("razao", convenio.getEmpresa().getRazaoSocial());
-            
+            req.setAttribute("emailEmpresa", convenio.getEmpresa().getEmailEmpresa());
+            req.setAttribute("telefoneEmpresa", convenio.getEmpresa().getTelefoneEmpresa());
+            req.setAttribute("contatoEmpresa", convenio.getEmpresa().getContatoEmpresa());
                
         }else{
             req.setAttribute("isPessoa", "sim");
             req.setAttribute("cpf", convenio.getPessoa().getCpf());
             req.setAttribute("nome", convenio.getPessoa().getNome());
+            req.setAttribute("emailPessoa", convenio.getPessoa().getEmail());
+            req.setAttribute("telefonePessoa", convenio.getPessoa().getTelefone());
             
         }
         req.getSession().setAttribute("numero", numeroConvenio);

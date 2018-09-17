@@ -560,17 +560,29 @@ public class FormTermoEstagioServlet extends HttpServlet {
         String agenciadaMsg = "";
         campo = "agenciada";
         tamanho = 255;
-
-        agenciadaMsg = ValidaUtils.validaTamanho(campo, tamanho, nomeAgenciada);
-        if (agenciadaMsg.trim().isEmpty()) {
-            request.setAttribute("nomeAgenciada", nomeAgenciada);
-        } else {
-            agenciadaMsg = messages.getString(agenciadaMsg);
-            agenciadaMsg = ServletUtils.mensagemFormatada(agenciadaMsg, locale, tamanho);
-            request.setAttribute("nomeAgenciada", nomeAgenciada);
-            isValid = false;
-            //TODO Fazer log
-            System.out.println("agenciada " + agenciadaMsg);
+        if(!nomeAgenciada.trim().equals("")){
+            if(isAgenteIntegracao.equalsIgnoreCase("SIM")){
+                agenciadaMsg = ValidaUtils.validaTamanho(campo, tamanho, nomeAgenciada);
+                if (agenciadaMsg.trim().isEmpty()) {
+                    request.setAttribute("nomeAgenciada", nomeAgenciada);
+                } else {
+                    agenciadaMsg = messages.getString(agenciadaMsg);
+                    agenciadaMsg = ServletUtils.mensagemFormatada(agenciadaMsg, locale, tamanho);
+                    request.setAttribute("agenciadaMsg", agenciadaMsg);
+                    isValid = false;
+                    //TODO Fazer log
+                    System.out.println("agenciada " + agenciadaMsg);
+                }
+            }else {        
+                agenciadaMsg= "Empresa não é agente de integração";
+                request.setAttribute("agenciadaMsg", agenciadaMsg);
+                isValid = false;
+                //TODO Fazer log
+                System.out.println("agenciada " + agenciadaMsg);
+            }
+        }else{
+            agenciadaMsg= "";
+            request.setAttribute("agenciadaMsg", agenciadaMsg);
         }
 
         /**

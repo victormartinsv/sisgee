@@ -251,9 +251,15 @@
                         <div class="form-group col-md-2">
                             <label for="estadoEnderecoTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.estado"/></label>
                             <select name = "estadoEnderecoTermoEstagio" id="estadoEnderecoTermoEstagio" class="form-control ${ not empty estadoEnderecoMsg ? 'is-invalid': not empty estadoEnderecoMsg ? 'is-invalid' : 'is-valid' }">
-                                <option value="" selected>---</option>
+                                <option value="" >---</option>
                                 <c:forEach items="${ uf }" var="uf">
-                                    <option value="${ uf }">${ uf }</option>
+                                    <c:if test="${estadoEnderecoTermoEstagio eq uf}">
+                                        <option value="${ uf }" selected>${ uf }</option>
+                                    </c:if>
+                                    <c:if test="${estadoEnderecoTermoEstagio != uf}">
+                                          <option value="${ uf }">${ uf }</option>
+                                    </c:if>      
+                                    
                                 </c:forEach>							
                             </select>
                             <c:if test="${ not empty estadoEnderecoMsg }">
@@ -310,11 +316,16 @@
                 <fieldset ${ isVisualizacao eq true ? 'disabled' :'' }>
                     <div class="form-group col-md-8">
                         <label for="idProfessorOrientador"><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/></label>
-                        <select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control ${ not empty idProfessorMsg ? 'is-invalid': not empty idProfessorMsg ? 'is-invalid' : 'is-valid' }" ${ empty termoEstagio ? '' : empty updProfessor ? 'disabled' : '' }>
-                            <option value="" selected>---</option>
+                        <select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control ${ not empty idProfessorMsg ? 'is-invalid': not empty idProfessorMsg ? 'is-invalid' : 'is-valid' }" >
+                            <option value="">---</option>
                             <c:forEach items="${ professores }" var="professor">
-                                <option value="${ professor.idProfessorOrientador }">${ professor.nomeProfessorOrientador }</option>
-                            </c:forEach>					
+                                <c:if test="${professor.idProfessorOrientador eq idProfessor}">
+                                    <option value="${ professor.idProfessorOrientador }" selected> ${ professor.nomeProfessorOrientador }</option>
+                                </c:if>
+                                <c:if test="${idProfessor != professor.idProfessorOrientador}">
+                                    <option value="${ professor.idProfessorOrientador }"> ${ professor.nomeProfessorOrientador }</option>
+                                </c:if>       
+                            </c:forEach>				
                         </select>
                         <c:if test="${ not empty idProfessorMsg }">
                             <div class="invalid-feedback">${ idProfessorMsg }</div>

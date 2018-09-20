@@ -196,6 +196,7 @@ public class TermoEstagio {
                     a=format.format(termosAditivo.getDataFimTermoAditivo());
                 }
                 if(ad!=null && ad.equals(termosAditivo)){
+                    pegou = true;
                     break;
                 }
             }

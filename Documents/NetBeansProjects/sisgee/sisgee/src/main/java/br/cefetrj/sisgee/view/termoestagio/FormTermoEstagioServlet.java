@@ -581,7 +581,6 @@ public class FormTermoEstagioServlet extends HttpServlet {
                 System.out.println("agenciada " + agenciadaMsg);
             }
         }else{
-            agenciadaMsg= "";
             request.setAttribute("agenciadaMsg", agenciadaMsg);
         }
 
@@ -639,6 +638,8 @@ public class FormTermoEstagioServlet extends HttpServlet {
         Boolean alunoExiste = false;
         String idAlunoMsg = "";
         campo = "Aluno";
+        Aluno aluno2 = AlunoServices.buscarAlunoByMatricula(request.getParameter("matricula").trim());
+        idAluno=Integer.toString(aluno2.getIdAluno());
         idAlunoMsg = ValidaUtils.validaObrigatorio(campo, idAluno);
         if (idAlunoMsg.trim().isEmpty()) {
             idAlunoMsg = ValidaUtils.validaInteger(campo, idAluno);

@@ -90,7 +90,23 @@
                                 <div class="invalid-feedback">${ nomeEmpresaMsg }</div>
                             </c:if>
                         </div>
+                       
+                        <div class="form-group col-md-6">
+                            <label for="numeroConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.numeroConvenio"/></label>
+                            <input type="text" readonly class="form-control ${ not empty numeroConvenioMsg ? 'is-invalid': '' }" id="numeroConvenio" name="numeroConvenio"  maxlength="6" value="${  not empty numeroConvenio ? numeroConvenio : '' }">
+                            <c:if test="${ not empty numeroConvenioMsg }">
+                                <div class="invalid-feedback">${ numeroConvenioMsg }</div>
+                            </c:if>
+                        </div>
 
+                        <div class="form-group col-md-6">
+                            <label for="dataFinalConvenio">Vigência</label>
+                            <input type="text" readonly class=" form-control col-sm-4 ${ not empty dataFinalMsg ? 'is-invalid': '' }" id="dataFinal"  name="dataFinal" value="${  not empty dataFinal ? dataFinal : ''}" >
+                            <c:if test="${ not empty dataFinalMsg }">
+                                <div class="invalid-feedback">${ dataFinalMsg }</div>
+                            </c:if>
+                        </div>
+                                
                         <div class="form-group col-md-6">
 
                             <label for="dataAssinaturaConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.dataAssinatura"/></label>
@@ -143,6 +159,23 @@
                                 <div class="invalid-feedback">${ nomePessoaMsg }</div>
                             </c:if>
                         </div>
+                            
+                            <div class="form-group col-md-6">
+                                <label for="numeroConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.numeroConvenio"/></label>
+                                <input type="text" readonly class= "form-control ${ not empty numeroConvenioMsg ? 'is-invalid': '' }" id="numeroConvenio" name="numeroConvenio"  maxlength="6" value="${  not empty numeroConvenio ? numeroConvenio : '' }">
+                                <c:if test="${ not empty numeroConvenioMsg }">
+                                    <div class="invalid-feedback">${ numeroConvenioMsg }</div>
+                                </c:if>
+                            </div>
+                                
+                         <div class="form-group col-md-6">
+                            <label for="dataFinalConvenio">Vigência</label>
+                            <input type="text" readonly class=" form-control col-sm-4 ${ not empty dataFinalMsg ? 'is-invalid': '' }" id="dataFinal"  name="dataFinal" value="${  not empty dataFinal ? dataFinal : ''}" >
+                            <c:if test="${ not empty dataFinalMsg }">
+                                <div class="invalid-feedback">${ dataFinalMsg }</div>
+                            </c:if>
+                        </div>
+                            
                         <div class="form-group col-md-6">
 
                             <label for="dataAssinaturaConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.dataAssinatura"/></label>

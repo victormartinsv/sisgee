@@ -8,6 +8,8 @@ package br.cefetrj.sisgee.view.convenio;
 import br.cefetrj.sisgee.control.ConvenioServices;
 import br.cefetrj.sisgee.model.entity.Convenio;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,16 +52,24 @@ public class RenovarConvenioServlet extends HttpServlet {
             }
             req.setAttribute("cnpj", convenio.getEmpresa().getCnpjEmpresa());
             req.setAttribute("razao", convenio.getEmpresa().getRazaoSocial());
+            req.setAttribute("numeroConvenio", numeroConvenio);
             req.setAttribute("emailEmpresa", convenio.getEmpresa().getEmailEmpresa());
             req.setAttribute("telefoneEmpresa", convenio.getEmpresa().getTelefoneEmpresa());
             req.setAttribute("contatoEmpresa", convenio.getEmpresa().getContatoEmpresa());
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            final String dataFormatada = df.format(convenio.getDataFinal());
+            req.setAttribute("dataFinal", dataFormatada);
                
         }else{
             req.setAttribute("isPessoa", "sim");
             req.setAttribute("cpf", convenio.getPessoa().getCpf());
             req.setAttribute("nome", convenio.getPessoa().getNome());
+            req.setAttribute("numeroConvenio", numeroConvenio);
             req.setAttribute("emailPessoa", convenio.getPessoa().getEmail());
             req.setAttribute("telefonePessoa", convenio.getPessoa().getTelefone());
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            final String dataFormatada = df.format(convenio.getDataFinal());
+            req.setAttribute("dataFinal", dataFormatada);
             
         }
         req.getSession().setAttribute("numero", numeroConvenio);

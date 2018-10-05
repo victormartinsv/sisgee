@@ -1,8 +1,3 @@
-<%-- 
-    Document   : listar_alterar_excluir_usuario
-    Created on : 04/10/2018, 14:51:27
-    Author     : c18634659798
---%>
 
 <!DOCTYPE html>
 <html>
@@ -58,5 +53,8 @@
                 
             </form>
         </div>
+            <%@include file="import_footer.jspf"%>
+            <%@include file="import_finalbodyscripts.jspf"%>
+            <%@include file="import_scripts.jspf"%>
     </body>
 </html>

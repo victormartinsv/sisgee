@@ -1,8 +1,4 @@
-<%-- 
-    Document   : cadastrar_usuario
-    Created on : 04/10/2018, 13:30:52
-    Author     : c18634659798
---%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,15 +19,23 @@
                     </div>
                     
                     <div class="form-group col-md-6"> 
-                        <label for="nomeUsuario">Login</label>
-                        <input type="text" class="form-control is-valid " id="nomeUsuario" name="nomeUsuario" value="">
+                        <label for="loginUsuario">Login</label>
+                        <input type="text" class="form-control is-valid " id="loginUsuario" name="loginUsuario" value="">
                     </div>
                     
                     <div class="form-group col-md-6"> 
-                        <label for="nomeUsuario">Senha</label>
-                        <input type="text" class="form-control is-valid " id="nomeUsuario" name="nomeUsuario" value="">
+                        <label for="senhaUsuario">Senha</label>
+                        <input type="text" class="form-control is-valid " id="senhaUsuario" name="senhaUsuario" value="">
                     </div>
                     
+                    <div class="form-group col-md-6"> 
+                        <label for="perfilUsuario">Perfil de Acesso </label>
+                        <select name = "perfilUsuario" id="perfilUsuario" class="form-control is-valid">
+                                <option value="semAcesso"  selected>Sem acesso</option>
+                                <option value="Usuario">Usuário</option>
+                                <option value="Administrador">Administrador</option>			
+                        </select>
+                    </div>
                 </fieldset>
                 
                 <button type="submit" class="btn btn-primary" ><i class="far fa-save"></i> <fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_salvar"/></button>

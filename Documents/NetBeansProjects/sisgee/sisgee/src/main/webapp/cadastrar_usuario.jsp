@@ -8,32 +8,48 @@
     <body style="font-family: 'Roboto Slab', Helvetica">
         <%@include file="import_navbar.jspf"%>
         <div class="container"> 
+            <c:if test="${ not empty msg }">
+                <div class="alert alert-warning" role="alert">
+                    ${ msg }
+                </div>
+            </c:if>
+
             <p class="tituloForm">
             <h5 class="offset-5">Cadastro do Usuário</h5>	
-            <form id="meuForm"> 
+            
+            <form  method="Post" action = "UsuarioValidaServlet"> 
                 <fieldset class="form-group ">
                     
                     <div class="form-group col-md-6"> 
                         <label for="nomeUsuario"><br>Nome</label>
-                        <input type="text" class="form-control is-valid " id="nomeUsuario" name="nomeUsuario" value="">
+                        <input type="text" class="form-control ${ not empty nomeUsuarioMsg ? 'is-invalid': 'is-valid' } " id="nomeUsuario" name="nomeUsuario" value="${ param.nomeUsuario}">
+                        <c:if test="${ not empty nomeUsuarioMsg }">
+                            <div class="invalid-feedback">${ nomeUsuarioMsg }</div>
+                        </c:if>
                     </div>
                     
                     <div class="form-group col-md-6"> 
                         <label for="loginUsuario">Login</label>
-                        <input type="text" class="form-control is-valid " id="loginUsuario" name="loginUsuario" value="">
+                        <input type="text" class="form-control ${ not empty loginUsuarioMsg ? 'is-invalid': 'is-valid' }" id="loginUsuario" name="loginUsuario" value="${ param.loginUsuario}">
+                        <c:if test="${ not empty loginUsuarioMsg }">
+                            <div class="invalid-feedback">${ loginUsuarioMsg }</div>
+                        </c:if>
                     </div>
                     
                     <div class="form-group col-md-6"> 
                         <label for="senhaUsuario">Senha</label>
-                        <input type="text" class="form-control is-valid " id="senhaUsuario" name="senhaUsuario" value="">
+                        <input type="password" class="form-control ${ not empty senhaUsuarioMsg ? 'is-invalid': 'is-valid' } " id="senhaUsuario" name="senhaUsuario" value="${ param.senhaUsuario}">
+                        <c:if test="${ not empty senhaUsuarioMsg }">
+                            <div class="invalid-feedback">${ senhaUsuarioMsg }</div>
+                        </c:if>
                     </div>
                     
                     <div class="form-group col-md-6"> 
                         <label for="perfilUsuario">Perfil de Acesso </label>
                         <select name = "perfilUsuario" id="perfilUsuario" class="form-control is-valid">
-                                <option value="semAcesso"  selected>Sem acesso</option>
-                                <option value="Usuario">Usuário</option>
-                                <option value="Administrador">Administrador</option>			
+                                <option value="semAcesso" ${ perfilUsuario eq "semAcesso" ? "selected" : ""} >Sem acesso</option>
+                                <option value="Usuario" ${ perfilUsuario eq "Usuario" ? "selected" : ""}>Usuário</option>
+                                <option value="Administrador" ${ perfilUsuario eq "Administrador" ? "selected" : ""} >Administrador</option>			
                         </select>
                     </div>
                 </fieldset>

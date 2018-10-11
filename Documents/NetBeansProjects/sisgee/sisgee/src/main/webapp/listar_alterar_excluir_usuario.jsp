@@ -17,11 +17,16 @@
     <body>
          <%@include file="import_navbar.jspf"%>
          <div class="container">
+            <c:if test="${ not empty msg }">
+                <div class="alert alert-warning" role="alert">
+                    ${ msg }
+                </div>
+            </c:if>
              <p class="tituloForm">
             <h5>		
                 Alterar Usuários
             </h5>
-            <form >
+            <form action=BuscaTermoAditivoServlet method="post">
                 <fieldset class="form-group dadosAluno" >
                     
                     <div class="container">					
@@ -34,6 +39,7 @@
                                     <span class="input-group-btn"> 
                                         <button class="btn btn-primary" type="button" id="btnBuscarMatricula"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
                                     </span>
+                                    <input type="hidden" id="idUsuario" name="idUsuario" value="${ param.idUsuario }">
                                 </div>	
                                     
                             </div>
@@ -43,8 +49,8 @@
                             </div>
                         </div>
                             
-                        <button  type="button" class="btn btn-primary" >Listar Usuários</button>
-                         <button  type="submit" class="btn btn-primary">Alterar Dados</button>
+                        <button  type="button" class="btn btn-primary" name="listarUsers">Listar Usuários</button>
+                        <button  type="submit" class="btn btn-primary">Alterar Dados</button>
                         <a  class="btn btn-primary" data-toggle="modal" data-target="#myModal">Excluir Usuário</a>
                         <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'" ><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
                     </div>				
@@ -52,6 +58,27 @@
                 </fieldset>
                 
             </form>
+            <c:if test="${not empty listaUsuarios}">     
+                <div class="container">
+                    <div class="table-responsive">
+                        <table class="table table-info table-bordered container table-hover table-striped">
+                            <tr>
+                                <th width="40%">Nome</th>
+                                <th width="30%">Login</th>
+                                <th width="30%">Perfil de Acesso</th>         
+                            </tr>
+
+                            <c:forEach items="${listaUsuarios}" var="u">
+                                <tr>
+                                    <td>${u.getNome()}</td>
+                                    <td>${u.getLogin()}</td>
+                                    <td>${u.getPerfilAcesso()}</td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
+                </div>
+            </c:if>
         </div>
             <%@include file="import_footer.jspf"%>
             <%@include file="import_finalbodyscripts.jspf"%>

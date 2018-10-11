@@ -42,11 +42,18 @@ public class UsuarioValidaServlet extends HttpServlet {
         if(nomeUsuarioMsg.trim().isEmpty()){
             nomeUsuarioMsg=ValidaUtils.validaTamanho("nomeUsuario", 100, nomeUsuario);
             if(nomeUsuarioMsg.trim().isEmpty()){
-                request.setAttribute("nomeUsuario", nomeUsuario);
+                nomeUsuarioMsg = ValidaUtils.validaSomenteLetras("nomeUsuario", nomeUsuario);
+                if (nomeUsuarioMsg.trim().isEmpty()) {
+                        request.setAttribute("nomeUsuario", nomeUsuario);
+                }else{
+                    nomeUsuarioMsg = messages.getString(nomeUsuarioMsg);
+                    request.setAttribute("nomeUsuarioMsg", nomeUsuarioMsg);
+                    isValid = false;
+                }
             }
             else{
                 nomeUsuarioMsg = messages.getString(nomeUsuarioMsg);
-                   // nomeEmpresaMsg = ServletUtils.mensagemFormatada(nomeEmpresaMsg, locale, tamanho);
+                nomeUsuarioMsg = ServletUtils.mensagemFormatada(nomeUsuarioMsg, locale, 100);
                 request.setAttribute("nomeUsuarioMsg", nomeUsuarioMsg);
                 isValid = false;
             }
@@ -54,7 +61,6 @@ public class UsuarioValidaServlet extends HttpServlet {
             nomeUsuarioMsg = messages.getString(nomeUsuarioMsg);
             request.setAttribute("nomeUsuarioMsg", nomeUsuarioMsg);
             isValid = false;
-            
             System.out.println(nomeUsuarioMsg);
         }
         

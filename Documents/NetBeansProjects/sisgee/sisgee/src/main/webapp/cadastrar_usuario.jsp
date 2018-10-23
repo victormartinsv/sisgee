@@ -3,7 +3,8 @@
 <html>
     <head>
         <%@include file="import_head.jspf"%>
-        <title> Cadastrar Usuário</title>
+        <title> <fmt:message key = "br.cefetrj.sisgee.cadastrar_usuario.msg_titulo"/>
+        </title>
     </head>
     <body style="font-family: 'Roboto Slab', Helvetica">
         <%@include file="import_navbar.jspf"%>
@@ -15,13 +16,13 @@
             </c:if>
 
             <p class="tituloForm">
-            <h5 class="offset-5">Cadastro do Usuário</h5>	
+            <h5 class="offset-5"><fmt:message key = "br.cefetrj.sisgee.cadastrar_usuario.msg_titulo"/></h5>	
             
             <form  method="Post" action = "UsuarioValidaServlet"> 
                 <fieldset class="form-group ">
                     
                     <div class="form-group col-md-6"> 
-                        <label for="nomeUsuario"><br>Nome</label>
+                        <label for="nomeUsuario"><br><fmt:message key="br.cefetrj.sisgee.resources.form.nome"/></label>
                         <input type="text" class="form-control ${ not empty nomeUsuarioMsg ? 'is-invalid': 'is-valid' } " id="nomeUsuario" name="nomeUsuario" value="${ param.nomeUsuario}">
                         <c:if test="${ not empty nomeUsuarioMsg }">
                             <div class="invalid-feedback">${ nomeUsuarioMsg }</div>
@@ -37,7 +38,7 @@
                     </div>
                     
                     <div class="form-group col-md-6"> 
-                        <label for="senhaUsuario">Senha</label>
+                        <label for="senhaUsuario"><fmt:message key = "br.cefetrj.sisgee.cadastrar_usuario.msg_senha"/></label>
                         <input type="password" class="form-control ${ not empty senhaUsuarioMsg ? 'is-invalid': 'is-valid' } " id="senhaUsuario" name="senhaUsuario" value="${ param.senhaUsuario}">
                         <c:if test="${ not empty senhaUsuarioMsg }">
                             <div class="invalid-feedback">${ senhaUsuarioMsg }</div>
@@ -45,11 +46,11 @@
                     </div>
                     
                     <div class="form-group col-md-6"> 
-                        <label for="perfilUsuario">Perfil de Acesso </label>
+                        <label for="perfilUsuario"><fmt:message key = "br.cefetrj.sisgee.cadastrar_usuario.msg_perfil"/> </label>
                         <select name = "perfilUsuario" id="perfilUsuario" class="form-control is-valid">
-                                <option value="semAcesso" ${ perfilUsuario eq "semAcesso" ? "selected" : ""} >Sem acesso</option>
-                                <option value="Usuario" ${ perfilUsuario eq "Usuario" ? "selected" : ""}>Usuário</option>
-                                <option value="Administrador" ${ perfilUsuario eq "Administrador" ? "selected" : ""} >Administrador</option>			
+                                <option value="semAcesso" ${ perfilUsuario eq "semAcesso" ? "selected" : ""} ><fmt:message key = "br.cefetrj.sisgee.cadastrar_usuario.msg_semAcesso"/> </option>
+                                <option value="Usuario" ${ perfilUsuario eq "Usuario" ? "selected" : ""}><fmt:message key = "br.cefetrj.sisgee.cadastrar_usuario.msg_usuario"/> </option>
+                                <option value="Administrador" ${ perfilUsuario eq "Administrador" ? "selected" : ""} ><fmt:message key = "br.cefetrj.sisgee.cadastrar_usuario.msg_administrador"/> </option>			
                         </select>
                     </div>
                 </fieldset>

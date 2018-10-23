@@ -69,14 +69,14 @@
                 <li class="nav-item dropdown ml-3">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #000000;">
-                       Usuários
+                       <fmt:message key = "br.cefetrj.sisgee.resources.form.usuarios"/> 
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">
-                            Cadastrar Usuário
+                        <a class="dropdown-item" href="cadastrar_usuario.jsp">
+                            <fmt:message key = "br.cefetrj.sisgee.resources.form.cadastrarUsuario"/> 
                         </a>
-                        <a class="dropdown-item" href="#">
-                           Listar/Alterar/Excluir Usuários
+                        <a class="dropdown-item" href="listar_alterar_excluir_usuario.jsp">
+                           <fmt:message key = "br.cefetrj.sisgee.resources.form.alterarUsuario"/> 
                         </a>
 
                     </div>

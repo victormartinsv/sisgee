@@ -7,7 +7,7 @@
         <%@include file="import_head.jspf"%>
 
         <title>
-            Cadastro de Usuário
+            <fmt:message key = "br.cefetrj.sisgee.cadastrar_usuario.msg_titulo"/>
         </title>
 
     </head>
@@ -17,7 +17,7 @@
 
                 <fieldset class="form-group col-10 offset-1 mt-5 mb-5">
                     <div class="alert alert-sucess offset-2 mt-5" style="font-family: Tajawal, Helvetica; color: #28a745; font-size: 30px; font-weight: bolder" role="alert">
-                       Cadastrado de Usuário concluído com sucesso
+                       <fmt:message key="br.cefetrj.sisgee.cadastro_usuario_sucesso.msg_sucesso" />
                     </div>
                         <div class="offset-6 mb-5" >
                             <button type="button" class="btn btn-primary " onclick="javascript:location.href = 'index.jsp'">Ok</button>

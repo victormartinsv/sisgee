@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
          <%@include file="import_head.jspf"%>
 
@@ -24,13 +23,13 @@
             </c:if>
              <p class="tituloForm">
             <h5>		
-                Alterar Usuários
+                <fmt:message key = "br.cefetrj.sisgee.resources.form.alterarUsuario"/>
             </h5>
             <form action=BuscaUsuarioServlet method="post">
                 <fieldset class="form-group dadosAluno" >
                     
                     <div class="container">					
-                        <legend class="col-form-legend col-lg">Dados do Usuário</legend>
+                        <legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.dadosUsuario"/></legend>
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="login">Login</label>
@@ -47,9 +46,9 @@
                                 <input type="text" class="form-control" id="nome" name="nome" value="${ param.nome }" readonly>
                             </div>
                         </div>   
-                        <a  class="btn btn-primary" href="ListarUsuarioServlet">Listar Usuários</a>
-                        <button  type="submit" class="btn btn-primary">Alterar Dados</button>
-                        <a id="btnExcluirUsuario" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Excluir Usuário</a>
+                        <a  class="btn btn-primary" href="ListarUsuarioServlet"><fmt:message key = "br.cefetrj.sisgee.resources.form.listarUsuarios"/></a>
+                        <button  type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.resources.form.alterarDados"/></button>
+                        <a id="btnExcluirUsuario" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><fmt:message key = "br.cefetrj.sisgee.resources.form.excluirUsuario"/></a>
                         <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'" ><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
                     </div>				
                     
@@ -61,9 +60,9 @@
                     <div class="table-responsive">
                         <table class="table table-info table-bordered container table-hover table-striped">
                             <tr>
-                                <th width="40%">Nome</th>
+                                <th width="40%"><fmt:message key = "br.cefetrj.sisgee.resources.form.nome"/></th>
                                 <th width="30%">Login</th>
-                                <th width="30%">Perfil de Acesso</th>         
+                                <th width="30%"><fmt:message key = "br.cefetrj.sisgee.cadastrar_usuario.msg_perfil"/></th>         
                             </tr>
 
                             <c:forEach items="${listaUsuarios}" var="u">
@@ -82,7 +81,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel">Excluir Usuário</h5>
+                            <h5 class="modal-title" id="myModalLabel"><fmt:message key = "br.cefetrj.sisgee.resources.form.excluirUsuario"/></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -92,12 +91,12 @@
                                 <input type="hidden" id="idAluno" name="idAluno" value="${ param.idAluno }">
 
                                         <div class="col-xs-1" align="center">
-                                            <label for="dataRescisao">Confirmar a exclusão do Usuário? </label><br><br><br>
+                                            <label for="dataRescisao"><fmt:message key = "br.cefetrj.sisgee.listar_alterar_excluir_usuario.msg_confirmarExclusao"/> </label><br><br><br>
 
                                         </div>					
 
-                                    <button type="submit" class="btn btn-primary"> Sim </button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
+                                    <button type="submit" class="btn btn-primary"> <fmt:message key = "br.cefetrj.sisgee.listar_alterar_excluir_usuario.msg_sim"/> </button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal"><fmt:message key = "br.cefetrj.sisgee.listar_alterar_excluir_usuario.msg_nao"/> </button>
                             </form>                                   
                         </div>
                     </div>

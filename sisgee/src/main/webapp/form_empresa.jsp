@@ -165,6 +165,23 @@
                             <c:if test="${ not empty telefonePessoaMsg }">
                                 <div class="invalid-feedback">${ telefonePessoaMsg }</div>
                             </c:if>
+                        
+                        </div> 
+                            <div class="form-group col-md-6">
+                            <label for="convenioAno"><fmt:message key = "br.cefetrj.sisgee.resources.form.convenio_ano"/></label>
+                            <input type="text" class="form-control ${ not empty convenioAno ? 'is-invalid': 'is-valid' }" id="convenioAno" name="convenioAno" maxlength="4"  value="${param.convenioAno}">
+                            <c:if test="${ not empty convenioAnoMsg }">
+                                <div class="invalid-feedback">${ convenioAnoMsg }</div>
+                            </c:if>
+                        </div>
+                        
+                        </div> 
+                            <div class="form-group col-md-6">
+                            <label for="convenioNumero"><fmt:message key = "br.cefetrj.sisgee.resources.form.convenio_numero"/></label>
+                            <input type="text" class="form-control ${ not empty convenioNumero ? 'is-invalid': 'is-valid' }" id="convenioNumero" name="convenioNumero" maxlength="11"  value="${param.convenioNumero}">
+                            <c:if test="${ not empty convenioNumeroMsg }">
+                                <div class="invalid-feedback">${ convenioNumeroMsg }</div>
+                            </c:if>
                         </div>
 
                     </div>

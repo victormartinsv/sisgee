@@ -39,7 +39,7 @@ public class Pessoa implements Serializable {
     @Column(length = 4)
     private String convenioAno;
     
-    @Column(length = 8)
+    @Column(length = 6)
     private String convenioNumero;
     
     @OneToOne(mappedBy = "pessoa")

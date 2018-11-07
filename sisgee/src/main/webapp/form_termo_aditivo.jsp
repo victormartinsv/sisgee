@@ -44,7 +44,7 @@
                     <div class="container">					
 
                         <button id="btnListarAditivo" type="submit" class="btn btn-primary" ><fmt:message key = "br.cefetrj.sisgee.resources.form.listarAditivos"/></button>
-                        <a id="btnListarAditivo" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><fmt:message key = "br.cefetrj.sisgee.resources.form.rescisao"/></a>
+                        <a id="btnListarAditivo" class="btn btn-primary" data-toggle="modal" data-target="#myModal"  style="color: #FFFFFF;" ><fmt:message key = "br.cefetrj.sisgee.resources.form.rescisao"/></a>
                         <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'" ><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
                     </div>				
                 <input type="hidden" name="termoAditivo" id="termoAditivo" value="${ param.termoAditivo }">
@@ -78,7 +78,7 @@
                             </tr>
                             <c:forEach items="${b.getTermosAditivos()}" var="c">
                                 <tr>
-                                    <td>${c.getTipoAditivo()}</td>
+                                    <td><fmt:message key="br.cefetrj.sisgee.32"/>${c.getTipoAditivo()}</td>
                                     <td>--</td>
                                     <td>${c.getDataCadastramentoTermoAditivo2()}</td>
                                     <td>${c.getDataFimTermoAditivo2()}</td>
@@ -97,11 +97,20 @@
 
                     <br>
 
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-lg-12 text-center">
+                            <h4 class="section-heading"><fmt:message key="br.cefetrj.sisgee.31" /></h4>
+                            <hr class="my-4">
+                          </div>
+                        </div>
+                      </div>
+                    
                     <div class="mx-auto" style="width: 500px;">
                         <div class="row">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" id="vigencia" name="alvigencia"  value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.vigenciaEstagio"/>
+                                    <input class="form-check-input" type="checkbox" id="vigencia" name="alvigencia"  value="sim"><fmt:message key="br.cefetrj.sisgee.32"/><fmt:message key = "br.cefetrj.sisgee.resources.form.vigenciaEstagio"/>
                                     <input type="hidden" name="alvigencia" value=${alvigencia}>
                                 </label>
                             </div>
@@ -109,7 +118,7 @@
                             <div class="mx-auto" style="width: 200px;">
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" id="enderecoTermoEstagio" name="alendereco" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.endereco"/>
+                                        <input class="form-check-input" type="checkbox" id="enderecoTermoEstagio" name="alendereco" value="sim"><fmt:message key="br.cefetrj.sisgee.32"/><fmt:message key = "br.cefetrj.sisgee.resources.form.endereco"/>
                                         <input type="hidden" name="alendereco" value=${alendereco}>
                                     </label>
                                 </div>
@@ -122,7 +131,7 @@
                         <div class="row">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" id="cargaHorariaTermoEstagio" name="alcargaHoraria" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.cargaHorariaAluno"/>
+                                    <input class="form-check-input" type="checkbox" id="cargaHorariaTermoEstagio" name="alcargaHoraria" value="sim"><fmt:message key="br.cefetrj.sisgee.32"/><fmt:message key = "br.cefetrj.sisgee.resources.form.cargaHorariaAluno"/>
                                     <input type="hidden" name="alcargaHoraria" value=${alcargaHoraria}>
                                 </label>
                             </div>
@@ -130,7 +139,7 @@
                             <div class="mx-auto" style="width: 200px;">
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" id="professorOrientador" name="alprofessor" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/>
+                                        <input class="form-check-input" type="checkbox" id="professorOrientador" name="alprofessor" value="sim"><fmt:message key="br.cefetrj.sisgee.32"/><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/>
                                         <input type="hidden" name="alprofessor" value=${alprofessor}>
                                     </label>
                                 </div>
@@ -142,7 +151,7 @@
                         <div class="row">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" id="alsupervisor" name="alsupervisor" value="sim"><fmt:message key="br.cefetrj.sisgee.24" />
+                                    <input class="form-check-input" type="checkbox" id="alsupervisor" name="alsupervisor" value="sim"><fmt:message key="br.cefetrj.sisgee.32"/><fmt:message key="br.cefetrj.sisgee.24" />
                                     <input type="hidden" name="alsupervisor" value=${alsupervisor}>
                                 </label>
                             </div>
@@ -150,7 +159,7 @@
                         <div class="row">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" id="valorBolsa" name="alvalor" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.valorBolsaEstagio"/>
+                                    <input class="form-check-input" type="checkbox" id="valorBolsa" name="alvalor" value="sim"><fmt:message key="br.cefetrj.sisgee.32"/><fmt:message key = "br.cefetrj.sisgee.resources.form.valorBolsaEstagio"/>
                                     <input type="hidden" name="alvalor" value=${alvalor}>
                                 </label>
                             </div>
@@ -161,7 +170,7 @@
                     <input type="hidden" name="idAlunoAdt" value="${param.matricula}">
 
 
-                    <button type="submit" id="btnNovoAditivo" class="btn btn-secondary" ${ empty param.nome ? 'disabled' : '' }><fmt:message key = "br.cefetrj.sisgee.resources.form.novo_aditivo"/></button>
+                    <button type="submit" id="btnNovoAditivo" class="btn btn-primary" ${ empty param.nome ? 'disabled' : '' }><fmt:message key = "br.cefetrj.sisgee.resources.form.novo_aditivo"/></button>
                     <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'"><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>			
                 </form>
                     

@@ -63,6 +63,8 @@
                             <th><fmt:message key="br.cefetrj.sisgee.13" /></th>
                             <th><fmt:message key="br.cefetrj.sisgee.12" /></th>
                             <th>Visualizar</th>
+                            <th>Excluir</th>
+                            <th>Alterar</th>
 
                         </tr>
 
@@ -75,6 +77,8 @@
                                 <td>${b.getConvenio().pegaCpf()}</td>
                                 <td>${b.getConvenio().pegaNome()}</td>
                                 <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
+                            	<td><a class="btn btn-sm btn-primary btn-block" href="ExcluirTermo?ide=${b.idTermoEstagio}">Excluir</td>
+                            	<td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Alterar</td>
                             </tr>
                             <c:forEach items="${b.getTermosAditivos()}" var="c">
                                 <tr>
@@ -85,6 +89,9 @@
                                     <td>${b.getConvenio().pegaCpf()}</td>
                                     <td>${b.getConvenio().pegaNome()}</td>
                                     <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ida=${c.idTermoAditivo}&ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
+                                	<td><a class="btn btn-sm btn-primary btn-block" href="ExcluirAditivo?ide=${c.idTermoAditivo}">Excluir</td>
+                                	<td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermoEAditivo?ida=${c.idTermoAditivo}&matricula=${param.matricula}" >Alterar</td>
+                           
                                 </tr>   
                             </c:forEach>
                         </c:forEach>

@@ -1,7 +1,12 @@
 package br.cefetrj.sisgee.control;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
@@ -117,9 +122,27 @@ public class TermoEstagioServices {
 			PersistenceManager.getTransaction().begin();
 			termoEstagioDao.alterar(termoEstagio);
 			PersistenceManager.getTransaction().commit();
+			
 		} catch (Exception e) {			
 			e.printStackTrace();
 			PersistenceManager.getTransaction().rollback();
 		}
 	}
+	
+	public static void excluirTermoEstagio(TermoEstagio termoEstagioaux,HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
+		
+		try {
+			PersistenceManager.getTransaction().begin();
+			termoEstagioDao.excluir(termoEstagioaux);
+			PersistenceManager.getTransaction().commit();
+			req.getRequestDispatcher("/form_termo_aditivo.jsp").forward(req, resp);
+		} catch (Exception e) {		
+			
+			e.printStackTrace();
+			PersistenceManager.getTransaction().rollback(); 
+			req.getRequestDispatcher("/form_termo_aditivo_Erro_Exclusão.jsp").forward(req, resp);
+		}
+}
+
 }

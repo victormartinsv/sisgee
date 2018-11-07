@@ -134,5 +134,17 @@ public class TermoAditivoServices {
 		
 		return termoEstagio;
 	}
-	
+	public static void excluirTermoAditivo(TermoAditivo termoAditivo) {
+		GenericDAO<TermoAditivo> termoAditivoDao = PersistenceManager.createGenericDAO(TermoAditivo.class);
+		
+		try {
+			PersistenceManager.getTransaction().begin();
+			termoAditivoDao.excluir(termoAditivo);
+			PersistenceManager.getTransaction().commit();
+		} catch (Exception e) {			
+			e.printStackTrace();
+			PersistenceManager.getTransaction().rollback();
+			
+	}
+}
 }

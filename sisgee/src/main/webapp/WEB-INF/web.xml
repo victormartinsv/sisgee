@@ -25,6 +25,10 @@
         <servlet-name>VisualizarTermoEAditivo</servlet-name>
         <servlet-class>br.cefetrj.sisgee.view.termoaditivo.VisualizarTermoEAditivo</servlet-class>
     </servlet>
+<!--    <servlet>
+        <servlet-name>InsereNumeroConvenioServlet</servlet-name>
+        <servlet-class>br.cefetrj.sisgee.view.empresa_agente.InsereNumeroConvenioServlet</servlet-class>
+    </servlet>-->
     <servlet-mapping>
         <servlet-name>BuscarConvenioServlet</servlet-name>
         <url-pattern>/BuscarConvenioServlet</url-pattern>
@@ -45,7 +49,10 @@
         <servlet-name>ValidaBuscarConvenioServlet</servlet-name>
         <url-pattern>/ValidaBuscarConvenioServlet</url-pattern>
     </servlet-mapping>
-    
+<!--    <servlet-mapping>
+        <servlet-name>InsereNumeroConvenioServlet</servlet-name>
+        <url-pattern>/InsereNumeroConvenioServlet</url-pattern>
+    </servlet-mapping>-->
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>

@@ -67,10 +67,10 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
         String emailPessoa = request.getParameter("emailPessoa");
         String telefonePessoa = request.getParameter("telefonePessoa");
         
-        String convenioAno = request.getParameter("convenioNumero");
-        String convenioNumero = request.getParameter("convenioNumero");
+        String convenioAnoPessoa = request.getParameter("convenioAnoPessoa");
+        String convenioAnoEmpresa = request.getParameter("convenioAnoEmpresa");
         
-        String convenioAutomatico = request.getParameter("convenioAutomatico");
+        String convenioNumero = request.getParameter("convenioNumero");
         
         if (tipoPessoa.equals("nao")) {
             
@@ -105,7 +105,7 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
 
             }
             try {
-                Convenio convenio = new Convenio(convenioAno, gerarNumeroConvenio(), dataAssinaturaConvenioEmpresa, empresa);
+                Convenio convenio = new Convenio(convenioAnoEmpresa, gerarNumeroConvenio(), dataAssinaturaConvenioEmpresa, empresa);
                 convenio.setNumeroConvenio();
                 ConvenioServices.incluirConvenio(convenio);
                 msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_empresa_servlet.msg_convenio_cadastrado");
@@ -141,7 +141,7 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
             }
             try {
                 
-                Convenio convenio = new Convenio(convenioAno,gerarNumeroConvenio(), dataAssinaturaConvenio, pessoa);
+                Convenio convenio = new Convenio(convenioAnoPessoa, gerarNumeroConvenio(), dataAssinaturaConvenio, pessoa);
                 convenio.setNumeroConvenio();
                 
                 ConvenioServices.incluirConvenio(convenio);
@@ -162,7 +162,6 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
         }
 
     }
-    
     /**
      * Metodo que gera um numero de convenio
      * @return uma string
@@ -173,5 +172,4 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
         String a = String.valueOf(x.size()+1);
         return a;
     }
-
 }

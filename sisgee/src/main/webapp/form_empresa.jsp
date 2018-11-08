@@ -27,18 +27,13 @@
             <p class="tituloForm">
             <h5 class="offset-5"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo" /></h5>
             
-            <form id="meuForm" action="InsereNumeroConvenioServlet" method="GET">
-                <fieldset class="form-group">
-                    <div class="form-group col-md">
-                            <label for="convenioNumero"><fmt:message key = "br.cefetrj.sisgee.resources.form.convenio_numero"/></label>
-                            <input type="text" class="form-control" id="convenioNumero" name="nome" value="000111" readonly>
-                    </div>
-                </fieldset>
-            </form>
-                            
+                                       
             <form id="meuForm" action="ValidaCadastroEmpresaServlet" method="POST">
                 <fieldset class="form-group">     
-                    
+                    <div class="form-group col-md">
+                            <label for="convenioNumero"><fmt:message key = "br.cefetrj.sisgee.resources.form.convenio_numero"/></label>
+                            <input type="text" class="form-control" id="convenioNumero" name="convenioNumero" value=${ convenioNumero }>
+                    </div>
 
                     <div class="form-row  " >
                         <div class="form-group col-md-2 mt-2 " >

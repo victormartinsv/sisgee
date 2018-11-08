@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet disponibiliza o termo aditivo e termo estágio ao pedir pra ser visualizado
+ * Servlet disponibiliza possibilidade de alterar os registros de termo de estagio e aditivo
  * @author Vinicius Paradellas
  */
 @WebServlet("/AlterarTermoEAditivo")
@@ -37,10 +37,13 @@ public class AlterarTermoEAditivo extends HttpServlet {
         UF[] uf = UF.asList();
         TermoEstagio termoEstagio=null;
         TermoAditivo termoAditivo=null;
-        
+        System.out.println(ida);
+        System.out.println(ide);
         Aluno aluno=AlunoServices.buscarAlunoByMatricula(matricula);
+        
         if(ide!=null)
         termoEstagio=TermoEstagioServices.buscarTermoEstagio(Integer.parseInt(ide));
+
         if(ida!=null)
         termoAditivo=TermoAditivoServices.buscarTermoAditivo(Integer.parseInt(ida));
         

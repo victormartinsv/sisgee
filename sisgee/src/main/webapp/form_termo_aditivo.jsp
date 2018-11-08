@@ -90,7 +90,7 @@
                                     <td>${b.getConvenio().pegaNome()}</td>
                                     <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ida=${c.idTermoAditivo}&ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
                                 	<td><a class="btn btn-sm btn-primary btn-block" href="ExcluirAditivo?ide=${c.idTermoAditivo}">Excluir</td>
-                                	<td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermoEAditivo?ida=${c.idTermoAditivo}&matricula=${param.matricula}" >Alterar</td>
+                                	<td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermoEAditivo?ida=${c.idTermoAditivo}&matricula=${param.matricula}">Alterar</td>
                            
                                 </tr>   
                             </c:forEach>

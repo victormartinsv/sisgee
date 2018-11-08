@@ -37,7 +37,7 @@ public class InsereNumeroConvenioServlet extends HttpServlet {
     public void service(ServletRequest req, ServletResponse res)
             throws ServletException, IOException {
         
-                req.setAttribute("convenioNumero", "123456");
+                req.setAttribute("convenioNumero", gerarNumeroConvenio());        
 
                 req.getRequestDispatcher("/form_empresa.jsp").forward(req, res);        
     }

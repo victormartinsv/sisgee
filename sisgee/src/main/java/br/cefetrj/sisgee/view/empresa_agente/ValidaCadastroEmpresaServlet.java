@@ -71,10 +71,6 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
         String convenioAnoPessoa = request.getParameter("convenioAnoPessoa");
         String convenioAnoEmpresa = request.getParameter("convenioAnoEmpresa");
         
-        request.setAttribute("convenioNumero", "123456");
-        
-//        String convenioNumero = request.getParameter("convenioNumero");
-        
         
         if (tipoPessoa.equals("nao")) {
             pessoaJuridica = false;

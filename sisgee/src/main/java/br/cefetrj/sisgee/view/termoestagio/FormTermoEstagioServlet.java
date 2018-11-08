@@ -88,6 +88,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
         String estadoEnderecoTermoEstagio = request.getParameter("estadoEnderecoTermoEstagio");
         String eEstagioObrigatorio = request.getParameter("eEstagioObrigatorio");
         String idProfessorOrientador = request.getParameter("idProfessorOrientador");
+        System.out.println(idProfessorOrientador);
         String idAluno = request.getParameter("idAluno");
         String numeroConvenio = request.getParameter("numeroConvenio");
         String nomeConvenio = request.getParameter("nomeConvenio");
@@ -404,19 +405,9 @@ public class FormTermoEstagioServlet extends HttpServlet {
         String cepEnderecoMsg = "";
         campo = "CEP";
         tamanho = 15;
-        cepEnderecoMsg = ValidaUtils.validaObrigatorio(campo, cepEnderecoTermoEstagio);
+        cepEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, cepEnderecoTermoEstagio);
         if (cepEnderecoMsg.trim().isEmpty()) {
-            cepEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, cepEnderecoTermoEstagio);
-            if (bairroEnderecoMsg.trim().isEmpty()) {
-                request.setAttribute("cepEnderecoTermoEstagio", cepEnderecoTermoEstagio);
-            } else {
-                cepEnderecoMsg = messages.getString(cepEnderecoMsg);
-                cepEnderecoMsg = ServletUtils.mensagemFormatada(bairroEnderecoMsg, locale, tamanho);
-                request.setAttribute("cepEnderecoMsg", cepEnderecoMsg);
-                isValid = false;
-                //TODO Fazer log
-                System.out.println(cepEnderecoMsg);
-            }
+           request.setAttribute("cepEnderecoTermoEstagio", cepEnderecoTermoEstagio);
         } else {
             cepEnderecoMsg = messages.getString(cepEnderecoMsg);
             request.setAttribute("cepEnderecoMsg", cepEnderecoMsg);

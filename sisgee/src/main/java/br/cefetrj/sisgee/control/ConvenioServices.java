@@ -8,11 +8,15 @@ import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.Pessoa;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Serviços de alunos. Trata a lógica de negócios associada com a entidade
@@ -175,4 +179,27 @@ public class ConvenioServices {
 			PersistenceManager.getTransaction().rollback();
 		}
 	}
+        /**
+        * Método para fazer exclusão de um convenio
+        * @param convenio 
+        */
+    	public static void excluirConvenio(Convenio convenio,HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
+		System.out.println(convenio.getEmpresa());
+                
+		try {
+			PersistenceManager.getTransaction().begin();
+			convenioDao.excluir(convenio);
+			PersistenceManager.getTransaction().commit();
+			
+			req.getRequestDispatcher("/form_renovar_convenio.jsp").forward(req, resp);
+                        
+		} catch (Exception e) {		
+			
+			e.printStackTrace();
+			PersistenceManager.getTransaction().rollback(); 
+			req.getRequestDispatcher("/form_renovar_convenio_erro_exclusao.jsp").forward(req, resp);
+		}
+}
+    
 }

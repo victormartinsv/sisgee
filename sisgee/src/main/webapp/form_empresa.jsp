@@ -29,7 +29,9 @@
             
                                        
             <form id="meuForm" action="ValidaCadastroEmpresaServlet" method="POST">
-                <fieldset class="form-group">     
+                
+                <%--<fieldset class="form-group">   --%> 
+                <fieldset>
                     <div class="form-group col-md">
                             <label for="convenioNumero"><fmt:message key = "br.cefetrj.sisgee.resources.form.convenio_numero"/></label>
                             <input type="text" class="form-control" id="convenioNumero" name="convenioNumero" value=${ convenioNumero }>
@@ -133,11 +135,12 @@
                         
                         <div class="form-group col-md-6">
                             <label for="convenioAnoEmpresa"><fmt:message key = "br.cefetrj.sisgee.resources.form.convenio_ano"/></label>
-                            <input type="text" class="form-control ${ not empty convenioAnoEmpresa ? 'is-invalid': 'is-valid' }" id="convenioAnoPessoa" name="convenioAnoEmpresa" maxlength="4"  value="${param.convenioAnoEmpresa}">
+                            <input type="text" class="form-control ${ not empty convenioAnoEmpresaMsg ? 'is-invalid': 'is-valid' }" id="convenioAnoEmpresa" name="convenioAnoEmpresa" maxlength="4"  value="${param.convenioAnoEmpresa}">
                             <c:if test="${ not empty convenioAnoEmpresaMsg }">
                                 <div class="invalid-feedback">${ convenioAnoEmpresaMsg }</div>
                             </c:if>
                         </div>
+                        <div class="invalid-feedback">${ convenioAnoEmpresaMsg }</div>
                     </div>         
 
                     <div class=" notAI AI" ${ empty param.tipoPessoa ? "style='display:none'" : param.tipoPessoa == "sim" ? "style='display:none'" : "" } >

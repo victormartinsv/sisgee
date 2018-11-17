@@ -340,25 +340,26 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                     if (convenioAnoEmpresaMsg.trim().isEmpty()) {
                         request.setAttribute("convenioAnoEmpresa", convenioAnoEmpresa);
                     } else {
-                        convenioAnoEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                        convenioAnoEmpresaMsg = messages.getString(convenioAnoEmpresaMsg);
                         request.setAttribute("convenioAnoEmpresaMsg", convenioAnoEmpresaMsg);
                         isValid = false;
                         System.out.println(convenioAnoEmpresaMsg);
                     } 
                 }else {
-                    convenioAnoEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                    convenioAnoEmpresaMsg = messages.getString(convenioAnoEmpresaMsg);
                     request.setAttribute("convenioAnoEmpresaMsg", convenioAnoEmpresaMsg);
                     isValid = false;
                     System.out.println(convenioAnoEmpresaMsg);
                     }
             }else{
-                convenioAnoEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                convenioAnoEmpresaMsg = messages.getString(convenioAnoEmpresaMsg);
                 request.setAttribute("convenioAnoEmpresaMsg", convenioAnoEmpresaMsg);
                 isValid = false;
                 System.out.println(convenioAnoEmpresaMsg);
             }
+            
 
-
+            System.out.println("teste msg ano" + convenioAnoEmpresaMsg);
 
         } else {
             /**

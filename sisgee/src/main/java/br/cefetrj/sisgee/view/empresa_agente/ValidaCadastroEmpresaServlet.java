@@ -71,6 +71,7 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
         String convenioAnoPessoa = request.getParameter("convenioAnoPessoa");
         String convenioAnoEmpresa = request.getParameter("convenioAnoEmpresa");
         
+        String convenioNumero = request.getParameter("convenioNumero");
         
         if (tipoPessoa.equals("nao")) {
             pessoaJuridica = false;
@@ -78,7 +79,31 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
         
         boolean isValid = true;
         Integer tamanho = 0;
-
+        Convenio convenio = null;
+        
+        String convenioNumeroMsg = "";
+        convenioNumeroMsg = ValidaUtils.validaObrigatorio("convenioNumero", convenioNumero);
+        if (convenioNumeroMsg.trim().isEmpty()) {
+            if (!convenioNumero.equals("") || convenioNumero != null) {
+                convenio = ConvenioServices.buscarConvenioByNumeroConvenio(convenioNumero.trim());
+                if(convenio == null){
+                    request.setAttribute("convenioNumero", convenioNumero);
+                }else{
+                    convenioNumeroMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_convenio_existente");
+                    request.setAttribute("convenioNumeroMsg", convenioNumeroMsg);
+                    isValid = false;
+                }                          
+            }else{
+               convenioNumeroMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+               request.setAttribute("convenioNumeroMsg", convenioNumeroMsg);
+               isValid = false;
+            }
+        }else{
+            convenioNumeroMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+            request.setAttribute("convenioNumeroMsg", convenioNumeroMsg);
+            isValid = false;
+        }
+        
         if (pessoaJuridica) {
             /**
              * Validação do CNPJ da empresa usando os métodos da Classe

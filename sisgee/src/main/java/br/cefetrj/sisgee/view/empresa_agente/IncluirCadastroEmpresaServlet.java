@@ -105,7 +105,7 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
 
             }
             try {
-                Convenio convenio = new Convenio(convenioAnoEmpresa, gerarNumeroConvenio(), dataAssinaturaConvenioEmpresa, empresa);
+                Convenio convenio = new Convenio(convenioAnoEmpresa, convenioNumero, dataAssinaturaConvenioEmpresa, empresa);
                 convenio.setNumeroConvenio();
                 ConvenioServices.incluirConvenio(convenio);
                 msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_empresa_servlet.msg_convenio_cadastrado");
@@ -141,9 +141,8 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
             }
             try {
                 
-                Convenio convenio = new Convenio(convenioAnoPessoa, gerarNumeroConvenio(), dataAssinaturaConvenio, pessoa);
+                Convenio convenio = new Convenio(convenioAnoPessoa, convenioNumero, dataAssinaturaConvenio, pessoa);
                 convenio.setNumeroConvenio();
-                
                 ConvenioServices.incluirConvenio(convenio);
                 msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_empresa_servlet.msg_convenio_cadastrado");
                 request.setAttribute("msg", msg);

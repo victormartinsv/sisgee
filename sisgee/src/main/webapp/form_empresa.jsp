@@ -29,12 +29,13 @@
             
                                        
             <form id="meuForm" action="ValidaCadastroEmpresaServlet" method="POST">
-                
-                <%--<fieldset class="form-group">   --%> 
-                <fieldset>
-                    <div class="form-group col-md">
+                <fieldset class="form-group">     
+                    <div class="form-group col-md-6">
                             <label for="convenioNumero"><fmt:message key = "br.cefetrj.sisgee.resources.form.convenio_numero"/></label>
-                            <input type="text" class="form-control" id="convenioNumero" name="convenioNumero" value=${ convenioNumero }>
+                            <input type="text" class="form-control ${ not empty convenioNumeroMsg ? 'is-invalid': 'is-valid' }" id="convenioNumero" name="convenioNumero" maxlength=6 value=${ convenioNumero }>
+                            <c:if test="${ not empty convenioNumeroMsg }">
+                                <div class="invalid-feedback">${ convenioNumeroMsg }</div>
+                            </c:if>
                     </div>
 
                     <div class="form-row  " >
@@ -186,7 +187,7 @@
                         
                         <div class="form-group col-md-6">
                             <label for="convenioAnoPessoa"><fmt:message key = "br.cefetrj.sisgee.resources.form.convenio_ano"/></label>
-                            <input type="text" class="form-control ${ not empty convenioAnoPessoa ? 'is-invalid': 'is-valid' }" id="convenioAnoPessoa" name="convenioAnoPessoa" maxlength="4"  value="${param.convenioAnoPessoa}">
+                            <input type="text" class="form-control ${ not empty convenioAnoPessoaMsg ? 'is-invalid': 'is-valid' }" id="convenioAnoPessoa" name="convenioAnoPessoa" maxlength="4"  value="${param.convenioAnoPessoa}">
                             <c:if test="${ not empty convenioAnoPessoaMsg }">
                                 <div class="invalid-feedback">${ convenioAnoPessoaMsg }</div>
                             </c:if>

@@ -84,19 +84,26 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
         String convenioNumeroMsg = "";
         convenioNumeroMsg = ValidaUtils.validaObrigatorio("convenioNumero", convenioNumero);
         if (convenioNumeroMsg.trim().isEmpty()) {
-            if (!convenioNumero.equals("") || convenioNumero != null) {
-                convenio = ConvenioServices.buscarConvenioByNumeroConvenio(convenioNumero.trim());
-                if(convenio == null){
-                    request.setAttribute("convenioNumero", convenioNumero);
+            convenioNumeroMsg = ValidaUtils.validaInteger("convenioNumero", convenioNumero);
+            if(convenioNumeroMsg.trim().isEmpty()){
+                if (!convenioNumero.equals("") || convenioNumero != null) {
+                    convenio = ConvenioServices.buscarConvenioByNumeroConvenio(convenioNumero.trim());
+                    if(convenio == null){
+                        request.setAttribute("convenioNumero", convenioNumero);
+                    }else{
+                        convenioNumeroMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_convenio_existente");
+                        request.setAttribute("convenioNumeroMsg", convenioNumeroMsg);
+                        isValid = false;
+                    }                          
                 }else{
-                    convenioNumeroMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_convenio_existente");
-                    request.setAttribute("convenioNumeroMsg", convenioNumeroMsg);
-                    isValid = false;
-                }                          
+                   convenioNumeroMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                   request.setAttribute("convenioNumeroMsg", convenioNumeroMsg);
+                   isValid = false;
+                }
             }else{
-               convenioNumeroMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-               request.setAttribute("convenioNumeroMsg", convenioNumeroMsg);
-               isValid = false;
+                convenioNumeroMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                request.setAttribute("convenioNumeroMsg", convenioNumeroMsg);
+                isValid = false;
             }
         }else{
             convenioNumeroMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");

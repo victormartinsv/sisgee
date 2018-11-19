@@ -67,7 +67,6 @@ public class ValidaBuscarConvenioServlet extends HttpServlet {
             if (numeroConvenioMsg.trim().isEmpty()) {
                 numeroConvenioMsg = ValidaUtils.validaTamanho("numerConvenio", 6, numero);
                 if (numeroConvenioMsg.trim().isEmpty()) {
-
                     numeroConvenioMsg = ValidaUtils.validaInteger("numeroConvenio", numero);
                     if (numeroConvenioMsg.trim().isEmpty()) {
                         request.setAttribute("numeroConvenio", numero);

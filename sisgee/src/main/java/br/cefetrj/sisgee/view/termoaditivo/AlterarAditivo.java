@@ -1,5 +1,6 @@
 package br.cefetrj.sisgee.view.termoaditivo;
 
+import br.cefetrj.sisgee.view.termoestagio.*;
 import br.cefetrj.sisgee.control.AlunoServices;
 import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.control.TermoEstagioServices;
@@ -18,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet disponibiliza possibilidade de alterar os registros de termo de estagio e aditivo
  * @author Vinicius Paradellas
  */
-@WebServlet("/AlterarTermoEAditivo")
-public class AlterarTermoEAditivo extends HttpServlet {
+@WebServlet("/AlterarTermo")
+public class AlterarAditivo extends HttpServlet {
 
     /**
      * 
@@ -59,16 +60,23 @@ public class AlterarTermoEAditivo extends HttpServlet {
                         req.setAttribute("cvNumero", termoEstagio.getConvenio().getNumeroConvenio());
                         if(termoEstagio.getConvenio().getEmpresa()==null){
                             req.setAttribute("cvNome", termoEstagio.getConvenio().getPessoa().getNome());
+                            System.out.println("Nome:" + termoEstagio.getConvenio().getPessoa().getNome());
                             req.setAttribute("tConvenio","pf");
                             req.setAttribute("cvCpfCnpj",termoEstagio.getConvenio().getPessoa().getCpf());
+                            System.out.println("CPF:" + termoEstagio.getConvenio().getPessoa().getCpf());
                             req.setAttribute("nomeAgenciada",termoEstagio.getNomeAgenciada());
+                            System.out.println(termoEstagio.getNomeAgenciada());
                             
                         }else{
                             req.setAttribute("cvNome", termoEstagio.getConvenio().getEmpresa().getRazaoSocial());
+                            System.out.println("NOME:" + termoEstagio.getConvenio().getEmpresa().getRazaoSocial());
                             req.setAttribute("tConvenio","pj");
                             req.setAttribute("agIntegracao",termoEstagio.getConvenio().getEmpresa().isAgenteIntegracao());
+                            System.out.println("IS AGENTE:" + termoEstagio.getConvenio().getEmpresa().isAgenteIntegracao());
                             req.setAttribute("cvCpfCnpj", termoEstagio.getConvenio().getEmpresa().getCnpjEmpresa());
+                            System.out.println("CNPJ:" + termoEstagio.getConvenio().getEmpresa().getCnpjEmpresa());
                             req.setAttribute("nomeAgenciada",termoEstagio.getNomeAgenciada());
+                            System.out.println("NOME AGENCIADA: " + termoEstagio.getNomeAgenciada());
                         }
                         
                         /** Dados de Vigência */

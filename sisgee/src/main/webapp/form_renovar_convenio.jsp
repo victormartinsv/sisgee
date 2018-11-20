@@ -89,8 +89,9 @@
                                     <th scope="col"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_razaoSocial_renovar" /></th>
                                     <th scope="col"><fmt:message key="br.cefetrj.sisgee.19" /></th>
                                     <th scope="col"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo_renovar" /></th>
-                                    <th>Excluir</th>
-                                    <th>Alterar</th>
+                                    <th scope="col"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo_alterar" /></th>
+                                    <th scope="col"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo_excluir" /></th>
+                                   
                                 </tr>
                             </thead>
                             <c:forEach items="${ filtro}" var="b" >

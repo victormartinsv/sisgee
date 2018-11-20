@@ -52,6 +52,7 @@ public class AlterarConvenioAlteradoServlet extends HttpServlet {
             }else{
                 request.setAttribute("naoAgenteIntegracao", "sim");
             }
+            request.setAttribute("convenioNumero", numeroConvenio);
             request.setAttribute("cnpj", convenio.getEmpresa().getCnpjEmpresa());
             request.setAttribute("razao", convenio.getEmpresa().getRazaoSocial());
             request.setAttribute("emailEmpresa", convenio.getEmpresa().getEmailEmpresa());
@@ -59,6 +60,7 @@ public class AlterarConvenioAlteradoServlet extends HttpServlet {
             request.setAttribute("contatoEmpresa", convenio.getEmpresa().getContatoEmpresa());
                
         }else{
+            request.setAttribute("convenioNumero", numeroConvenio);
             request.setAttribute("isPessoa", "sim");
             request.setAttribute("cpf", convenio.getPessoa().getCpf());
             request.setAttribute("nome", convenio.getPessoa().getNome());

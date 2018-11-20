@@ -9,7 +9,6 @@
             <fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermoAditivo"/>
         </title>
         <style>
-
             table{
                 white-space: nowrap ;
             }
@@ -77,9 +76,28 @@
                                 <td>${b.getConvenio().pegaCpf()}</td>
                                 <td>${b.getConvenio().pegaNome()}</td>
                                 <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
-                            	<td><a class="btn btn-sm btn-primary btn-block" href="ExcluirTermo?ide=${b.idTermoEstagio}">Excluir</td>
-                            	<td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Alterar</td>
+                            	<td><a class="btn btn-sm btn-primary btn-block" href="#ModalEstagio_${b.idTermoEstagio}" data-toggle="modal">Excluir</td>
+                            	<td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Alterar</td>
                             </tr>
+                            <div id="ModalEstagio_${b.idTermoEstagio}" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title">Confirm Delete</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete this user? </p>
+                                        </div>
+                                        <div class="modal-footer">
+
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <a href="ExcluirTermo?ide=${b.idTermoEstagio}" title="Delete"><i class="fa fa-trash-o"></i>Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <c:forEach items="${b.getTermosAditivos()}" var="c">
                                 <tr>
                                     <td><fmt:message key="br.cefetrj.sisgee.32"/>${c.getTipoAditivo()}</td>
@@ -89,10 +107,30 @@
                                     <td>${b.getConvenio().pegaCpf()}</td>
                                     <td>${b.getConvenio().pegaNome()}</td>
                                     <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ida=${c.idTermoAditivo}&ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
-                                	<td><a class="btn btn-sm btn-primary btn-block" href="ExcluirAditivo?ide=${c.idTermoAditivo}">Excluir</td>
-                                	<td><a class="btn btn-sm btn-primary btn-block" href="AlterarAditivo?ida=${c.idTermoAditivo}&matricula=${param.matricula}">Alterar</td>
+                                	<td><a class="btn btn-sm btn-primary btn-block" href="#ModalAditivo_${c.idTermoAditivo}" data-toggle="modal">Excluir</td>
+                                	<td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermoEAditivo?ida=${c.idTermoAditivo}&matricula=${param.matricula}">Alterar</td>
                            
-                                </tr>   
+                                </tr>                                 
+                                              
+                                <div id="ModalAditivo_${c.idTermoAditivo}" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title">Confirm Delete</h4>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to delete this user? </p>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <a href="ExcluirAditivo?ide=${c.idTermoAditivo}" title="Delete"><i class="fa fa-trash-o"></i>Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
                             </c:forEach>
                         </c:forEach>
                     </table>
@@ -217,12 +255,32 @@
                     </div>
                 </div>
             </div>
-                      
                         
-                        
-                        
-                     
-                        
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="form-group">
+                          <label for="recipient-name" class="col-form-label">Recipient:</label>
+                          <input type="text" class="form-control" id="recipient-name" >
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" id="excteste" class="btn btn-primary">Ok</button>
+                    </div>
+                  </div>
+                </div>
+              </div>            
+
                         
                         
                         
@@ -235,7 +293,6 @@
                 $("#btnNovoAditivo").prop("disabled", false);
                 $("#btnNovoAditivo").removeClass("btn-secondary");
                 $("#btnNovoAditivo").addClass("btn-primary");
-
                 $("#btnListarAditivo").prop("disabled", false);
                 $("#btnListarAditivo").removeClass("btn-secondary");
                 $("#btnListarAditivo").addClass("btn-primary");
@@ -244,7 +301,6 @@
                 if (json != null) {
                     if (json.idTermoEstagioAtivo != null && json.idTermoEstagioAtivo != "") {
                         //atribui o id do termo de estágio para o campo hidden
-
                         //tem termo de estágio, ativa os botões
                         hablitarButoes();
                     } else {
@@ -255,20 +311,32 @@
         </script>
         <%@include file="import_scripts.jspf"%>
         <script type="text/javascript">
-
             $(document).ready(function () {
                 $(".form-check-input").change(function () {
                     $('#idAlunoAdt').val($("#idAluno").val());
                 });
-
                 if ($("#idAluno").val() != "") {
-
                 }
             });
             
             function termoAditivo(){
                 document.getElementById("termoAditivo").value = "sim";
             }
+            $('#exampleModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var recipient = button.data('cod'); // Extract info from data-* attributes
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                var modal = $(this);
+                modal.find('.modal-title').text('New message to ' + recipient);
+                modal.find('.modal-body input').val(recipient);
+              });
+              
+              $('#exampleModal').on('show.bs.modal', function(e) {
+                var recipient = button.data('cod'); 
+                alert(recipient);
+                //$('#excteste').attr('onClick', "location.href=''");
+              });
         </script>
 
     </body>

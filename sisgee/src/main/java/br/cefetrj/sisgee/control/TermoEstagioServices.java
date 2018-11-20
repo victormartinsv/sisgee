@@ -136,7 +136,7 @@ public class TermoEstagioServices {
 			PersistenceManager.getTransaction().begin();
 			termoEstagioDao.excluir(termoEstagioaux);
 			PersistenceManager.getTransaction().commit();
-			req.getRequestDispatcher("/form_termo_aditivo.jsp").forward(req, resp);
+			req.getRequestDispatcher("/form_termo_aditivo_sucesso_exclusao.jsp").forward(req, resp);
 		} catch (Exception e) {		
 			
 			e.printStackTrace();

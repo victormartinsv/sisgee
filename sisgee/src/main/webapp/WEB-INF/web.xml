@@ -10,10 +10,6 @@
         <servlet-class>br.cefetrj.sisgee.view.convenio.RenovarConvenioServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>alterarConvenioServlet</servlet-name>
-        <servlet-class>br.cefetrj.sisgee.view.convenio.alterarConvenioServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ValidaRenovarConvenio</servlet-name>
         <servlet-class>br.cefetrj.sisgee.view.convenio.ValidaRenovarConvenio</servlet-class>
     </servlet>
@@ -25,7 +21,7 @@
         <servlet-name>VisualizarTermoEAditivo</servlet-name>
         <servlet-class>br.cefetrj.sisgee.view.termoaditivo.VisualizarTermoEAditivo</servlet-class>
     </servlet>
-<!--    <servlet>
+    <!--    <servlet>
         <servlet-name>InsereNumeroConvenioServlet</servlet-name>
         <servlet-class>br.cefetrj.sisgee.view.empresa_agente.InsereNumeroConvenioServlet</servlet-class>
     </servlet>-->
@@ -38,10 +34,6 @@
         <url-pattern>/RenovarConvenioServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>alterarConvenioServlet</servlet-name>
-        <url-pattern>/alterarConvenioServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ValidaRenovarConvenio</servlet-name>
         <url-pattern>/ValidaRenovarConvenio</url-pattern>
     </servlet-mapping>
@@ -49,7 +41,7 @@
         <servlet-name>ValidaBuscarConvenioServlet</servlet-name>
         <url-pattern>/ValidaBuscarConvenioServlet</url-pattern>
     </servlet-mapping>
-<!--    <servlet-mapping>
+    <!--    <servlet-mapping>
         <servlet-name>InsereNumeroConvenioServlet</servlet-name>
         <url-pattern>/InsereNumeroConvenioServlet</url-pattern>
     </servlet-mapping>-->

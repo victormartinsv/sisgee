@@ -1,14 +1,9 @@
-package br.cefetrj.sisgee.view.empresa_agente;
-
-import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.cefetrj.sisgee.view.convenio;
 
 import br.cefetrj.sisgee.control.AgenteIntegracaoServices;
 import br.cefetrj.sisgee.control.ConvenioServices;
@@ -20,33 +15,39 @@ import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.Pessoa;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet para validar os dados da tela de cadastro de Convenio.
- *
+ * Servlet para validar dados do renovar convenio
+ * 
  * @author Lucas Lima
- * @since 1.0
- *
  */
-@WebServlet("/ValidaCadastroEmpresaServlet")
-public class ValidaCadastroEmpresaServlet extends HttpServlet {
+@WebServlet("/ValidaAlterarConvenio")
+public class ValidaAlterarConvenio extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
-     * 
+     * Post para validar dados de renovar convenio
      * @param request um objeto HttpServletRequest que contém a solicitação feita pelo cliente do servlet.
      * @param response um objeto HttpServletResponse que contém a resposta que o servlet envia para o cliente
      * @throws ServletException se o pedido do service não puder ser tratado
      * @throws IOException se um erro de entrada ou saída for detectado quando o servlet manipula o pedido 
      */
+    
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         Locale locale = ServletUtils.getLocale(request);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
 
@@ -72,46 +73,83 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
         String convenioAnoEmpresa = request.getParameter("convenioAnoEmpresa");
         
         String convenioNumero = request.getParameter("convenioNumero");
-        
+
         if (tipoPessoa.equals("nao")) {
             pessoaJuridica = false;
         }
+
+        Convenio convenio = ConvenioServices.buscarConvenioByNumeroConvenio(convenioNumero);
         
+        String cnpj = request.getParameter("cnpj");
+        String cpf = request.getParameter("cpf");
+        
+        Empresa empresa = EmpresaServices.buscarEmpresaByCnpj(cnpj);
+        Pessoa pessoa = PessoaServices.buscarPessoaByCpf(cpf);
+        Convenio convenio2 = null;
         boolean isValid = true;
         Integer tamanho = 0;
-        Convenio convenio = null;
-        
-        String convenioNumeroMsg = "";
-        convenioNumeroMsg = ValidaUtils.validaObrigatorio("convenioNumero", convenioNumero);
-        if (convenioNumeroMsg.trim().isEmpty()) {
-            convenioNumeroMsg = ValidaUtils.validaInteger("convenioNumero", convenioNumero);
-            if(convenioNumeroMsg.trim().isEmpty()){
-                if (!convenioNumero.equals("") || convenioNumero != null) {
-                    convenio = ConvenioServices.buscarConvenioByNumeroConvenio(convenioNumero.trim());
-                    if(convenio == null){
-                        request.setAttribute("convenioNumero", convenioNumero);
+        if (empresa != null){
+                String EmpresaMsg = "";
+                EmpresaMsg = ValidaUtils.validaObrigatorio("cnpj", cnpj);
+                if (EmpresaMsg.trim().isEmpty()) {
+                    EmpresaMsg = ValidaUtils.validaInteger("cnpj", cnpj);
+                    if(EmpresaMsg.trim().isEmpty()){
+                        if (!cnpj.equals("") || cnpj != null) {
+                            convenio2= ConvenioServices.buscarConvenioByEmpresa(empresa);
+                            if(convenio2 == null){
+                                request.setAttribute("cnpj", cnpj);
+                            }else{
+                                EmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_convenio_existente");
+                                request.setAttribute("EmpresaMsg", EmpresaMsg);
+                                isValid = false;
+                                }                          
+                        }else{
+                           EmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                           request.setAttribute("EmpresaMsg", EmpresaMsg);
+                           isValid = false;
+                        }
                     }else{
-                        convenioNumeroMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_convenio_existente");
-                        request.setAttribute("convenioNumeroMsg", convenioNumeroMsg);
+                        EmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                        request.setAttribute("EmpresaMsg", EmpresaMsg);
                         isValid = false;
-                    }                          
+                    }
                 }else{
-                   convenioNumeroMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                   request.setAttribute("convenioNumeroMsg", convenioNumeroMsg);
-                   isValid = false;
-                }
-            }else{
-                convenioNumeroMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                request.setAttribute("convenioNumeroMsg", convenioNumeroMsg);
-                isValid = false;
-            }
+                    EmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                    request.setAttribute("EmpresaMsg", EmpresaMsg);
+                    isValid = false;
+                } 
         }else{
-            convenioNumeroMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-            request.setAttribute("convenioNumeroMsg", convenioNumeroMsg);
-            isValid = false;
-        }
-        
-        if (pessoaJuridica) {
+            String PessoaMsg = "";
+                PessoaMsg = ValidaUtils.validaObrigatorio("cpf", cpf);
+                if (PessoaMsg.trim().isEmpty()) {
+                    PessoaMsg = ValidaUtils.validaInteger("cpf", cpf);
+                    if(PessoaMsg.trim().isEmpty()){
+                        if (!cpf.equals("") || cpf != null) {
+                            convenio2 = ConvenioServices.buscarConvenioByPessoa(pessoa);
+                            if(convenio2 == null){
+                                request.setAttribute("cpf", cpf);
+                            }else{
+                                PessoaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_convenio_existente");
+                                request.setAttribute("PessoaMsg", PessoaMsg);
+                                isValid = false;
+                                }                          
+                        }else{
+                           PessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                           request.setAttribute("PessoaMsg", PessoaMsg);
+                           isValid = false;
+                        }
+                    }else{
+                        PessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                        request.setAttribute("PessoaMsg", PessoaMsg);
+                        isValid = false;
+                    }
+                }else{
+                    PessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                    request.setAttribute("PessoaMsg", PessoaMsg);
+                    isValid = false;
+                } 
+        }  
+                   if (pessoaJuridica) {
             /**
              * Validação do CNPJ da empresa usando os métodos da Classe
              * ValidaUtils Campo obrigatório; Tamanho de 14 caracteres; CNPJ
@@ -605,22 +643,22 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
             }
 
         }
-                    
-         
 
         /**
          * Teste das variáveis booleanas após validação. Redirecionamento para a
          * inclusão ou devolver para o formulário com as mensagens.
          */
         if (isValid) {
-            request.getRequestDispatcher("/IncluirCadastroEmpresaServlet").forward(request, response);
+            request.getRequestDispatcher("/alterarConvenioServlet").forward(request, response);
 
         } else {
             String msg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_atencao");
             request.setAttribute("msg", msg);
-
-            request.getRequestDispatcher("/form_empresa.jsp").forward(request, response);
+            request.getRequestDispatcher("/form_alterar_convenio.jsp").forward(request, response);
 
         }
+
     }
+
 }
+

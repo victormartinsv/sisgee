@@ -39,6 +39,6 @@ public class ExcluirAditivo extends HttpServlet {
         termoAditivoaux = TermoAditivoServices.buscarTermoAditivo(Integer.parseInt(ide));
         TermoAditivoServices.excluirTermoAditivo(termoAditivoaux);
         
-        req.getRequestDispatcher("/form_termo_aditivo.jsp").forward(req, resp);
+        req.getRequestDispatcher("/form_termo_aditivo_sucesso_exclusao.jsp").forward(req, resp);
     }
 }

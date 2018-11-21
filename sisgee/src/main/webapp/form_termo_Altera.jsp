@@ -381,8 +381,9 @@
                         </c:if>				
                     </div>
                 </fieldset>
-                    <button type="submit" class="btn btn-primary" ><fmt:message key = "br.cefetrj.sisgee.resources.form.salvar"/></button>
-                    <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'form_termo_aditivo.jsp'">Voltar</button>
+                                
+                    <button type="button" class="btn btn-secondary" href="AlterarTermoEAditivo?ide=">Salvar</button>	
+                    <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'">Cancelar</button>
 
             
         </form>

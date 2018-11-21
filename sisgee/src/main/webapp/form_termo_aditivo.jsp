@@ -75,25 +75,33 @@
                                 <td>${b.getDataFimTermoEstagio2()}</td>
                                 <td>${b.getConvenio().pegaCpf()}</td>
                                 <td>${b.getConvenio().pegaNome()}</td>
-                                <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
-                            	<td><a class="btn btn-sm btn-primary btn-block" href="#ModalEstagio_${b.idTermoEstagio}" data-toggle="modal">Excluir</td>
-                            	<td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Alterar</td>
+                                <c:if test="${not empty b.getTermosAditivos()}">
+                                    <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
+                                    <td><a class="btn btn-sm btn-primary btn-lg disabled" href="ExcluirTermo?ide=${b.idTermoEstagio}" role="button" aria-disabled="true" >Excluir</td>
+                                    <td><a class="btn btn-sm btn-primary btn-lg disabled " href="AlterarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}"  role="button" aria-disabled="true" >Alterar</td>
+                                </c:if>
+                                 <c:if test="${empty b.getTermosAditivos()}">
+                                    <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
+                                    <td><a class="btn btn-sm btn-primary btn-block" href="#ModalEstagio_${b.idTermoEstagio}" data-toggle="modal">Excluir</td>
+                                    <td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Alterar</td>
+                                </c:if>       
+                               
                             </tr>
                             <div id="ModalEstagio_${b.idTermoEstagio}" class="modal fade">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title">Confirm Delete</h4>
+                                            <h4 class="modal-title"><fmt:message key = "br.cefetrj.sisgee.excluir.fechar"/></h4>
                                         </div>
 
                                         <div class="modal-body">
-                                            <p>Are you sure you want to delete this user? </p>
+                                            <p><fmt:message key = "br.cefetrj.sisgee.excluir.deseja"/></p>
                                         </div>
                                         <div class="modal-footer">
 
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <a href="ExcluirTermo?ide=${b.idTermoEstagio}" title="Delete"><i class="fa fa-trash-o"></i>Delete</a>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key = "br.cefetrj.sisgee.excluir.cancelar"/></button>
+                                            <a href="ExcluirTermo?ide=${b.idTermoEstagio}" title="Delete"><i class="fa fa-trash-o"></i><fmt:message key = "br.cefetrj.sisgee.excluir.confirmar"/></a>
                                         </div>
                                     </div>
                                 </div>
@@ -117,16 +125,16 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                <h4 class="modal-title">Confirm Delete</h4>
+                                                <h4 class="modal-title"><fmt:message key = "br.cefetrj.sisgee.excluir.fechar"/></h4>
                                             </div>
 
                                             <div class="modal-body">
-                                                <p>Are you sure you want to delete this user? </p>
+                                                <p><fmt:message key = "br.cefetrj.sisgee.excluir.deseja"/></p>
                                             </div>
                                             <div class="modal-footer">
 
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <a href="ExcluirAditivo?ide=${c.idTermoAditivo}" title="Delete"><i class="fa fa-trash-o"></i>Delete</a>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key = "br.cefetrj.sisgee.excluir.cancelar"/></button>
+                                                <a href="ExcluirAditivo?ide=${c.idTermoAditivo}" title="Delete"><i class="fa fa-trash-o"></i><fmt:message key = "br.cefetrj.sisgee.excluir.confirmar"/></a>
                                             </div>
                                         </div>
                                     </div>

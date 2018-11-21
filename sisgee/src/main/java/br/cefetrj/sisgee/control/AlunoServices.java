@@ -65,6 +65,14 @@ public class AlunoServices {
 			return null;
 		}
 	}
-	
+	public static Aluno buscarAlunoByID(String id) {
+		AlunoDAO alunoDao = new AlunoDAO();
+		try{
+			Aluno a = alunoDao.buscarByID(id);
+			return a;
+		}catch(Exception e){
+			return null;
+		}
+	}	
 
 }

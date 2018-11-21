@@ -26,5 +26,13 @@ public class AlunoDAO extends GenericDAO<Aluno> {
                     
                     return a;
 	}
-
+	public Aluno buscarByID(String idAluno){
+                manager.clear();
+		Aluno a=(Aluno) manager.createQuery(
+		    "SELECT a FROM Aluno a WHERE a.idAluno LIKE :idAluno")
+		    .setParameter("idAluno", idAluno)
+		    .getSingleResult();
+                    
+                    return a;
+	}
 }

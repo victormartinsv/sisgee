@@ -64,7 +64,9 @@ public class GenericDAO<T> {
          * @param entidade 
          */
 	public void alterar(T entidade){
+            
 		manager.merge(entidade);
+                
 	}
 	
 	

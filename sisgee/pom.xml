@@ -5,7 +5,7 @@
 	<artifactId>sisgee</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>sisgeeCOMMITVICTOR Maven Webapp</name>
+	<name>sisgeeTESTECOMMIT Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>

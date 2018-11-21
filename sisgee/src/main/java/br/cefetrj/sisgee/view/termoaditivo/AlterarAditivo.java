@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet disponibiliza possibilidade de alterar os registros de termo de estagio e aditivo
  * @author Vinicius Paradellas
  */
-@WebServlet("/AlterarTermo")
+@WebServlet("/AlterarAditivo")
 public class AlterarAditivo extends HttpServlet {
 
     /**

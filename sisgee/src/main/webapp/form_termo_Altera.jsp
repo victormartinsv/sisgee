@@ -48,11 +48,11 @@
 
             <p class="tituloForm">
 
-            <h5><fmt:message key = "br.cefetrj.sisgee.resources.form.aletrarTermoAditivo"/></h5>		
+            <h5><fmt:message key = "br.cefetrj.sisgee.resources.form.alterarTermoEstagio"/></h5>		
         </p>
-        
+        <form action="FormaAlteraTermoEstagioServlet" method="post">
         <%-- ALTERAÇÃO VICTOR--%>
-            <form action=BuscaTermoAditivoServlet method="post">
+            <%--<form action=BuscaTermoAditivoServlet method="post">
 
                 <fieldset class="form-group dadosAluno" >
                     <%@include file="import_busca_aluno_alterar.jspf"%>
@@ -60,9 +60,44 @@
 				
                 <input type="hidden" name="termoAditivo" id="termoAditivo" value="${ param.termoAditivo }">
                 </fieldset>
-                
-            </form>
-                
+                --%>
+            <%--</form>--%>
+            <input type="hidden" id="idTermo" name="idTermo" value="${ idTermo }">    
+            <legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.dadosAluno"/></legend>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="matricula"><fmt:message key = "br.cefetrj.sisgee.resources.form.matricula"/></label>
+                        <div class="input-group">
+                            <input type="hidden" id="idAluno" name="idAluno" value="${ alId }">
+                            <input type="hidden" id="tipoAluno" name="tipoAluno" value="${ param.tipoAluno }">
+                            ${param.idAluno>-1?'<input type="hidden" id="idAluno" name="idAluno" value="${ alId }">':''}
+                            <input type="text" required="required" minlength="10" pattern="[1-9]{7}[a-z\s]{3,6}+$"  maxlength="13"  class="form-control ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_aluno.placeholder_matricula"/>" id="matricula" name="matricula" value="${ alMatricula }">
+                            <span class="input-group-btn"> 
+                                <button class="btn btn-primary" type="button" id="btnBuscarMatricula"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
+                            </span>
+                            <c:if test="${ not empty idAlunoMsg }">
+                                <div class="invalid-feedback">${ idAlunoMsg }</div>
+                            </c:if>
+
+                        </div>	
+
+
+                    </div>
+                    <div class="form-group col-md">
+                        <label for="nome"><fmt:message key = "br.cefetrj.sisgee.resources.form.nome"/></label>
+                        <input type="text" class="form-control" id="nome" name="nome" value="${ alNome }" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="nomeCurso"><fmt:message key = "br.cefetrj.sisgee.resources.form.curso"/></label>
+                        <input type="text" class="form-control" id="nomeCurso"  name="nomeCurso" value="${ alCurso }" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="nomeCampus"><fmt:message key = "br.cefetrj.sisgee.resources.form.unidade"/></label>
+                        <input type="text" class="form-control" id="nomeCampus"  name="nomeCampus" value="${ alCampus }" readonly>
+                    </div>
+                </div>
                 <fieldset class="form-group" >
                     <legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.dadosEmpresaConveniada"/></legend>
                     <div class="form-group col-md-15">
@@ -155,8 +190,7 @@
                 </fieldset>
             <%-- ALTERAÇÃO VICTOR--%>
                         
-                        
-            <form action="FormTermoAditivoServlet" method="post">
+                       
                 
                 <!-- Aqui Começa O termo Aditivo -->
                 
@@ -208,7 +242,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="valorBolsa">Valor (R$)</label>
-                            <input type="text" class="form-control col-sm-6" id="valorBolsa" name="valorBolsa" value="${ showValorBolsa eq 'sim' ? '' : vavalorBolsa }">
+                            <input type="text" class="form-control col-sm-6 ${ not empty valorBolsaMsg ? 'is-invalid': not empty valorBolsaMsg ? 'is-invalid' : 'is-valid' }" id="valorBolsa" name="valorBolsa" value="${ showValorBolsa eq 'sim' ? '' : vavalorBolsa }">
                             <c:if test="${ not empty valorBolsaMsg }">
                                 <div class="invalid-feedback">${ valorBolsaMsg }</div>
                             </c:if>
@@ -224,7 +258,7 @@
                         <div class="form-group col-md-12">
 
                             <label for="enderecoTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.endereco"/></label>
-                            <input type="text" required="required" pattern="[1-9,a-z\s]+$" maxlength="255" class="form-control" id="enderecoTermoEstagio" name="enderecoTermoEstagio" value="${ showLocal eq 'sim' ? '' :enenderecoTermoEstagio }">
+                            <input type="text" required="required" <%--pattern="[1-9,a-z\s]+$"--%> maxlength="255" class="form-control" id="enderecoTermoEstagio" name="enderecoTermoEstagio" value="${ showLocal eq 'sim' ? '' :enenderecoTermoEstagio }">
                             <c:if test="${ not empty enderecoMsg }">
                                 <div class="invalid-feedback">${ enderecoMsg }</div>
                             </c:if>
@@ -263,8 +297,8 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="estadoEnderecoTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.estado"/></label>
-                            <select name = "estadoEnderecoTermoEstagio" id="estadoEnderecoTermoEstagio" class="form-control">
-                                <option value="" selected>${showLocal eq 'sim' ? '' :enuf}</option>
+                            <select name = "estadoEnderecoTermoEstagio" id="estadoEnderecoTermoEstagio" value="${enuf}" class="form-control ${ not empty estadoEnderecoMsg ? 'is-invalid': not empty estadoEnderecoMsg ? 'is-invalid' : 'is-valid' }">
+                                <option value=" ${enuf}" selected>${showLocal eq 'sim' ? '' :enuf}</option>
                                 <c:forEach items="${ uf }" var="uf">
                                     <option value="${ uf }">${ uf }</option>
                                 </c:forEach>							
@@ -294,12 +328,12 @@
 
                             <div class="custom-controls-stacked d-block my-3" >
                                 <label class="custom-control custom-radio"> 
-                                    <input id="estagioSim" name="eobrigatorio" type="radio" class="custom-control-input" value = "sim"  ${ eobrigatorio eq 'true'? 'checked' : '' }> 
+                                    <input id="estagioSim" name="eEstagioObrigatorio" type="radio" class="custom-control-input" value = "sim"  ${ eobrigatorio eq 'true'? 'checked' : '' }> 
                                     <span class="custom-control-indicator"></span> 
                                     <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.resources.form.sim"/></span>
                                 </label> 
                                 <label class="custom-control custom-radio"> 
-                                    <input id="estagioNao" name="eobrigatorio" type="radio" class="custom-control-input" value = "nao"  ${ eobrigatorio eq 'false'? 'checked' : ''  }> 
+                                    <input id="estagioNao" name="eEstagioObrigatorio" type="radio" class="custom-control-input" value = "nao"  ${ eobrigatorio eq 'false'? 'checked' : ''  }> 
                                     <span class="custom-control-indicator"></span> 
                                     <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.resources.form.nao"/></span>
                                 </label>
@@ -327,26 +361,31 @@
                 
                 <!-- Aqui começa Professor Orientador-->             
                 <fieldset class="form-group">
-                    <legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/></legend>
-                        <div class="form-group col-md-8">
-                                <label for="idProfessorOrientador"></label>
-                            <select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control" >
-                                <option value="" selected>${ showLocal eq 'sim' ? '' : pfnomeprofessor }</option>
-                                <c:forEach items="${ professores }" var="professor">
-                                    <option value="${ professor.idProfessorOrientador }">${ professornomeProfessorOrientador }</option>
-                                </c:forEach>					
-                            </select>
-                            <c:if test="${ not empty idProfessorMsg }">
-                                <div class="invalid-feedback">${ idProfessorMsg }</div>
-                            </c:if>				
-                        </div>
+                  <fieldset ${ isVisualizacao eq true ? 'disabled' :'' }>
+                    <div class="form-group col-md-8">
+                        <label for="nomeProfessorOrientador"><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/></label>
+                        <input type="hidden" name="idProfessorOrientador" id="idProfessorOrientador" value = "${idProfessor}"/>
+                         
+                        <select name="nomeProfessorOrientador" id="nomeProfessorOrientador" class="form-control ${ not empty idProfessorMsg ? 'is-invalid': not empty idProfessorMsg ? 'is-invalid' : 'is-valid' }" >
+                            <c:forEach items="${ professores }" var="professor">
+                                <c:if test="${professor.idProfessorOrientador eq idProfessor}">
+                                    <option value="${ professor.idProfessorOrientador }" selected> ${ professor.nomeProfessorOrientador }</option>
+                                </c:if>
+                                <c:if test="${idProfessor != professor.idProfessorOrientador}">
+                                    <option value="${ professor.idProfessorOrientador }"> ${ professor.nomeProfessorOrientador }</option>
+                                </c:if>       
+                            </c:forEach>				
+                        </select>
+                        <c:if test="${ not empty idProfessorMsg }">
+                            <div class="invalid-feedback">${ idProfessorMsg }</div>
+                        </c:if>				
+                    </div>
                 </fieldset>
-                                
-                    <button type="button" class="btn btn-secondary" href="AlterarTermoEAditivo?ide=">Salvar</button>	
+                    <button type="submit" class="btn btn-primary" ><fmt:message key = "br.cefetrj.sisgee.resources.form.salvar"/></button>
                     <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'form_termo_aditivo.jsp'">Voltar</button>
 
-            </form>
-
+            
+        </form>
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -359,12 +398,11 @@
                         <div class="modal-body"></div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal"><fmt:message key = "br.cefetrj.sisgee.resources.form.fechar"/></button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
                         </div>
                     </div>
                 </div>
             </div>
-
+        </form>
     </div>
     <%@include file="import_footer.jspf"%>
     <%@include file="import_finalbodyscripts.jspf"%>
@@ -380,7 +418,12 @@
             $("#cnpjEcpf1").mask("99.999.999/9999-99");        
             $('#cepEnderecoTermoEstagio').mask('99.999-999');
             $('#dataIni').mask('99/99/9999');
-                      
+            $('#nomeProfessorOrientador').editableSelect().on('select.editable-select', 
+            function (e, li) {
+                $('#idProfessorOrientador').val(
+                    li.val()
+                );
+            });          
         });
         
         

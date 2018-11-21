@@ -75,6 +75,17 @@
                                 <td>${b.getDataFimTermoEstagio2()}</td>
                                 <td>${b.getConvenio().pegaCpf()}</td>
                                 <td>${b.getConvenio().pegaNome()}</td>
+                                <c:if test="${not empty b.getTermosAditivos()}">
+                                    <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
+                                    <td><a class="btn btn-sm btn-primary btn-lg disabled" href="ExcluirTermo?ide=${b.idTermoEstagio}" role="button" aria-disabled="true" >Excluir</td>
+                                    <td><a class="btn btn-sm btn-primary btn-lg disabled " href="AlterarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}"  role="button" aria-disabled="true" >Alterar</td>
+                                </c:if>
+                                 <c:if test="${empty b.getTermosAditivos()}">
+                                    <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
+                                    <td><a class="btn btn-sm btn-primary btn-block" href="#ModalEstagio_${b.idTermoEstagio}" data-toggle="modal">Excluir</td>
+                                    <td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Alterar</td>
+                                </c:if>       
+=======
                                 <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
                             	<td><a class="btn btn-sm btn-primary btn-block" href="#ModalEstagio_${b.idTermoEstagio}" data-toggle="modal">Excluir</td>
                             	<td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Alterar</td>
@@ -99,6 +110,39 @@
                                 </div>
                             </div>
                             <c:forEach items="${b.getTermosAditivos()}" var="c">
+                                <c:choose>
+                                    <c:when test="${b.termosAditivos.size() > 1 && c == termosAditivos.get(termosAditivos.size()-1)}">
+                                        <tr>
+                                            <td><fmt:message key="br.cefetrj.sisgee.32"/>${c.getTipoAditivo()}</td>
+                                            <td>--</td>
+                                            <td>${c.getDataCadastramentoTermoAditivo2()}</td>
+                                            <td>${c.getDataFimTermoAditivo2()}</td>
+                                            <td>${b.getConvenio().pegaCpf()}</td>
+                                            <td>${b.getConvenio().pegaNome()}</td>
+                                            <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ida=${c.idTermoAditivo}&ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
+                                                <td><a class="btn btn-sm btn-primary" href="#ModalAditivo_${c.idTermoAditivo}" data-toggle="modal">Excluir</td>
+                                                <td><a class="btn btn-sm btn-primary" href="AlterarTermoEAditivo?ida=${c.idTermoAditivo}&matricula=${param.matricula}">Alterar</td>
+
+                                        </tr>                                     
+                                        </c:when>
+                                                
+                                        
+                                        <c:otherwise>
+
+                                        <tr>
+                                            <td><fmt:message key="br.cefetrj.sisgee.32"/>${c.getTipoAditivo()}</td>
+                                            <td>--</td>
+                                            <td>${c.getDataCadastramentoTermoAditivo2()}</td>
+                                            <td>${c.getDataFimTermoAditivo2()}</td>
+                                            <td>${b.getConvenio().pegaCpf()}</td>
+                                            <td>${b.getConvenio().pegaNome()}</td>
+                                            <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ida=${c.idTermoAditivo}&ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
+                                                <td><a class="btn btn-sm btn-primary btn-lg disabled" href="ExcluirAditivo?ide=${c.idTermoAditivo}" role="button" aria-disabled="true" >Excluir</td>
+                                                <td><a class="btn btn-sm btn-primary btn-lg disabled" href="AlterarTermoEAditivo?ida=${c.idTermoAditivo}&matricula=${param.matricula}" role="button" aria-disabled="true" >Alterar</td>
+
+                                        </tr>  
+                                        </c:otherwise>
+                                </c:choose>
                                 <tr>
                                     <td><fmt:message key="br.cefetrj.sisgee.32"/>${c.getTipoAditivo()}</td>
                                     <td>--</td>
@@ -110,7 +154,7 @@
                                 	<td><a class="btn btn-sm btn-primary btn-block" href="#ModalAditivo_${c.idTermoAditivo}" data-toggle="modal">Excluir</td>
                                 	<td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermoEAditivo?ida=${c.idTermoAditivo}&matricula=${param.matricula}">Alterar</td>
                            
-                                </tr>                                 
+                                </tr>                                  
                                               
                                 <div id="ModalAditivo_${c.idTermoAditivo}" class="modal fade">
                                     <div class="modal-dialog">

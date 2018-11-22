@@ -70,5 +70,15 @@ public class PessoaServices {
 			PersistenceManager.getTransaction().rollback();
 		}
 	}
-    
+        public static void alterarPessoa(Pessoa pessoa){
+                System.out.println("ENTROU NO Alterar PESSOA SERVICE");
+		GenericDAO<Pessoa> pessoaDao = PersistenceManager.createGenericDAO(Pessoa.class);	
+		PersistenceManager.getTransaction().begin();
+		try{
+			pessoaDao.alterar(pessoa);
+			PersistenceManager.getTransaction().commit();
+		}catch(Exception e){
+			PersistenceManager.getTransaction().rollback();
+		}
+	}
 }

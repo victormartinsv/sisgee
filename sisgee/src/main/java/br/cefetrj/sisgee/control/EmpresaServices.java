@@ -84,5 +84,17 @@ public class EmpresaServices {
 			PersistenceManager.getTransaction().rollback();
 		}
 	}
+        
+        public static void alterarEmpresa(Empresa empresa){
+		GenericDAO<Empresa> empresaDao = PersistenceManager.createGenericDAO(Empresa.class);	
+		PersistenceManager.getTransaction().begin();
+		try{
+			empresaDao.alterar(empresa);
+			PersistenceManager.getTransaction().commit();
+		}catch(Exception e){
+			PersistenceManager.getTransaction().rollback();
+		}
+	}
+        
 }
 

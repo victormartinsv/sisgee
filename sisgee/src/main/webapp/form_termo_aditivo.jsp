@@ -108,10 +108,11 @@
                             </div>
                             <c:forEach items="${b.getTermosAditivos()}" var="c">
                                 <c:choose>
-                                    <c:when test="${b.termosAditivos.size() > 1 && c == termosAditivos.get(termosAditivos.size()-1)}">
+                                    <c:when test="${b.termosAditivos.size() > 0 && c == termosAditivos.get(termosAditivos.size()-1)}">
                                         <tr>
                                             <td><fmt:message key="br.cefetrj.sisgee.32"/>${c.getTipoAditivo()}</td>
                                             <td>--</td>
+                                            
                                             <td>${c.getDataCadastramentoTermoAditivo2()}</td>
                                             <td>${c.getDataFimTermoAditivo2()}</td>
                                             <td>${b.getConvenio().pegaCpf()}</td>
@@ -140,7 +141,7 @@
                                         </tr>  
                                         </c:otherwise>
                                 </c:choose>
-                                <tr>
+                                <%--<tr>
                                     <td><fmt:message key="br.cefetrj.sisgee.32"/>${c.getTipoAditivo()}</td>
                                     <td>--</td>
                                     <td>${c.getDataCadastramentoTermoAditivo2()}</td>
@@ -151,7 +152,7 @@
                                 	<td><a class="btn btn-sm btn-primary btn-block" href="#ModalAditivo_${c.idTermoAditivo}" data-toggle="modal">Excluir</td>
                                 	<td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermoEAditivo?ida=${c.idTermoAditivo}&matricula=${param.matricula}">Alterar</td>
                            
-                                </tr>                                  
+                                </tr>--%>                                  
                                               
                                 <div id="ModalAditivo_${c.idTermoAditivo}" class="modal fade">
                                     <div class="modal-dialog">

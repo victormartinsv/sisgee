@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.cefetrj.sisgee.view.convenio;
 
 import br.cefetrj.sisgee.control.ConvenioServices;
@@ -14,6 +9,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +20,7 @@ import org.apache.log4j.Logger;
  *
  * @author Lucas Lima
  */
+@WebServlet("/alterarConvenioServlet")
 public class alterarConvenioServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -59,11 +56,13 @@ public class alterarConvenioServlet extends HttpServlet {
             convenio.getEmpresa().setTelefoneEmpresa(telefoneEmpresa);
             convenio.getEmpresa().setEmailEmpresa(emailEmpresa);
             convenio.setDataAssinatura(dataAssinaturaConvenioEmpresa);
+
             convenio.setNumeroConvenio();
         } else {
             convenio.getPessoa().setTelefone(telefonePessoa);
             convenio.getPessoa().setEmail(emailPessoa);
             convenio.setDataAssinatura(dataAssinaturaConvenioPessoa);
+
             convenio.setNumeroConvenio();
         }
 

@@ -33,6 +33,10 @@
                 <fieldset class="form-group">
 
                     <div class="form-group col-md-6">
+                        <input type="hidden" id="cnpjInicial" name="cnpjInicial" value="${cnpjInicial}">
+                        <input type="hidden" id="cpfInicial" name="cpfInicial" value="${cnpfInicial}">
+                        <input type="hidden" id="nomeEmpresaInicial" name="nomeEmpresaInicial" value="${nomeEmpresaInicial}">
+                        <input type="hidden" id="nomePessoaInicial" name="nomePessoaInicial" value="${nomePessoaInicial}">
                             <label for="convenioNumero"><fmt:message key = "br.cefetrj.sisgee.resources.form.convenio_numero"/></label>
                             <input type="text" class="form-control ${ not empty convenioNumeroMsg ? 'is-invalid': 'is-valid' }" id="convenioNumero" name="convenioNumero" maxlength=6 value=${not empty convenioNumero ? convenioNumero : '' }>
                             <c:if test="${ not empty convenioNumeroMsg }">
@@ -110,7 +114,7 @@
                         <div class="form-group col-md-6">
 
                             <label for="dataAssinaturaConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.dataAssinatura"/></label>
-                            <input type="text" class=" form-control col-sm-4 ${ not empty dataAssinaturaEmpresaMsg ? 'is-invalid': 'is-valid' }" id="dataAssinaturaConvenioEmpresa"  name="dataAssinaturaConvenioEmpresa" value="${param.dataAssinaturaConvenioEmpresa}" >
+                            <input type="text" class=" form-control col-sm-4 ${ not empty dataAssinaturaEmpresaMsg ? 'is-invalid': 'is-valid' }" id="dataAssinaturaConvenioEmpresa"  name="dataAssinaturaConvenioEmpresa" value="${dataAssinaturaConvenioEmpresa}" >
                             <c:if test="${ not empty dataAssinaturaEmpresaMsg }">
                                 <div class="invalid-feedback">${ dataAssinaturaEmpresaMsg }</div>
                             </c:if>
@@ -217,7 +221,7 @@
        
         <script>
             $(document).ready(function () {
-                $('#cnpjEmpresa').mask('99.999.999/9999-99');
+                //$('#cnpjEmpresa').mask('99.999.999/9999-99');
                 $('#cpfPessoa').mask('999.999.999-99');
                 $('#dataAssinaturaConvenioPessoa').mask('99/99/9999');
                 $('#dataAssinaturaConvenioEmpresa').mask('99/99/9999');

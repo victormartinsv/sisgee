@@ -89,8 +89,8 @@
                                     <th scope="col"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_razaoSocial_renovar" /></th>
                                     <th scope="col"><fmt:message key="br.cefetrj.sisgee.19" /></th>
                                     <th scope="col"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo_renovar" /></th>
-                                    <th scope="col"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo_alterar" /></th>
                                     <th scope="col"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo_excluir" /></th>
+                                    <th scope="col"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo_alterar" /></th>
                                    
                                 </tr>
                             </thead>
@@ -121,7 +121,7 @@
 
 
 
-        <!--
+        <%--
 
         <div class="modal fade myModal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -166,7 +166,7 @@
             </div>
         </div>
 
-        -->
+        --%>
 
 
 

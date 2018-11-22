@@ -53,7 +53,7 @@ public class ValidaAlterarConvenio extends HttpServlet {
 
         String tipoPessoa = request.getParameter("tipoPessoa");
         boolean pessoaJuridica = true;
-        String cnpjEmpresa = request.getParameter("cnpjEmpresa");
+        String cnpjEmpresa = request.getParameter("cnpjEmpresa").replaceAll("[.|/|-]", "");
         String nomeEmpresa = request.getParameter("nomeEmpresa");
         String agenteIntegracao = request.getParameter("agenteIntegracao");
 
@@ -73,15 +73,79 @@ public class ValidaAlterarConvenio extends HttpServlet {
         String convenioAnoEmpresa = request.getParameter("convenioAnoEmpresa");
         
         String convenioNumero = request.getParameter("convenioNumero");
-
+        
+        Convenio convenio = ConvenioServices.buscarConvenioByNumeroConvenio(convenioNumero);
+        String dataAssinaturaEmpresa;
+        
+        String cpfInicial = request.getParameter("cpfInicial");
+        String nomeEmpresaInicial = request.getParameter("nomeEmpresaInicial");  
+        String cnpjInicial = request.getParameter("cnpjInicial");
+        String nomePessoaInicial = request.getParameter("nomePessoaInicial");
+        
+        if(convenio.getEmpresa()!=null){
+            request.setAttribute("isEmpresa", "sim");
+            if(convenio.getEmpresa().isAgenteIntegracao()){
+                request.setAttribute("simAgenteIntegracao", "sim");
+            }else{
+                request.setAttribute("naoAgenteIntegracao", "sim");
+            }
+            request.setAttribute("convenioNumero", convenioNumero);
+            request.setAttribute("cnpj", cnpjEmpresa);
+            request.setAttribute("razao", nomeEmpresa);
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            dataAssinaturaEmpresa = format.format(convenio.getDataAssinatura());
+            request.setAttribute("dataAssinaturaConvenioEmpresa", dataAssinaturaEmpresa);
+            request.setAttribute("emailEmpresa", emailEmpresa);
+            request.setAttribute("telefoneEmpresa", telefoneEmpresa);
+            request.setAttribute("contatoEmpresa", contatoEmpresa);
+            request.setAttribute("convenioAnoEmpresa", convenioAnoEmpresa);
+               
+        }else{
+            request.setAttribute("convenioNumero", convenioNumero);
+            request.setAttribute("isPessoa", "sim");
+            request.setAttribute("cpf", cpfPessoa);
+            request.setAttribute("nome", nomePessoa);
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            dataAssinaturaEmpresa = format.format(convenio.getDataAssinatura());
+            request.setAttribute("dataAssinaturaConvenioPessoa", dataAssinaturaEmpresa);
+            request.setAttribute("emailPessoa", emailPessoa);
+            request.setAttribute("telefonePessoa", telefonePessoa);
+            request.setAttribute("convenioAnoPessoa", convenioAnoPessoa);
+            
+        }
+        request.getSession().setAttribute("numero", convenioNumero);
+        
+        request.setAttribute("convenioRenovar", convenio);
+        
+        
+        
+        
         if (tipoPessoa.equals("nao")) {
             pessoaJuridica = false;
         }
 
-        Convenio convenio = ConvenioServices.buscarConvenioByNumeroConvenio(convenioNumero);
+        String EmpresaMsg = "";
+        String cnpjEmpresaMsg = "";
         
-        String cnpj = request.getParameter("cnpj");
-        String cpf = request.getParameter("cpf");
+        System.out.println(tipoPessoa);
+        System.out.println("CNPJ RECEBIDO: " + cnpjEmpresa);
+        System.out.println(nomeEmpresa);
+        System.out.println(agenteIntegracao);
+        System.out.println(dataAssinaturaConvenioEmpresa);
+        System.out.println(emailEmpresa);
+        System.out.println(telefoneEmpresa);
+        System.out.println(contatoEmpresa);
+        System.out.println(cpfPessoa);
+        System.out.println(nomePessoa);
+        System.out.println(emailPessoa);
+        System.out.println(telefonePessoa);
+        System.out.println(convenioAnoPessoa);
+        System.out.println(convenioAnoEmpresa);
+        System.out.println(convenioNumero);
+        
+        String cnpj = request.getParameter("cnpjEmpresa");
+        System.out.println("CNPJ RECEBIDO PELO OUTRO PARAMETER: " + cnpj);
+        String cpf = request.getParameter("cpfPessoa");
         
         Empresa empresa = EmpresaServices.buscarEmpresaByCnpj(cnpj);
         Pessoa pessoa = PessoaServices.buscarPessoaByCpf(cpf);
@@ -89,21 +153,26 @@ public class ValidaAlterarConvenio extends HttpServlet {
         boolean isValid = true;
         Integer tamanho = 0;
         if (empresa != null){
-                String EmpresaMsg = "";
+                
+            
+                EmpresaMsg = "";
                 EmpresaMsg = ValidaUtils.validaObrigatorio("cnpj", cnpj);
                 if (EmpresaMsg.trim().isEmpty()) {
                     EmpresaMsg = ValidaUtils.validaInteger("cnpj", cnpj);
                     if(EmpresaMsg.trim().isEmpty()){
                         if (!cnpj.equals("") || cnpj != null) {
-                            convenio2= ConvenioServices.buscarConvenioByEmpresa(empresa);
-                            if(convenio2 == null){
-                                request.setAttribute("cnpj", cnpj);
+                            if(!cnpjInicial.equals(cnpj)){
+                                convenio2 = ConvenioServices.buscarConvenioByEmpresa(empresa);
+                                if(convenio2 == null){
+                                    request.setAttribute("cnpj", cnpj);
                             }else{
                                 EmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_convenio_existente");
                                 request.setAttribute("EmpresaMsg", EmpresaMsg);
                                 isValid = false;
                                 }                          
-                        }else{
+                        }
+                        }
+                        else{
                            EmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                            request.setAttribute("EmpresaMsg", EmpresaMsg);
                            isValid = false;
@@ -125,15 +194,18 @@ public class ValidaAlterarConvenio extends HttpServlet {
                     PessoaMsg = ValidaUtils.validaInteger("cpf", cpf);
                     if(PessoaMsg.trim().isEmpty()){
                         if (!cpf.equals("") || cpf != null) {
-                            convenio2 = ConvenioServices.buscarConvenioByPessoa(pessoa);
-                            if(convenio2 == null){
-                                request.setAttribute("cpf", cpf);
+                            if(!cpfInicial.equals(cpf)){
+                                convenio2 = ConvenioServices.buscarConvenioByPessoa(pessoa);
+                                if(convenio2 == null){
+                                 request.setAttribute("cpf", cpf);
                             }else{
                                 PessoaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_convenio_existente");
                                 request.setAttribute("PessoaMsg", PessoaMsg);
                                 isValid = false;
                                 }                          
-                        }else{
+                        }
+                        }
+                        else{
                            PessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                            request.setAttribute("PessoaMsg", PessoaMsg);
                            isValid = false;
@@ -148,14 +220,15 @@ public class ValidaAlterarConvenio extends HttpServlet {
                     request.setAttribute("PessoaMsg", PessoaMsg);
                     isValid = false;
                 } 
-        }  
+        } 
+        
                    if (pessoaJuridica) {
             /**
              * Validação do CNPJ da empresa usando os métodos da Classe
              * ValidaUtils Campo obrigatório; Tamanho de 14 caracteres; CNPJ
              * repetido.
              */
-            String cnpjEmpresaMsg = "";
+            cnpjEmpresaMsg = "";
             tamanho = 14;
             cnpjEmpresaMsg = ValidaUtils.validaObrigatorio("CNPJ", cnpjEmpresa);
             if (cnpjEmpresaMsg.trim().isEmpty()) {
@@ -165,6 +238,7 @@ public class ValidaAlterarConvenio extends HttpServlet {
                 if (cnpjEmpresaMsg.trim().isEmpty()) {
                     cnpjEmpresaMsg = ValidaUtils.validaTamanhoExato("CNPJ", tamanho, cnpjEmpresa);
                     if (cnpjEmpresaMsg.trim().isEmpty()) {
+                        if(!cnpjInicial.equals(cnpj)){
                         Empresa e = EmpresaServices.buscarEmpresaByCnpj(cnpjEmpresa);
                         if (e == null) {
                             if (cnpjEmpresaMsg.trim().isEmpty()) {
@@ -184,7 +258,8 @@ public class ValidaAlterarConvenio extends HttpServlet {
                             request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
                             isValid = false;
                         }
-                    } else {
+                    }}
+                    else {
                         cnpjEmpresaMsg = messages.getString(cnpjEmpresaMsg);
                         cnpjEmpresaMsg = ServletUtils.mensagemFormatada(cnpjEmpresaMsg, locale, tamanho);
                         request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
@@ -200,7 +275,7 @@ public class ValidaAlterarConvenio extends HttpServlet {
                 request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
                 isValid = false;
             }
-
+            
             /**
              * Validação do campo Agente Integração, usando métodos da Classe
              * ValidaUtils. Deve ser campo booleano
@@ -228,19 +303,24 @@ public class ValidaAlterarConvenio extends HttpServlet {
              * Classe ValidaUtils. Campo obrigatório; Tamanho máximo de 100
              * caracteres; Razão Social já existente.
              */
+            
             String nomeEmpresaMsg = "";
+            
+
             nomeEmpresaMsg = ValidaUtils.validaObrigatorio("Razão Social", nomeEmpresa);
             if (nomeEmpresaMsg.trim().isEmpty()) {
                 nomeEmpresaMsg = ValidaUtils.validaTamanho("Razão Social", 100, nomeEmpresa);
                 if (nomeEmpresaMsg.trim().isEmpty()) {
-                    Empresa e = EmpresaServices.buscarEmpresaByNome(nomeEmpresa);
-                    if (e == null) {
-                        request.setAttribute("nomeEmpresa", nomeEmpresa);
-                    } else {
-                        nomeEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_empresa_duplicada");
-                        request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
-                        isValid = false;
+                    if(!nomeEmpresaInicial.equals(nomeEmpresa)){
+                        Empresa e = EmpresaServices.buscarEmpresaByNome(nomeEmpresa);
+                        if (e == null) {
+                            request.setAttribute("nomeEmpresa", nomeEmpresa);
+                        } else {
+                            nomeEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_empresa_duplicada");
+                            request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
+                            isValid = false;
                     }
+                }
                 } else {
                     nomeEmpresaMsg = messages.getString(nomeEmpresaMsg);
                     nomeEmpresaMsg = ServletUtils.mensagemFormatada(nomeEmpresaMsg, locale, tamanho);
@@ -252,6 +332,7 @@ public class ValidaAlterarConvenio extends HttpServlet {
                 request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
                 isValid = false;
             }
+            
 
             /**
              * Validação do Email do Cadastro Empresa usando métodos da Classe
@@ -359,7 +440,7 @@ public class ValidaAlterarConvenio extends HttpServlet {
              * Validação da Data de Assinatura do Convenio da Pessoa usando os
              * métodos da Classe ValidaUtils Campo obrigatório
              */
-            Date dataAssinaturaEmpresa = null;
+            Date dataAssinaturaEmpresa2 = null;
             String dataAssinaturaMsg = "";
             String campo = "Data de Assinatura";
 
@@ -371,9 +452,9 @@ public class ValidaAlterarConvenio extends HttpServlet {
                     if (dataAssinaturaMsg.trim().isEmpty()) {
                         try {
                             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                            dataAssinaturaEmpresa = format.parse(dataAssinaturaConvenioEmpresa);
+                            dataAssinaturaEmpresa2 = format.parse(dataAssinaturaConvenioEmpresa);
 
-                            request.setAttribute("dataAssinaturaConvenioEmpresa", dataAssinaturaEmpresa);
+                            request.setAttribute("dataAssinaturaConvenioEmpresa", dataAssinaturaEmpresa2);
                         } catch (Exception e) {
                             //TODO trocar saída de console por Log
                             System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
@@ -437,6 +518,8 @@ public class ValidaAlterarConvenio extends HttpServlet {
              * ValidaUtils Campo obrigatório; Tamanho de 11 caracteres; CNPJ
              * repetido.
              */
+            
+            
             String cpfPessoaMsg = "";
             tamanho = 11;
             cpfPessoaMsg = ValidaUtils.validaObrigatorio("CPF", cpfPessoa);
@@ -448,6 +531,7 @@ public class ValidaAlterarConvenio extends HttpServlet {
                 if (cpfPessoaMsg.trim().isEmpty()) {
                     cpfPessoaMsg = ValidaUtils.validaTamanhoExato("CPF", tamanho, cpfPessoa);
                     if (cpfPessoaMsg.trim().isEmpty()) {
+                        if(!cpfInicial.equals(cpf)){
                         Pessoa e = PessoaServices.buscarPessoaByCpf(cpfPessoa);
                         System.out.println(cpfPessoa);
                         if (e == null) {
@@ -458,7 +542,8 @@ public class ValidaAlterarConvenio extends HttpServlet {
                             request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
                             isValid = false;
                         }
-                    } else {
+                    }}
+                    else {
                         cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                         request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
                         isValid = false;
@@ -474,7 +559,7 @@ public class ValidaAlterarConvenio extends HttpServlet {
                 request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
                 isValid = false;
             }
-
+            
             /**
              * Validação do nome da Pessoa Cadastro Pessoa Fisica usando métodos
              * da Classe ValidaUtils. Campo obrigatorio; Tamanho máximo de 100
@@ -648,8 +733,11 @@ public class ValidaAlterarConvenio extends HttpServlet {
          * Teste das variáveis booleanas após validação. Redirecionamento para a
          * inclusão ou devolver para o formulário com as mensagens.
          */
+        
+        System.out.println("CNPJ MSG FINAL: " + cnpjEmpresaMsg);
+        System.out.println("EMPRESA MSG FINAL: " + EmpresaMsg);
         if (isValid) {
-            request.getRequestDispatcher("/alterarConvenioServlet").forward(request, response);
+            request.getRequestDispatcher("/IncluirCadastroAlteradoEmpresaServlet").forward(request, response);
 
         } else {
             String msg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_atencao");

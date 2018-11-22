@@ -10,6 +10,7 @@ import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -44,6 +45,8 @@ public class AlterarConvenioAlteradoServlet extends HttpServlet {
         
         
         Convenio convenio = ConvenioServices.buscarConvenioByNumeroConvenio(numeroConvenio);
+        String dataAssinaturaEmpresa;
+
               
         if(convenio.getEmpresa()!=null){
             request.setAttribute("isEmpresa", "sim");
@@ -55,23 +58,38 @@ public class AlterarConvenioAlteradoServlet extends HttpServlet {
             request.setAttribute("convenioNumero", numeroConvenio);
             request.setAttribute("cnpj", convenio.getEmpresa().getCnpjEmpresa());
             request.setAttribute("razao", convenio.getEmpresa().getRazaoSocial());
+            request.setAttribute("cnpjInicial", convenio.getEmpresa().getCnpjEmpresa());
+            request.setAttribute("nomeEmpresaInicial", convenio.getEmpresa().getRazaoSocial());
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            dataAssinaturaEmpresa = format.format(convenio.getDataAssinatura());
+            request.setAttribute("dataAssinaturaConvenioEmpresa", dataAssinaturaEmpresa);
             request.setAttribute("emailEmpresa", convenio.getEmpresa().getEmailEmpresa());
             request.setAttribute("telefoneEmpresa", convenio.getEmpresa().getTelefoneEmpresa());
             request.setAttribute("contatoEmpresa", convenio.getEmpresa().getContatoEmpresa());
+            request.setAttribute("convenioAnoEmpresa", convenio.getAno());
                
         }else{
             request.setAttribute("convenioNumero", numeroConvenio);
             request.setAttribute("isPessoa", "sim");
             request.setAttribute("cpf", convenio.getPessoa().getCpf());
             request.setAttribute("nome", convenio.getPessoa().getNome());
+            request.setAttribute("cpfInicial", convenio.getPessoa().getCpf());
+            request.setAttribute("nomePessoaInicial", convenio.getPessoa().getNome());
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            dataAssinaturaEmpresa = format.format(convenio.getDataAssinatura());
+            request.setAttribute("dataAssinaturaConvenioPessoa", dataAssinaturaEmpresa);
             request.setAttribute("emailPessoa", convenio.getPessoa().getEmail());
             request.setAttribute("telefonePessoa", convenio.getPessoa().getTelefone());
+            request.setAttribute("convenioAnoPessoa", convenio.getAno());
             
         }
         request.getSession().setAttribute("numero", numeroConvenio);
         
         request.setAttribute("convenioRenovar", convenio);
   
+        
+        
+        
         request.getRequestDispatcher("form_alterar_convenio.jsp").forward(request, response);
         
     }

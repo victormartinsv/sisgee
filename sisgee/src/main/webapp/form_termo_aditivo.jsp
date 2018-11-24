@@ -78,12 +78,12 @@
                                 <c:if test="${not empty b.getTermosAditivos()}">
                                     <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
                                     <td><a class="btn btn-sm btn-primary btn-lg disabled" href="ExcluirTermo?ide=${b.idTermoEstagio}" role="button" aria-disabled="true" >Excluir</td>
-                                    <td><a class="btn btn-sm btn-primary btn-lg disabled " href="AlterarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}"  role="button" aria-disabled="true" >Alterar</td>
+                                    <td><a class="btn btn-sm btn-primary btn-lg disabled " href="AlterarTermo?ide=${b.idTermoEstagio}&matricula=${param.matricula}"  role="button" aria-disabled="true" >Alterar</td>
                                 </c:if>
                                  <c:if test="${empty b.getTermosAditivos()}">
                                     <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
                                     <td><a class="btn btn-sm btn-primary btn-block" href="#ModalEstagio_${b.idTermoEstagio}" data-toggle="modal">Excluir</td>
-                                    <td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Alterar</td>
+                                    <td><a class="btn btn-sm btn-primary btn-block" href="AlterarTermo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Alterar</td>
                                 </c:if>       
                                     
                             </tr>

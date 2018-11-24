@@ -119,7 +119,7 @@
                                             <td>${b.getConvenio().pegaNome()}</td>
                                             <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ida=${c.idTermoAditivo}&ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
                                                 <td><a class="btn btn-sm btn-primary" href="#ModalAditivo_${c.idTermoAditivo}" data-toggle="modal">Excluir</td>
-                                                <td><a class="btn btn-sm btn-primary" href="AlterarTermoEAditivo?ida=${c.idTermoAditivo}&matricula=${param.matricula}">Alterar</td>
+                                                <td><a class="btn btn-sm btn-primary" href="AlterarAditivo?ida=${c.idTermoAditivo}&ide=${b.idTermoEstagio}&matricula=${param.matricula}">Alterar</td>
 
                                         </tr>                                     
                                         </c:when>
@@ -136,7 +136,7 @@
                                             <td>${b.getConvenio().pegaNome()}</td>
                                             <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ida=${c.idTermoAditivo}&ide=${b.idTermoEstagio}&matricula=${param.matricula}" >Visualizar</td>
                                                 <td><a class="btn btn-sm btn-primary btn-lg disabled" href="ExcluirAditivo?ide=${c.idTermoAditivo}" role="button" aria-disabled="true" >Excluir</td>
-                                                <td><a class="btn btn-sm btn-primary btn-lg disabled" href="AlterarTermoEAditivo?ida=${c.idTermoAditivo}&matricula=${param.matricula}" role="button" aria-disabled="true" >Alterar</td>
+                                                <td><a class="btn btn-sm btn-primary btn-lg disabled" href="AlterarAditivo?ida=${c.idTermoAditivo}&ide=${b.idTermoEstagio}&matricula=${param.matricula}" role="button" aria-disabled="true" >Alterar</td>
 
                                         </tr>  
                                         </c:otherwise>

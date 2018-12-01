@@ -31,18 +31,6 @@
 
             <form id="meuForm" action="ValidaAlterarConvenio" method="POST">
                 <fieldset class="form-group">
-
-                    <div class="form-group col-md-6">
-                        <input type="hidden" id="cnpjInicial" name="cnpjInicial" value="${cnpjInicial}">
-                        <input type="hidden" id="cpfInicial" name="cpfInicial" value="${cnpfInicial}">
-                        <input type="hidden" id="nomeEmpresaInicial" name="nomeEmpresaInicial" value="${nomeEmpresaInicial}">
-                        <input type="hidden" id="nomePessoaInicial" name="nomePessoaInicial" value="${nomePessoaInicial}">
-                            <label for="convenioNumero"><fmt:message key = "br.cefetrj.sisgee.resources.form.convenio_numero"/></label>
-                            <input type="text" class="form-control ${ not empty convenioNumeroMsg ? 'is-invalid': 'is-valid' }" id="convenioNumero" name="convenioNumero" maxlength=6 value=${not empty convenioNumero ? convenioNumero : '' }>
-                            <c:if test="${ not empty convenioNumeroMsg }">
-                                <div class="invalid-feedback">${ convenioNumeroMsg }</div>
-                            </c:if>
-                    </div>
                             
                     <div class="form-row  " >
                         <div class="form-group col-md-2 mt-2 " >
@@ -51,12 +39,12 @@
 
                         <div class="custom-controls-stacked d-block my-3 ">
                             <label class="custom-control custom-radio"> 
-                                <input id="pessoaJuridica" name="tipoPessoa" type="radio" ${ not empty isEmpresa ? 'checked  ' : '' } class="custom-control-input ehAgenteCheck ${ not empty isAgenteIntegracaoMsg ? 'is-invalid' : '' }" ${ not empty tipoPessoaMsg ? '' : param.tipoPessoa == 'sim' ? 'checked' : '' } required value = "sim" > 
+                                <input id="pessoaJuridica" name="tipoPessoa" type="radio" disabled ${ not empty isEmpresa ? 'checked  ' : '' } class="custom-control-input ehAgenteCheck ${ not empty isAgenteIntegracaoMsg ? 'is-invalid' : '' }" ${ not empty tipoPessoaMsg ? '' : param.tipoPessoa == 'sim' ? 'checked' : '' } required value = "sim" > 
                                 <span class="custom-control-indicator"></span> 
                                 <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_pessoaJuridica"/></span>
                             </label> 
                             <label class="custom-control custom-radio"> 
-                                <input id="pessoaFisica" name="tipoPessoa" type="radio" ${ not empty isPessoa ? 'checked ' : '' } class="custom-control-input ehAgenteCheck ${ not empty isAgenteIntegracaoMsg ? 'is-invalid' : '' }"  ${ not empty tipoPessoaMsg ? '' : param.tipoPessoa == 'nao' ? 'checked' : '' }required value = "nao" > 
+                                <input id="pessoaFisica" name="tipoPessoa" type="radio" disabled ${ not empty isPessoa ? 'checked ' : '' } class="custom-control-input ehAgenteCheck ${ not empty isAgenteIntegracaoMsg ? 'is-invalid' : '' }"  ${ not empty tipoPessoaMsg ? '' : param.tipoPessoa == 'nao' ? 'checked' : '' }required value = "nao" > 
                                 <span class="custom-control-indicator"></span> 
                                 <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_pessoaFisica"/></span>
                             </label>
@@ -74,12 +62,12 @@
 
                             <div class="custom-controls-stacked d-block my-3 mr-5 ml-5 ">
                                 <label class="custom-control custom-radio"> 
-                                    <input id="SimAgente" name="agenteIntegracao" type="radio" ${ not empty simAgenteIntegracao ? 'checked ' : '' } class="custom-control-input    ${ not empty agenteIntegracaoMsg ? 'is-invalid': '' } " ${ not empty agenteIntegracaoMsg ? '' : param.agenteIntegracao == 'true' ? 'checked' : '' } value="true"> 
+                                    <input id="SimAgente" name="agenteIntegracao" type="radio" disabled ${ not empty simAgenteIntegracao ? 'checked ' : '' } class="custom-control-input    ${ not empty agenteIntegracaoMsg ? 'is-invalid': '' } " ${ not empty agenteIntegracaoMsg ? '' : param.agenteIntegracao == 'true' ? 'checked' : '' } value="true"> 
                                     <span class="custom-control-indicator"></span> 
                                     <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_sim"/></span>
                                 </label> 
                                 <label class="custom-control custom-radio"> 
-                                    <input id="NaoAgente" name="agenteIntegracao" type="radio" ${ not empty naoAgenteIntegracao ? 'checked ' : '' } class="custom-control-input   ${ not empty agenteIntegracaoMsg ? 'is-invalid': '' }" ${ not empty agenteIntegracaoMsg ? '' : param.agenteIntegracao == 'false' ? 'checked' : '' } value="false"> 
+                                    <input id="NaoAgente" name="agenteIntegracao" type="radio" disabled ${ not empty naoAgenteIntegracao ? 'checked ' : '' } class="custom-control-input   ${ not empty agenteIntegracaoMsg ? 'is-invalid': '' }" ${ not empty agenteIntegracaoMsg ? '' : param.agenteIntegracao == 'false' ? 'checked' : '' } value="false"> 
                                     <span class="custom-control-indicator"></span> 
                                     <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_nao"/></span>
                                 </label>
@@ -221,7 +209,7 @@
        
         <script>
             $(document).ready(function () {
-                //$('#cnpjEmpresa').mask('99.999.999/9999-99');
+                $('#cnpjEmpresa').mask('99.999.999/9999-99');
                 $('#cpfPessoa').mask('999.999.999-99');
                 $('#dataAssinaturaConvenioPessoa').mask('99/99/9999');
                 $('#dataAssinaturaConvenioEmpresa').mask('99/99/9999');

@@ -36,12 +36,6 @@ public class Pessoa implements Serializable {
     @Column(length = 50)
     private String email;
     
-    @Column(length = 4)
-    private String convenioAno;
-    
-    @Column(length = 6)
-    private String convenioNumero;
-    
     @OneToOne(mappedBy = "pessoa")
     @JoinColumn()
     private Convenio convenio;
@@ -109,22 +103,6 @@ public class Pessoa implements Serializable {
 
     public String getEmail() {
         return email;
-    }
-    
-    public String getConvenioAno() {
-        return convenioAno;
-    }
-
-    public void setConvenioAno(String convenioAno) {
-        this.convenioAno = convenioAno;
-    }
-
-    public String getConvenioNumero() {
-        return convenioNumero;
-    }
-
-    public void setConvenioNumero(String convenioNumero) {
-        this.convenioNumero = convenioNumero;
     }
     
     public Convenio getConvenio() {

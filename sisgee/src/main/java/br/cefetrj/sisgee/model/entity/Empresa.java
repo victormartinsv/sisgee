@@ -44,12 +44,6 @@ public class Empresa implements Serializable {
     @Column(length = 50)
     private String contatoEmpresa;
     
-    @Column(length = 4)
-    private String convenioAno;
-    
-    @Column(length = 6)
-    private String convenioNumero;
-    
     @OneToMany(mappedBy = "empresa")
     private List<Convenio> convenio;
 
@@ -124,22 +118,6 @@ public class Empresa implements Serializable {
         this.contatoEmpresa = contatoEmpresa;
     }
     
-    public String getConvenioAno() {
-        return convenioAno;
-    }
-
-    public void setConvenioAno(String convenioAno) {
-        this.convenioAno = convenioAno;
-    }
-
-    public String getConvenioNumero() {
-        return convenioNumero;
-    }
-
-    public void setConvenioNumero(String convenioNumero) {
-        this.convenioNumero = convenioNumero;
-    }
-
     public List<Convenio> getConvenio() {
         return convenio;
     }

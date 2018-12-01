@@ -93,18 +93,8 @@ public class IncluirCadastroAlteradoEmpresaServlet extends HttpServlet {
         Integer idConvenio = convenioAux.getIdConvenio();
         
         Pessoa pessoa = null;
-        
-        if (tipoPessoa.equals("nao")) {
-            
-            pessoaJuridica = false;
-            pessoa = new Pessoa(nomePessoa, cpfPessoa.replaceAll("[.|/|-]", ""));
-            pessoa.setEmail(emailPessoa);
-            pessoa.setTelefone(telefonePessoa);
-            pessoa.setIdPessoa(idPessoa);
-        }
 
         Boolean ehAgente = Boolean.parseBoolean(agenteIntegracao);
-
         
         if (pessoaJuridica) {
             
@@ -136,7 +126,6 @@ public class IncluirCadastroAlteradoEmpresaServlet extends HttpServlet {
                 
                 msg = "Alteração realizada com sucesso!";
                 request.setAttribute("msg", msg);
-                request.setAttribute("numeroConvenioGerado", convenio.getNumeroConvenio());
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
                 lg.info(msg);
 
@@ -170,10 +159,10 @@ public class IncluirCadastroAlteradoEmpresaServlet extends HttpServlet {
                 
                 Convenio convenio = new Convenio(convenioAnoPessoa, convenioNumero, dataAssinaturaConvenio, pessoa);
                 convenio.setNumeroConvenio();
-                ConvenioServices.incluirConvenio(convenio);
+                convenio.setIdConvenio(idConvenio);
+                ConvenioServices.alterarConvenio(convenio);
                 msg = "Alteração realizada com sucesso!";
                 request.setAttribute("msg", msg);
-                request.setAttribute("numeroConvenioGerado", convenio.getNumeroConvenio());
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
 
             } catch (Exception e) {

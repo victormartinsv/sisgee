@@ -77,42 +77,6 @@ public class ValidaAlterarConvenio extends HttpServlet {
         Convenio convenio = ConvenioServices.buscarConvenioByNumeroConvenio(convenioNumero);
         String dataAssinaturaEmpresa;
         
-        String cpfInicial = request.getParameter("cpfInicial");
-        String nomeEmpresaInicial = request.getParameter("nomeEmpresaInicial");  
-        String cnpjInicial = request.getParameter("cnpjInicial");
-        String nomePessoaInicial = request.getParameter("nomePessoaInicial");
-        
-        if(convenio.getEmpresa()!=null){
-            request.setAttribute("isEmpresa", "sim");
-            if(convenio.getEmpresa().isAgenteIntegracao()){
-                request.setAttribute("simAgenteIntegracao", "sim");
-            }else{
-                request.setAttribute("naoAgenteIntegracao", "sim");
-            }
-            request.setAttribute("convenioNumero", convenioNumero);
-            request.setAttribute("cnpj", cnpjEmpresa);
-            request.setAttribute("razao", nomeEmpresa);
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            dataAssinaturaEmpresa = format.format(convenio.getDataAssinatura());
-            request.setAttribute("dataAssinaturaConvenioEmpresa", dataAssinaturaEmpresa);
-            request.setAttribute("emailEmpresa", emailEmpresa);
-            request.setAttribute("telefoneEmpresa", telefoneEmpresa);
-            request.setAttribute("contatoEmpresa", contatoEmpresa);
-            request.setAttribute("convenioAnoEmpresa", convenioAnoEmpresa);
-               
-        }else{
-            request.setAttribute("convenioNumero", convenioNumero);
-            request.setAttribute("isPessoa", "sim");
-            request.setAttribute("cpf", cpfPessoa);
-            request.setAttribute("nome", nomePessoa);
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            dataAssinaturaEmpresa = format.format(convenio.getDataAssinatura());
-            request.setAttribute("dataAssinaturaConvenioPessoa", dataAssinaturaEmpresa);
-            request.setAttribute("emailPessoa", emailPessoa);
-            request.setAttribute("telefonePessoa", telefonePessoa);
-            request.setAttribute("convenioAnoPessoa", convenioAnoPessoa);
-            
-        }
         request.getSession().setAttribute("numero", convenioNumero);
         
         request.setAttribute("convenioRenovar", convenio);
@@ -149,80 +113,75 @@ public class ValidaAlterarConvenio extends HttpServlet {
         
         Empresa empresa = EmpresaServices.buscarEmpresaByCnpj(cnpj);
         Pessoa pessoa = PessoaServices.buscarPessoaByCpf(cpf);
+        
+        System.out.println(pessoa.getIdPessoa());
         Convenio convenio2 = null;
         boolean isValid = true;
         Integer tamanho = 0;
-        if (empresa != null){
-                
-            
-                EmpresaMsg = "";
-                EmpresaMsg = ValidaUtils.validaObrigatorio("cnpj", cnpj);
-                if (EmpresaMsg.trim().isEmpty()) {
-                    EmpresaMsg = ValidaUtils.validaInteger("cnpj", cnpj);
-                    if(EmpresaMsg.trim().isEmpty()){
-                        if (!cnpj.equals("") || cnpj != null) {
-                            if(!cnpjInicial.equals(cnpj)){
-                                convenio2 = ConvenioServices.buscarConvenioByEmpresa(empresa);
-                                if(convenio2 == null){
-                                    request.setAttribute("cnpj", cnpj);
-                            }else{
-                                EmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_convenio_existente");
-                                request.setAttribute("EmpresaMsg", EmpresaMsg);
-                                isValid = false;
-                                }                          
-                        }
-                        }
-                        else{
-                           EmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                           request.setAttribute("EmpresaMsg", EmpresaMsg);
-                           isValid = false;
-                        }
-                    }else{
-                        EmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                        request.setAttribute("EmpresaMsg", EmpresaMsg);
-                        isValid = false;
-                    }
-                }else{
-                    EmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                    request.setAttribute("EmpresaMsg", EmpresaMsg);
-                    isValid = false;
-                } 
-        }else{
-            String PessoaMsg = "";
-                PessoaMsg = ValidaUtils.validaObrigatorio("cpf", cpf);
-                if (PessoaMsg.trim().isEmpty()) {
-                    PessoaMsg = ValidaUtils.validaInteger("cpf", cpf);
-                    if(PessoaMsg.trim().isEmpty()){
-                        if (!cpf.equals("") || cpf != null) {
-                            if(!cpfInicial.equals(cpf)){
-                                convenio2 = ConvenioServices.buscarConvenioByPessoa(pessoa);
-                                if(convenio2 == null){
-                                 request.setAttribute("cpf", cpf);
-                            }else{
-                                PessoaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_convenio_existente");
-                                request.setAttribute("PessoaMsg", PessoaMsg);
-                                isValid = false;
-                                }                          
-                        }
-                        }
-                        else{
-                           PessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                           request.setAttribute("PessoaMsg", PessoaMsg);
-                           isValid = false;
-                        }
-                    }else{
-                        PessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                        request.setAttribute("PessoaMsg", PessoaMsg);
-                        isValid = false;
-                    }
-                }else{
-                    PessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                    request.setAttribute("PessoaMsg", PessoaMsg);
-                    isValid = false;
-                } 
-        } 
+        int idEmpresa, idPessoa;
         
-                   if (pessoaJuridica) {
+        
+        //Validação de uma Empresa
+        if (empresa != null){
+            System.out.println(pessoa.getIdPessoa());
+            EmpresaMsg = "";
+            EmpresaMsg = ValidaUtils.validaObrigatorio("cnpj", cnpj);
+            if (EmpresaMsg.trim().isEmpty()) {
+                EmpresaMsg = ValidaUtils.validaInteger("cnpj", cnpj);
+                if(EmpresaMsg.trim().isEmpty()){
+                    if (!cnpj.equals("") || cnpj != null) {
+                        convenio2 = ConvenioServices.buscarConvenioByEmpresa(empresa);
+                        idEmpresa = convenio2.getIdConvenio();
+                        System.out.println("ID DO CONVENIO DE EMPRESA: " + idEmpresa);
+                    }else{
+                        request.setAttribute("cnpj", cnpj);                      
+                    }
+                }else{
+                   EmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                   request.setAttribute("EmpresaMsg", EmpresaMsg);
+                   isValid = false;
+                }
+            }else{
+                EmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                request.setAttribute("EmpresaMsg", EmpresaMsg);
+                isValid = false;
+            }
+        }
+//        }else{
+//            System.out.println(pessoa.getIdPessoa());
+//            String PessoaMsg = "";
+//                PessoaMsg = ValidaUtils.validaObrigatorio("cpf", cpf);
+//                if (PessoaMsg.trim().isEmpty()) {
+//                    PessoaMsg = ValidaUtils.validaInteger("cpf", cpf);
+//                    if(PessoaMsg.trim().isEmpty()){
+//                        if (!cpf.equals("") || cpf != null) {
+//                                convenio2 = ConvenioServices.buscarConvenioByPessoa(pessoa);
+//                                if(convenio2 == null){
+//                                 request.setAttribute("cpf", cpf);
+//                            }else{
+//                                PessoaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_convenio_existente");
+//                                request.setAttribute("PessoaMsg", PessoaMsg);
+//                                isValid = false;
+//                                }                          
+//                        }
+//                        else{
+//                           PessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                           request.setAttribute("PessoaMsg", PessoaMsg);
+//                           isValid = false;
+//                        }
+//                    }else{
+//                        PessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                        request.setAttribute("PessoaMsg", PessoaMsg);
+//                        isValid = false;
+//                    }
+//                }else{
+//                    PessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                    request.setAttribute("PessoaMsg", PessoaMsg);
+//                    isValid = false;
+//                } 
+//        } 
+        
+          if (pessoaJuridica) {
             /**
              * Validação do CNPJ da empresa usando os métodos da Classe
              * ValidaUtils Campo obrigatório; Tamanho de 14 caracteres; CNPJ
@@ -232,13 +191,12 @@ public class ValidaAlterarConvenio extends HttpServlet {
             tamanho = 14;
             cnpjEmpresaMsg = ValidaUtils.validaObrigatorio("CNPJ", cnpjEmpresa);
             if (cnpjEmpresaMsg.trim().isEmpty()) {
-                //remove caracteres especiais antes de vazer a validação numérica do CNPJ
+                //remove caracteres especiais antes de fazer a validação numérica do CNPJ
                 cnpjEmpresa = cnpjEmpresa.replaceAll("[.|/|-]", "");
                 cnpjEmpresaMsg = ValidaUtils.validaInteger("CNPJ", cnpjEmpresa);
                 if (cnpjEmpresaMsg.trim().isEmpty()) {
                     cnpjEmpresaMsg = ValidaUtils.validaTamanhoExato("CNPJ", tamanho, cnpjEmpresa);
                     if (cnpjEmpresaMsg.trim().isEmpty()) {
-                        if(!cnpjInicial.equals(cnpj)){
                         Empresa e = EmpresaServices.buscarEmpresaByCnpj(cnpjEmpresa);
                         if (e == null) {
                             if (cnpjEmpresaMsg.trim().isEmpty()) {
@@ -258,7 +216,7 @@ public class ValidaAlterarConvenio extends HttpServlet {
                             request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
                             isValid = false;
                         }
-                    }}
+                    }
                     else {
                         cnpjEmpresaMsg = messages.getString(cnpjEmpresaMsg);
                         cnpjEmpresaMsg = ServletUtils.mensagemFormatada(cnpjEmpresaMsg, locale, tamanho);
@@ -311,7 +269,6 @@ public class ValidaAlterarConvenio extends HttpServlet {
             if (nomeEmpresaMsg.trim().isEmpty()) {
                 nomeEmpresaMsg = ValidaUtils.validaTamanho("Razão Social", 100, nomeEmpresa);
                 if (nomeEmpresaMsg.trim().isEmpty()) {
-                    if(!nomeEmpresaInicial.equals(nomeEmpresa)){
                         Empresa e = EmpresaServices.buscarEmpresaByNome(nomeEmpresa);
                         if (e == null) {
                             request.setAttribute("nomeEmpresa", nomeEmpresa);
@@ -320,7 +277,6 @@ public class ValidaAlterarConvenio extends HttpServlet {
                             request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
                             isValid = false;
                     }
-                }
                 } else {
                     nomeEmpresaMsg = messages.getString(nomeEmpresaMsg);
                     nomeEmpresaMsg = ServletUtils.mensagemFormatada(nomeEmpresaMsg, locale, tamanho);
@@ -419,22 +375,21 @@ public class ValidaAlterarConvenio extends HttpServlet {
                     contatoEmpresaMsg = ValidaUtils.validaSomenteLetras("contatoEmpresa", contatoEmpresa);
                     if (contatoEmpresaMsg.trim().isEmpty()) {
                         request.setAttribute("contatoEmpresa", contatoEmpresa);
-
-                    } else {
+                    }else{
                         contatoEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                         request.setAttribute("contatoEmpresaMsg", contatoEmpresaMsg);
                         isValid = false;
-
                     }
-
-                } else {
+                }else {
                     contatoEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                     request.setAttribute("contatoEmpresaMsg", contatoEmpresaMsg);
                     isValid = false;
-                    
                 }
-
-            }
+            }else {
+                    contatoEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                    request.setAttribute("contatoEmpresaMsg", contatoEmpresaMsg);
+                    isValid = false;
+                }
 
             /**
              * Validação da Data de Assinatura do Convenio da Pessoa usando os
@@ -453,7 +408,6 @@ public class ValidaAlterarConvenio extends HttpServlet {
                         try {
                             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                             dataAssinaturaEmpresa2 = format.parse(dataAssinaturaConvenioEmpresa);
-
                             request.setAttribute("dataAssinaturaConvenioEmpresa", dataAssinaturaEmpresa2);
                         } catch (Exception e) {
                             //TODO trocar saída de console por Log
@@ -508,234 +462,235 @@ public class ValidaAlterarConvenio extends HttpServlet {
                 isValid = false;
                 System.out.println(convenioAnoEmpresaMsg);
             }
+          }
             
 
-            System.out.println("teste msg ano" + convenioAnoEmpresaMsg);
+           // System.out.println("teste msg ano" + convenioAnoEmpresaMsg);
 
-        } else {
-            /**
-             * Validação do CPF da pessoa usando os métodos da Classe
-             * ValidaUtils Campo obrigatório; Tamanho de 11 caracteres; CNPJ
-             * repetido.
-             */
-            
-            
-            String cpfPessoaMsg = "";
-            tamanho = 11;
-            cpfPessoaMsg = ValidaUtils.validaObrigatorio("CPF", cpfPessoa);
-            if (cpfPessoaMsg.trim().isEmpty()) {
-
-                //remove caracteres especiais antes de vazer a validação numérica do CNPJ
-                cpfPessoa = cpfPessoa.replaceAll("[.|/|-]", "");
-                cpfPessoaMsg = ValidaUtils.validaInteger("CPF", cpfPessoa);
-                if (cpfPessoaMsg.trim().isEmpty()) {
-                    cpfPessoaMsg = ValidaUtils.validaTamanhoExato("CPF", tamanho, cpfPessoa);
-                    if (cpfPessoaMsg.trim().isEmpty()) {
-                        if(!cpfInicial.equals(cpf)){
-                        Pessoa e = PessoaServices.buscarPessoaByCpf(cpfPessoa);
-                        System.out.println(cpfPessoa);
-                        if (e == null) {
-                            System.out.println(cpfPessoa);
-                            request.setAttribute("cpfPessoa", cpfPessoa.replaceAll("[.|/|-]", ""));
-                        } else {
-                            cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_pessoafisica_duplicada");
-                            request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
-                            isValid = false;
-                        }
-                    }}
-                    else {
-                        cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                        request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
-                        isValid = false;
-                    }
-                } else {
-                    cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_numerico");
-                    request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
-                    isValid = false;
-                }
-            } else {
-                cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                cpfPessoaMsg = ServletUtils.mensagemFormatada(cpfPessoaMsg, locale, tamanho);
-                request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
-                isValid = false;
-            }
-            
-            /**
-             * Validação do nome da Pessoa Cadastro Pessoa Fisica usando métodos
-             * da Classe ValidaUtils. Campo obrigatorio; Tamanho máximo de 100
-             * caracteres;
-             */
-            String nomePessoaMsg = "";
-            nomePessoaMsg = ValidaUtils.validaObrigatorio("nomePessoa", nomePessoa);
-            if (nomePessoaMsg.trim().isEmpty()) {
-                nomePessoaMsg = ValidaUtils.validaTamanho("nomePessoa", 100, nomePessoa);
-                if (nomePessoaMsg.trim().isEmpty()) {
-                    nomePessoaMsg = ValidaUtils.validaSomenteLetras("nomePessoa", nomePessoa);
-                    if (nomePessoaMsg.trim().isEmpty()) {
-                        request.setAttribute("nomePessoa", nomePessoa);
-                    } else {
-                        nomePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                        request.setAttribute("nomePessoaMsg", nomePessoaMsg);
-                        isValid = false;
-                    }
-
-                } else {
-                    nomePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                    request.setAttribute("nomePessoaMsg", nomePessoaMsg);
-                    isValid = false;
-                }
-
-            } else {
-                nomePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                request.setAttribute("nomePessoaMsg", nomePessoaMsg);
-                isValid = false;
-
-            }
-
-            /**
-             * Validação do email da Pessoa Cadastro Pessoa Fisica usando
-             * métodos da Classe ValidaUtils. Campo opcional; Tamanho máximo de
-             * 50 caracteres;
-             */
-            String emailPessoaMsg = "";
-            emailPessoaMsg = ValidaUtils.validaObrigatorio("emailPessoa", emailPessoa);
-            if (emailPessoaMsg.trim().isEmpty()) {
-                emailPessoaMsg = ValidaUtils.validaTamanho("emailPessoa", 50, emailPessoa);
-                if (emailPessoaMsg.trim().isEmpty()) {
-                    emailPessoaMsg = ValidaUtils.validaEmail("emailPessoa", emailPessoa);
-                    if (emailPessoaMsg.trim().isEmpty()) {
-                        request.setAttribute("emailPessoa", emailPessoa);
-                    } else {
-                        emailPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                        request.setAttribute("emailPessoaMsg", emailPessoaMsg);
-                        isValid = false;
-                    }
-                } else {
-                    emailPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                    request.setAttribute("emailPessoaMsg", emailPessoaMsg);
-                    isValid = false;
-                }
-
-            }
-
-            /**
-             * Validação do telefone da Pessoa Cadastro Pessoa Fisica usando
-             * métodos da Classe ValidaUtils. Campo opcional; Tamanho máximo de
-             * 11 caracteres;
-             */
-            String telefonePessoaMsg = "";
-            telefonePessoaMsg = ValidaUtils.validaObrigatorio("telefonePessoa", telefonePessoa);
-            if (telefonePessoaMsg.trim().isEmpty()) {
-                telefonePessoaMsg = ValidaUtils.validaTamanho("telefonePessoa", 11, telefonePessoa);
-                if (telefonePessoaMsg.trim().isEmpty()) {
-                    telefonePessoa = telefonePessoa.replaceAll("[.|/|-]", "");
-                    telefonePessoaMsg = ValidaUtils.validaInteger("telefonePessoa", telefonePessoa);
-                    if (telefonePessoaMsg.trim().isEmpty()) {
-                        telefonePessoaMsg = ValidaUtils.validaTelefone("telefonePessoa", telefonePessoa);
-                        if (telefonePessoaMsg.trim().isEmpty()) {
-                            request.setAttribute("telefonePessoa", telefonePessoa);
-                        } else {
-                            telefonePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                            request.setAttribute("telefonePessoaMsg", telefonePessoaMsg);
-                            isValid = false;
-                        }
-                    } else {
-                        telefonePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                        request.setAttribute("telefonePessoaMsg", telefonePessoaMsg);
-                        isValid = false;
-
-                    }
-                } else {
-                    telefonePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                    request.setAttribute("telefonePessoaMsg", telefonePessoaMsg);
-                    isValid = false;
-                }
-
-            }
-
-            /**
-             * Validação da Data de Assinatura do Convenio da Pessoa usando os
-             * métodos da Classe ValidaUtils Campo obrigatório
-             */
-            Date dataAssinaturaPessoa = null;
-            String dataAssinaturaMsg = "";
-            String campo = "Data de Assinatura";
-
-            dataAssinaturaMsg = ValidaUtils.validaObrigatorio(campo, dataAssinaturaConvenioPessoa);
-            if (dataAssinaturaMsg.trim().isEmpty()) {
-                dataAssinaturaMsg = ValidaUtils.validaDate(campo, dataAssinaturaConvenioPessoa);
-                if (dataAssinaturaMsg.trim().isEmpty()) {
-                    dataAssinaturaMsg = ValidaUtils.validaTamanhoExato(campo, 10, dataAssinaturaConvenioPessoa);
-                    if (dataAssinaturaMsg.trim().isEmpty()) {
-                        try {
-                            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                            dataAssinaturaPessoa = format.parse(dataAssinaturaConvenioPessoa);
-
-                            request.setAttribute("dataAssinaturaConvenioPessoa", dataAssinaturaPessoa);
-                        } catch (Exception e) {
-                            //TODO trocar saída de console por Log
-                            System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
-                            isValid = false;
-                        }
-                    } else {
-                        dataAssinaturaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                        request.setAttribute("dataAssinaturaPessoaMsg", dataAssinaturaMsg);
-                        isValid = false;
-                        //TODO Fazer log
-
-                    }
-
-                } else {
-                    dataAssinaturaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                    request.setAttribute("dataAssinaturaPessoaMsg", dataAssinaturaMsg);
-                    isValid = false;
-                    //TODO Fazer log
-                    System.out.println(dataAssinaturaMsg);
-                }
-            } else {
-                dataAssinaturaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                request.setAttribute("dataAssinaturaPessoaMsg", dataAssinaturaMsg);
-                isValid = false;
-                //TODO Fazer log
-                System.out.println(dataAssinaturaMsg);
-            }
-            
-            String convenioAnoPessoaMsg = "";
-            convenioAnoPessoaMsg = ValidaUtils.validaObrigatorio("convenioAnoPessoa", convenioAnoPessoa);
-            if (convenioAnoPessoaMsg.trim().isEmpty()) {
-                convenioAnoPessoaMsg = ValidaUtils.validaTamanhoExato("convenioAnoPessoa", 4, convenioAnoPessoa);
-                if (convenioAnoPessoaMsg.trim().isEmpty()) {
-                    convenioAnoPessoaMsg = ValidaUtils.validaInteger("convenioAnoPessoa", convenioAnoPessoa);
-                    if (convenioAnoPessoaMsg.trim().isEmpty()) {
-                        request.setAttribute("convenioAnoPessoa", convenioAnoPessoa);
-                    } else {
-                        convenioAnoPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                        request.setAttribute("convenioAnoPessoaMsg", convenioAnoPessoaMsg);
-                        isValid = false;
-                        System.out.println(convenioAnoPessoaMsg);
-                    } 
-                }else {
-                    convenioAnoPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                    request.setAttribute("convenioAnoPessoaMsg", convenioAnoPessoaMsg);
-                    isValid = false;
-                    System.out.println(convenioAnoPessoaMsg);
-                    }
-            }else{
-                convenioAnoPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                request.setAttribute("convenioAnoPessoaMsg", convenioAnoPessoaMsg);
-                isValid = false;
-                System.out.println(convenioAnoPessoaMsg);
-            }
-
-        }
+//        } else {
+//            /**
+//             * Validação do CPF da pessoa usando os métodos da Classe
+//             * ValidaUtils Campo obrigatório; Tamanho de 11 caracteres; CNPJ
+//             * repetido.
+//             */
+//            
+//            
+//            String cpfPessoaMsg = "";
+//            tamanho = 11;
+//            cpfPessoaMsg = ValidaUtils.validaObrigatorio("CPF", cpfPessoa);
+//            if (cpfPessoaMsg.trim().isEmpty()) {
+//
+//                //remove caracteres especiais antes de vazer a validação numérica do CNPJ
+//                cpfPessoa = cpfPessoa.replaceAll("[.|/|-]", "");
+//                cpfPessoaMsg = ValidaUtils.validaInteger("CPF", cpfPessoa);
+//                if (cpfPessoaMsg.trim().isEmpty()) {
+//                    cpfPessoaMsg = ValidaUtils.validaTamanhoExato("CPF", tamanho, cpfPessoa);
+//                    if (cpfPessoaMsg.trim().isEmpty()) {
+//                        Pessoa e = PessoaServices.buscarPessoaByCpf(cpfPessoa);
+//                        System.out.println(cpfPessoa);
+//                        if (e == null) {
+//                            System.out.println(cpfPessoa);
+//                            request.setAttribute("cpfPessoa", cpfPessoa.replaceAll("[.|/|-]", ""));
+//                        } else {
+//                            cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_pessoafisica_duplicada");
+//                            request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
+//                            isValid = false;
+//                        }
+//                }
+//                    else {
+//                        cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                        request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
+//                        isValid = false;
+//                    }
+//                } else {
+//                    cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_numerico");
+//                    request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
+//                    isValid = false;
+//                }
+//            } else {
+//                cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                cpfPessoaMsg = ServletUtils.mensagemFormatada(cpfPessoaMsg, locale, tamanho);
+//                request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
+//                isValid = false;
+//            }
+//            
+//            /**
+//             * Validação do nome da Pessoa Cadastro Pessoa Fisica usando métodos
+//             * da Classe ValidaUtils. Campo obrigatorio; Tamanho máximo de 100
+//             * caracteres;
+//             */
+//            String nomePessoaMsg = "";
+//            nomePessoaMsg = ValidaUtils.validaObrigatorio("nomePessoa", nomePessoa);
+//            if (nomePessoaMsg.trim().isEmpty()) {
+//                nomePessoaMsg = ValidaUtils.validaTamanho("nomePessoa", 100, nomePessoa);
+//                if (nomePessoaMsg.trim().isEmpty()) {
+//                    nomePessoaMsg = ValidaUtils.validaSomenteLetras("nomePessoa", nomePessoa);
+//                    if (nomePessoaMsg.trim().isEmpty()) {
+//                        request.setAttribute("nomePessoa", nomePessoa);
+//                    } else {
+//                        nomePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                        request.setAttribute("nomePessoaMsg", nomePessoaMsg);
+//                        isValid = false;
+//                    }
+//
+//                } else {
+//                    nomePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                    request.setAttribute("nomePessoaMsg", nomePessoaMsg);
+//                    isValid = false;
+//                }
+//
+//            } else {
+//                nomePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                request.setAttribute("nomePessoaMsg", nomePessoaMsg);
+//                isValid = false;
+//
+//            }
+//
+//            /**
+//             * Validação do email da Pessoa Cadastro Pessoa Fisica usando
+//             * métodos da Classe ValidaUtils. Campo opcional; Tamanho máximo de
+//             * 50 caracteres;
+//             */
+//            String emailPessoaMsg = "";
+//            emailPessoaMsg = ValidaUtils.validaObrigatorio("emailPessoa", emailPessoa);
+//            if (emailPessoaMsg.trim().isEmpty()) {
+//                emailPessoaMsg = ValidaUtils.validaTamanho("emailPessoa", 50, emailPessoa);
+//                if (emailPessoaMsg.trim().isEmpty()) {
+//                    emailPessoaMsg = ValidaUtils.validaEmail("emailPessoa", emailPessoa);
+//                    if (emailPessoaMsg.trim().isEmpty()) {
+//                        request.setAttribute("emailPessoa", emailPessoa);
+//                    } else {
+//                        emailPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                        request.setAttribute("emailPessoaMsg", emailPessoaMsg);
+//                        isValid = false;
+//                    }
+//                } else {
+//                    emailPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                    request.setAttribute("emailPessoaMsg", emailPessoaMsg);
+//                    isValid = false;
+//                }
+//
+//            }
+//
+//            /**
+//             * Validação do telefone da Pessoa Cadastro Pessoa Fisica usando
+//             * métodos da Classe ValidaUtils. Campo opcional; Tamanho máximo de
+//             * 11 caracteres;
+//             */
+//            String telefonePessoaMsg = "";
+//            telefonePessoaMsg = ValidaUtils.validaObrigatorio("telefonePessoa", telefonePessoa);
+//            if (telefonePessoaMsg.trim().isEmpty()) {
+//                telefonePessoaMsg = ValidaUtils.validaTamanho("telefonePessoa", 11, telefonePessoa);
+//                if (telefonePessoaMsg.trim().isEmpty()) {
+//                    telefonePessoa = telefonePessoa.replaceAll("[.|/|-]", "");
+//                    telefonePessoaMsg = ValidaUtils.validaInteger("telefonePessoa", telefonePessoa);
+//                    if (telefonePessoaMsg.trim().isEmpty()) {
+//                        telefonePessoaMsg = ValidaUtils.validaTelefone("telefonePessoa", telefonePessoa);
+//                        if (telefonePessoaMsg.trim().isEmpty()) {
+//                            request.setAttribute("telefonePessoa", telefonePessoa);
+//                        } else {
+//                            telefonePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                            request.setAttribute("telefonePessoaMsg", telefonePessoaMsg);
+//                            isValid = false;
+//                        }
+//                    } else {
+//                        telefonePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                        request.setAttribute("telefonePessoaMsg", telefonePessoaMsg);
+//                        isValid = false;
+//
+//                    }
+//                } else {
+//                    telefonePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                    request.setAttribute("telefonePessoaMsg", telefonePessoaMsg);
+//                    isValid = false;
+//                }
+//
+//            }
+//
+//            /**
+//             * Validação da Data de Assinatura do Convenio da Pessoa usando os
+//             * métodos da Classe ValidaUtils Campo obrigatório
+//             */
+//            Date dataAssinaturaPessoa = null;
+//            String dataAssinaturaMsg = "";
+//            String campo = "Data de Assinatura";
+//
+//            dataAssinaturaMsg = ValidaUtils.validaObrigatorio(campo, dataAssinaturaConvenioPessoa);
+//            if (dataAssinaturaMsg.trim().isEmpty()) {
+//                dataAssinaturaMsg = ValidaUtils.validaDate(campo, dataAssinaturaConvenioPessoa);
+//                if (dataAssinaturaMsg.trim().isEmpty()) {
+//                    dataAssinaturaMsg = ValidaUtils.validaTamanhoExato(campo, 10, dataAssinaturaConvenioPessoa);
+//                    if (dataAssinaturaMsg.trim().isEmpty()) {
+//                        try {
+//                            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//                            dataAssinaturaPessoa = format.parse(dataAssinaturaConvenioPessoa);
+//
+//                            request.setAttribute("dataAssinaturaConvenioPessoa", dataAssinaturaPessoa);
+//                        } catch (Exception e) {
+//                            //TODO trocar saída de console por Log
+//                            System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
+//                            isValid = false;
+//                        }
+//                    } else {
+//                        dataAssinaturaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                        request.setAttribute("dataAssinaturaPessoaMsg", dataAssinaturaMsg);
+//                        isValid = false;
+//                        //TODO Fazer log
+//
+//                    }
+//
+//                } else {
+//                    dataAssinaturaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                    request.setAttribute("dataAssinaturaPessoaMsg", dataAssinaturaMsg);
+//                    isValid = false;
+//                    //TODO Fazer log
+//                    System.out.println(dataAssinaturaMsg);
+//                }
+//            } else {
+//                dataAssinaturaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                request.setAttribute("dataAssinaturaPessoaMsg", dataAssinaturaMsg);
+//                isValid = false;
+//                //TODO Fazer log
+//                System.out.println(dataAssinaturaMsg);
+//            }
+//            
+//            String convenioAnoPessoaMsg = "";
+//            convenioAnoPessoaMsg = ValidaUtils.validaObrigatorio("convenioAnoPessoa", convenioAnoPessoa);
+//            if (convenioAnoPessoaMsg.trim().isEmpty()) {
+//                convenioAnoPessoaMsg = ValidaUtils.validaTamanhoExato("convenioAnoPessoa", 4, convenioAnoPessoa);
+//                if (convenioAnoPessoaMsg.trim().isEmpty()) {
+//                    convenioAnoPessoaMsg = ValidaUtils.validaInteger("convenioAnoPessoa", convenioAnoPessoa);
+//                    if (convenioAnoPessoaMsg.trim().isEmpty()) {
+//                        request.setAttribute("convenioAnoPessoa", convenioAnoPessoa);
+//                        System.out.println(convenioAnoPessoa);
+//                    } else {
+//                        convenioAnoPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                        request.setAttribute("convenioAnoPessoaMsg", convenioAnoPessoaMsg);
+//                        isValid = false;
+//                        System.out.println(convenioAnoPessoaMsg);
+//                    } 
+//                }else {
+//                    convenioAnoPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                    request.setAttribute("convenioAnoPessoaMsg", convenioAnoPessoaMsg);
+//                    isValid = false;
+//                    System.out.println(convenioAnoPessoaMsg);
+//                    }
+//            }else{
+//                convenioAnoPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+//                request.setAttribute("convenioAnoPessoaMsg", convenioAnoPessoaMsg);
+//                isValid = false;
+//                System.out.println(convenioAnoPessoaMsg);
+//            }
+//
+//        }
 
         /**
          * Teste das variáveis booleanas após validação. Redirecionamento para a
          * inclusão ou devolver para o formulário com as mensagens.
          */
         
-        System.out.println("CNPJ MSG FINAL: " + cnpjEmpresaMsg);
-        System.out.println("EMPRESA MSG FINAL: " + EmpresaMsg);
+//        System.out.println("CNPJ MSG FINAL: " + cnpjEmpresaMsg);
+//        System.out.println("EMPRESA MSG FINAL: " + EmpresaMsg);
         if (isValid) {
             request.getRequestDispatcher("/IncluirCadastroAlteradoEmpresaServlet").forward(request, response);
 
@@ -745,8 +700,9 @@ public class ValidaAlterarConvenio extends HttpServlet {
             request.getRequestDispatcher("/form_alterar_convenio.jsp").forward(request, response);
 
         }
-
     }
-
 }
+    
+
+
 

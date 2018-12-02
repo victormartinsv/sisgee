@@ -626,7 +626,7 @@ public class FormAlterarTermoAditivoServlet extends HttpServlet {
                                 
                                 
                                 String registroAditivoConcluido = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_registroAditivoConcluido");
-				request.setAttribute("msg", "ADITIVO ALTERADO PORRRAAAAA");
+				request.setAttribute("msg", "Termo Aditivo alterado com sucesso.");
 				
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
 								

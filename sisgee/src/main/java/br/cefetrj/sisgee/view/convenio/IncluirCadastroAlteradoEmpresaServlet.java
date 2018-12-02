@@ -46,59 +46,70 @@ public class IncluirCadastroAlteradoEmpresaServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("ACESSOU O IncluirCadastroAlteradoEmpresaServlet");
+
         Locale locale = ServletUtils.getLocale(request);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
         String tipoPessoa = request.getParameter("tipoPessoa");
         boolean pessoaJuridica = true;
         String cnpjEmpresa = request.getParameter("cnpjEmpresa");
-        String idEmpresa = request.getParameter("idEmpresa");
-        Integer idEmpresaAux = Integer.parseInt(idEmpresa);
-        String idPessoa = request.getParameter("idPessoa");
-        Integer idPessoaAux = Integer.parseInt(idPessoa);
-        String idConvenio = request.getParameter("idConvenio");
-        Integer idConvenioAux = Integer.parseInt(idConvenio);
-        System.out.println("ID EMPRESA: " + idEmpresaAux);
-        System.out.println("ID EMPRESA: " + idPessoaAux);
-        System.out.println("ID EMPRESA: " + idConvenioAux);
-//        try{
-//            Empresa empresaAux = EmpresaServices.buscarEmpresa(Integer.parseInt(cnpjEmpresa));
-//            idEmpresa = empresaAux.getIdEmpresa();
-//        } catch(Exception e){
-//            
-//        }
+        
+        System.out.println("CNPJ INICIAL EMPRESA" + cnpjEmpresa);
+        
+        
+        Integer idEmpresa = null;
+        
+        try{
+            Empresa empresaAux = EmpresaServices.buscarEmpresaByCnpj(cnpjEmpresa);
+            idEmpresa = empresaAux.getIdEmpresa();
+        } catch(Exception e){
+            
+        }
         
         String nomeEmpresa = request.getParameter("nomeEmpresa");
         String agenteIntegracao = request.getParameter("agenteIntegracao");
+        
         Date dataAssinaturaConvenio = (Date)request.getAttribute("dataAssinaturaConvenioPessoa");
+        Date dataAssinaturaConvenioEmpresa = (Date)request.getAttribute("dataAssinaturaConvenioEmpresa");
+        
         String emailEmpresa = request.getParameter("emailEmpresa");
         String telefoneEmpresa = request.getParameter("telefoneEmpresa");
         String contatoEmpresa = request.getParameter("contatoEmpresa");
-        Date dataAssinaturaConvenioEmpresa = (Date)request.getAttribute("dataAssinaturaConvenioEmpresa");
         
-        //Dados a serem atualizadas em Pessoa Fisica
+       
         String cpfPessoa = request.getParameter("cpfPessoa");
         String nomePessoa = request.getParameter("nomePessoa");
         String emailPessoa = request.getParameter("emailPessoa");
         String telefonePessoa = request.getParameter("telefonePessoa");
+        Integer idPessoa = null;
         
-//        try{
-//            Pessoa pessoaAux = PessoaServices.buscarPessoaByCpf(cpfPessoa);
-//            idPessoa = pessoaAux.getIdPessoa();
-//        } catch(Exception e){
-//            
-//        }  
+        
+        try{
+            Pessoa pessoaAux = PessoaServices.buscarPessoaByCpf(cpfPessoa);
+            idPessoa = pessoaAux.getIdPessoa();
+        } catch(Exception e){
+            
+        }  
         
         String convenioAnoPessoa = request.getParameter("convenioAnoPessoa");
         String convenioAnoEmpresa = request.getParameter("convenioAnoEmpresa");
         
         String convenioNumero = request.getParameter("convenioNumero");
         Convenio convenioAux = ConvenioServices.buscarConvenioByNumeroConvenio(convenioNumero);
-        //Integer idConvenio = convenioAux.getIdConvenio();
+        Integer idConvenio = convenioAux.getIdConvenio();
         
         Pessoa pessoa = null;
+        
+        if (tipoPessoa.equals("nao")) {
+            
+            pessoaJuridica = false;
+            pessoa = new Pessoa(nomePessoa, cpfPessoa.replaceAll("[.|/|-]", ""));
+            pessoa.setEmail(emailPessoa);
+            pessoa.setTelefone(telefonePessoa);
+            pessoa.setIdPessoa(idPessoa);
+        }
 
         Boolean ehAgente = Boolean.parseBoolean(agenteIntegracao);
+
         
         if (pessoaJuridica) {
             
@@ -106,7 +117,9 @@ public class IncluirCadastroAlteradoEmpresaServlet extends HttpServlet {
             empresa.setContatoEmpresa(contatoEmpresa);
             empresa.setEmailEmpresa(emailEmpresa);
             empresa.setTelefoneEmpresa(telefoneEmpresa);
-            empresa.setIdEmpresa(idEmpresaAux);
+            System.out.println("ID EMPRESA PARA ALTERAR:" + idEmpresa);
+            empresa.setIdEmpresa(idEmpresa);
+            
             String msg = "";
             Logger lg = Logger.getLogger(IncluirCadastroAlteradoEmpresaServlet.class);
             try {
@@ -125,11 +138,13 @@ public class IncluirCadastroAlteradoEmpresaServlet extends HttpServlet {
             try {
                 Convenio convenio = new Convenio(convenioAnoEmpresa, convenioNumero, dataAssinaturaConvenioEmpresa, empresa);
                 convenio.setNumeroConvenio();
-                convenio.setIdConvenio(idConvenioAux);
+                System.out.println("ID CONVENIO PARA ALTERAR:" + idConvenio);
+                convenio.setIdConvenio(idConvenio);
                 ConvenioServices.alterarConvenio(convenio);
                 
                 msg = "Alteração realizada com sucesso!";
                 request.setAttribute("msg", msg);
+                request.setAttribute("numeroConvenioGerado", convenio.getNumeroConvenio());
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
                 lg.info(msg);
 
@@ -163,10 +178,10 @@ public class IncluirCadastroAlteradoEmpresaServlet extends HttpServlet {
                 
                 Convenio convenio = new Convenio(convenioAnoPessoa, convenioNumero, dataAssinaturaConvenio, pessoa);
                 convenio.setNumeroConvenio();
-                convenio.setIdConvenio(idConvenioAux);
-                ConvenioServices.alterarConvenio(convenio);
+                ConvenioServices.incluirConvenio(convenio);
                 msg = "Alteração realizada com sucesso!";
                 request.setAttribute("msg", msg);
+                request.setAttribute("numeroConvenioGerado", convenio.getNumeroConvenio());
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
 
             } catch (Exception e) {

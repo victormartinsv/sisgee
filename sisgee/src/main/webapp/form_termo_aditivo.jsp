@@ -92,16 +92,16 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title">Confirm Delete</h4>
+                                            <h4 class="modal-title"><fmt:message key = "br.cefetrj.sisgee.form_termo_aditivo_.msg_confirmar"/></h4>
                                         </div>
 
                                         <div class="modal-body">
-                                            <p>Are you sure you want to delete this user? </p>
+                                            <p><fmt:message key = "br.cefetrj.sisgee.form_termo_aditivo_.msg_certezaDeletar"/></p>
                                         </div>
                                         <div class="modal-footer">
 
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <a href="ExcluirTermo?ide=${b.idTermoEstagio}" title="Delete"><i class="fa fa-trash-o"></i>Delete</a>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key = "br.cefetrj.sisgee.form_termo_aditivo_.msg_fechar"/></button>
+                                            <a href="ExcluirTermo?ide=${b.idTermoEstagio}" title="Delete"><i class="fa fa-trash-o"></i><fmt:message key = "br.cefetrj.sisgee.form_termo_aditivo_.msg_deletar"/></a>
                                         </div>
                                     </div>
                                 </div>
@@ -159,16 +159,16 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                <h4 class="modal-title">Confirm Delete</h4>
+                                                <h4 class="modal-title"><fmt:message key = "br.cefetrj.sisgee.form_termo_aditivo_.msg_confirmar"/></h4>
                                             </div>
 
                                             <div class="modal-body">
-                                                <p>Are you sure you want to delete this user? </p>
+                                                <p><fmt:message key = "br.cefetrj.sisgee.form_termo_aditivo_.msg_certezaDeletar"/> </p>
                                             </div>
                                             <div class="modal-footer">
 
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <a href="ExcluirAditivo?ide=${c.idTermoAditivo}" title="Delete"><i class="fa fa-trash-o"></i>Delete</a>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key = "br.cefetrj.sisgee.form_termo_aditivo_.msg_fechar"/></button>
+                                                <a href="ExcluirAditivo?ide=${c.idTermoAditivo}" title="Delete"><i class="fa fa-trash-o"></i><fmt:message key = "br.cefetrj.sisgee.form_termo_aditivo_.msg_deletar"/></a>
                                             </div>
                                         </div>
                                     </div>

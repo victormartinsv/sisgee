@@ -1,14 +1,21 @@
 package br.cefetrj.sisgee.view.termoaditivo;
 
+import br.cefetrj.sisgee.control.AgenteIntegracaoServices;
 import br.cefetrj.sisgee.view.termoestagio.*;
 import br.cefetrj.sisgee.control.AlunoServices;
+import br.cefetrj.sisgee.control.EmpresaServices;
+import br.cefetrj.sisgee.control.ProfessorOrientadorServices;
 import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.control.TermoEstagioServices;
+import br.cefetrj.sisgee.model.entity.AgenteIntegracao;
 import br.cefetrj.sisgee.model.entity.Aluno;
+import br.cefetrj.sisgee.model.entity.Empresa;
+import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoAditivo;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.UF;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +41,8 @@ public class AlterarAditivo extends HttpServlet {
         
         String ide = req.getParameter("ide");
         String ida = req.getParameter("ida");
+        
+        
         String matricula = req.getParameter("matricula");
         UF[] uf = UF.asList();
         TermoEstagio termoEstagio=null;
@@ -42,12 +51,31 @@ public class AlterarAditivo extends HttpServlet {
         System.out.println(ide);
         Aluno aluno=AlunoServices.buscarAlunoByMatricula(matricula);
         
+        String tipoAditivo;
+        String sim = "sim";
         if(ide!=null)
         termoEstagio=TermoEstagioServices.buscarTermoEstagio(Integer.parseInt(ide));
 
         if(ida!=null)
         termoAditivo=TermoAditivoServices.buscarTermoAditivo(Integer.parseInt(ida));
         
+        tipoAditivo = termoAditivo.getTipoAditivo();
+        
+        if (tipoAditivo.equals("Valor da Bolsa")){
+            req.setAttribute("showValorBolsa", sim);
+        } else if (tipoAditivo.equals("Vigência")){
+            req.setAttribute("showVigencia", sim);
+        }else if (tipoAditivo.equals("Carga Horária")){
+            req.setAttribute("showCargaHoraria", sim);
+        }else if (tipoAditivo.equals("Professor Orientador")){
+            req.setAttribute("showProfessor", sim);
+        }else if (tipoAditivo.equals("Local Estágio")){
+            req.setAttribute("showLocal", sim);
+        }else if (tipoAditivo.equals("Supervisor")){
+            req.setAttribute("showSupervisor", sim);
+        }
+        
+        carregarListas(req);
         req.setAttribute("uf", uf);
                         
 			/** Dados de aluno*/
@@ -55,7 +83,9 @@ public class AlterarAditivo extends HttpServlet {
                         req.setAttribute("alNome", aluno.getPessoa().getNome());
                         req.setAttribute("alCampus", aluno.getCurso().getCampus().getNomeCampus());
                         req.setAttribute("alCurso", aluno.getCurso());
-			
+			req.setAttribute("idTermoAditivoInicial", ida);
+                        req.setAttribute("idTermoEstagioInicial", ide);
+                        
                         /** Dados de convenio*/
                         req.setAttribute("cvNumero", termoEstagio.getConvenio().getNumeroConvenio());
                         if(termoEstagio.getConvenio().getEmpresa()==null){
@@ -107,6 +137,22 @@ public class AlterarAditivo extends HttpServlet {
                         /** Dados de Professor */
                         req.setAttribute("pfnomeprofessor",termoEstagio.getProfessorOrientadorVisu(termoAditivo));
                         
-        req.getRequestDispatcher("/form_termo_Altera.jsp").forward(req, resp);
+        req.getRequestDispatcher("/form_termo_altera_aditivo.jsp").forward(req, resp);
+    }
+        private static HttpServletRequest carregarListas(HttpServletRequest request) {
+
+        List<AgenteIntegracao> agentesIntegracao = AgenteIntegracaoServices.listarAgenteIntegracao();
+        List<Empresa> empresas = EmpresaServices.listarEmpresas();
+        List<Aluno> alunos = AlunoServices.listarAlunos();
+        List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
+        UF[] uf = UF.asList();
+
+        request.setAttribute("agentesIntegracao", agentesIntegracao);
+        request.setAttribute("empresas", empresas);
+        request.setAttribute("alunos", alunos);
+        request.setAttribute("professores", professores);
+        request.setAttribute("uf", uf);
+
+        return request;
     }
 }

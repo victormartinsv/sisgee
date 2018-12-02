@@ -147,4 +147,17 @@ public class TermoAditivoServices {
 			
 	}
 }
+        	public static void alterarTermoAditivo(TermoAditivo termoAditivo) {
+		GenericDAO<TermoAditivo> termoAditivoDao = PersistenceManager.createGenericDAO(TermoAditivo.class);
+		
+		try {
+			PersistenceManager.getTransaction().begin();
+			termoAditivoDao.alterar(termoAditivo);
+			PersistenceManager.getTransaction().commit();
+		} catch (Exception e) {			
+			e.printStackTrace();
+			PersistenceManager.getTransaction().rollback();
+			
+	}
+}
 }

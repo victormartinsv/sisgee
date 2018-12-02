@@ -101,10 +101,29 @@
                                     <td >${ not empty b.empresa ? b.empresa.razaoSocial: b.pessoa.nome } </td>
                                     <td>${ not empty b.empresa ? b.empresa.cnpjEmpresa : b.pessoa.cpf }</td>
                                     <td><a class="btn btn-sm btn-primary btn-block" href="RenovarConvenioServlet?convenio=${b.numeroConvenio}" ><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_clique_renovar" /></td>
-                                    <td><a class="btn btn-sm btn-primary btn-block" href="ExcluirConvenio?nomeEmpresa=${b.empresa.razaoSocial}"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_clique_excluir" /></td>
+                                    <td><a class="btn btn-sm btn-primary btn-block" href="#ModalConvenio_${b.empresa.razaoSocial}" data-toggle = "modal"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_clique_excluir" /></td>
                                     <td><a class="btn btn-sm btn-primary btn-block" href="AlterarConvenioAlteradoServlet?convenio=${b.numeroConvenio}"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_clique_alterar" /></td>                                    
 
                                 </tr>
+                                    <div id="ModalConvenio_${b.empresa.razaoSocial}" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title"><fmt:message key = "br.cefetrj.sisgee.form_termo_aditivo_.msg_confirmar"/></h4>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <p><fmt:message key = "br.cefetrj.sisgee.form_termo_aditivo_.msg_certezaDeletar"/></p>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key = "br.cefetrj.sisgee.form_termo_aditivo_.msg_fechar"/></button>
+                                                <a href="ExcluirConvenio?nomeEmpresa=${b.empresa.razaoSocial}" title="Delete"><i class="fa fa-trash-o"></i><fmt:message key = "br.cefetrj.sisgee.form_termo_aditivo_.msg_deletar"/></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </c:forEach>
                         </table>
                     </c:if>         

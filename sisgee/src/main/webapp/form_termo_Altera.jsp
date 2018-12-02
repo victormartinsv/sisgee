@@ -410,10 +410,11 @@
     <%@include file="import_scripts.jspf"%>
     <script>
         $(document).ready(function () {
+            
             var tamanho = $("#cnpjEcpf1").val().length;
             
             $('#cargaHorariaTermoEstagio').mask('9');
-            
+            $('#valorBolsa').mask('000.000,00', {reverse: true});
             $('#dataInicioTermoEstagio').mask('99/99/9999');
             $('#dataFimTermoEstagio').mask('99/99/9999');
             $("#cnpjEcpf1").mask("99.999.999/9999-99");        

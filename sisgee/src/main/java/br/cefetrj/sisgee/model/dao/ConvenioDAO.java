@@ -66,12 +66,4 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
 		    .getSingleResult();
 	}
         
-        public Empresa alterarConvenioEmpresa(String agInt, String cnpj, String razao, String email, String tel, String pessoa, String anoConvenio, String numero){
-            System.out.println("Utilizou o AlterarConvenioEmpresa");
-            return (Empresa) manager.createQuery(
-            "UPDATE Empresa e SET e.agenteIntegracao =:agInt, e.cnpjEmpresa =:cnpj, e.razaoSocial =:razao, e.emailEmpresa =:email, e.telefoneEmpresa :=tel, e.contatoEmpresa :=pessoa, e.convenioAno :=anoConvenio WHERE e.numeroConvenio LIKE :numero")
-                    .setParameter("agInt", agInt)
-                    .getSingleResult();
-            
-        }
 }

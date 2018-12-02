@@ -22,7 +22,7 @@ public class Pessoa implements Serializable {
 
     @Id
     @GeneratedValue
-    private Long idPessoa;
+    private Integer idPessoa;
 
     @Column(length = 100, nullable = false)
     private String nome;
@@ -46,7 +46,7 @@ public class Pessoa implements Serializable {
     public Pessoa() {
     }
 
-    public Pessoa(Long idPessoa, String nome) {
+    public Pessoa(Integer idPessoa, String nome) {
         this.idPessoa = idPessoa;
         this.nome = nome;
     }
@@ -57,11 +57,11 @@ public class Pessoa implements Serializable {
     }
     
     
-    public Long getIdPessoa() {
+    public Integer getIdPessoa() {
         return idPessoa;
     }
 
-    public void setIdPessoa(Long idPessoa) {
+    public void setIdPessoa(Integer idPessoa) {
         this.idPessoa = idPessoa;
     }
 

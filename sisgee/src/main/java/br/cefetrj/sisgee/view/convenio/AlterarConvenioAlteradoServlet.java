@@ -37,7 +37,7 @@ public class AlterarConvenioAlteradoServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        System.out.println("ACESSOU O AlterarConvenioAlteradoServlet");
         int pos = request.getParameter("convenio").indexOf("/");
         //Substring iniciando em 0 até posição do caracter especial
         
@@ -45,16 +45,27 @@ public class AlterarConvenioAlteradoServlet extends HttpServlet {
         
         
         Convenio convenio = ConvenioServices.buscarConvenioByNumeroConvenio(numeroConvenio);
+        int idConvenio = convenio.getIdConvenio();
+        int idPessoa = 0;
+        int idEmpresa = 0;
+        
+        request.setAttribute("idConvenio", idConvenio);
+        System.out.println("ID do Convenio --> "+ idConvenio);
         String dataAssinaturaEmpresa;
-
               
         if(convenio.getEmpresa()!=null){
             request.setAttribute("isEmpresa", "sim");
             if(convenio.getEmpresa().isAgenteIntegracao()){
                 request.setAttribute("simAgenteIntegracao", "sim");
+                System.out.println("Agente Integracao: Sim");
             }else{
                 request.setAttribute("naoAgenteIntegracao", "sim");
+                System.out.println("Agente Integracao: Nao");
             }
+            //Recupera dados de um convenio que é Pessoa Fisica
+            idEmpresa = convenio.getEmpresa().getIdEmpresa();
+            System.out.println("ID da Empresa --> "+ idEmpresa);
+            request.setAttribute("idEmpresa", idEmpresa);
             request.setAttribute("convenioNumero", numeroConvenio);
             request.setAttribute("cnpj", convenio.getEmpresa().getCnpjEmpresa());
             request.setAttribute("razao", convenio.getEmpresa().getRazaoSocial());
@@ -67,8 +78,23 @@ public class AlterarConvenioAlteradoServlet extends HttpServlet {
             request.setAttribute("telefoneEmpresa", convenio.getEmpresa().getTelefoneEmpresa());
             request.setAttribute("contatoEmpresa", convenio.getEmpresa().getContatoEmpresa());
             request.setAttribute("convenioAnoEmpresa", convenio.getAno());
+            System.out.println("idEmpresa: " + idEmpresa);
+            System.out.println("convenioNumero: " + numeroConvenio);
+            System.out.println("cnpj: " + convenio.getEmpresa().getCnpjEmpresa());
+            System.out.println("razao: " + convenio.getEmpresa().getRazaoSocial());
+            System.out.println("cnpjInicial: " + convenio.getEmpresa().getCnpjEmpresa());
+            System.out.println("nomeEmpresaInicial: " + convenio.getEmpresa().getRazaoSocial());
+            System.out.println("dataAssinaturaConvenioEmpresa: " + dataAssinaturaEmpresa);
+            System.out.println("emailEmpresa: " + convenio.getEmpresa().getEmailEmpresa());
+            System.out.println("telefoneEmpresa: " + convenio.getEmpresa().getTelefoneEmpresa());
+            System.out.println("contatoEmpresa: " + convenio.getEmpresa().getContatoEmpresa());
+            System.out.println("convenioAnoEmpresa: " + convenio.getAno());
                
         }else{
+            //Recupera dados de um convenio que é Pessoa Fisica
+            idPessoa = convenio.getPessoa().getIdPessoa();
+            System.out.println("ID da Empresa --> "+ idPessoa);
+            request.setAttribute("idPessoa", idPessoa);
             request.setAttribute("convenioNumero", numeroConvenio);
             request.setAttribute("isPessoa", "sim");
             request.setAttribute("cpf", convenio.getPessoa().getCpf());
@@ -81,7 +107,17 @@ public class AlterarConvenioAlteradoServlet extends HttpServlet {
             request.setAttribute("emailPessoa", convenio.getPessoa().getEmail());
             request.setAttribute("telefonePessoa", convenio.getPessoa().getTelefone());
             request.setAttribute("convenioAnoPessoa", convenio.getAno());
-            
+            System.out.println("idPessoa: " + idPessoa);
+            System.out.println("convenioNumero: " + numeroConvenio);
+            System.out.println("isPessoa: " + "sim");
+            System.out.println("cpf: " + convenio.getPessoa().getCpf());
+            System.out.println("nome: " + convenio.getPessoa().getNome());
+            System.out.println("cpfInicial: " + convenio.getPessoa().getCpf());
+            System.out.println("nomePessoaInicial: " + convenio.getPessoa().getNome());
+            System.out.println("dataAssinaturaConvenioPessoa: " + dataAssinaturaEmpresa);
+            System.out.println("emailPessoa: " + convenio.getPessoa().getEmail());
+            System.out.println("telefonePessoa: " + convenio.getPessoa().getTelefone());
+            System.out.println("convenioAnoPessoa: " + convenio.getAno());
         }
         request.getSession().setAttribute("numero", numeroConvenio);
         

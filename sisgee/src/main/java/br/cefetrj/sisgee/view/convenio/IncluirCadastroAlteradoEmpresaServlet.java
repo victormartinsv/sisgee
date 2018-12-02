@@ -46,51 +46,55 @@ public class IncluirCadastroAlteradoEmpresaServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("ACESSOU O IncluirCadastroAlteradoEmpresaServlet");
         Locale locale = ServletUtils.getLocale(request);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
         String tipoPessoa = request.getParameter("tipoPessoa");
         boolean pessoaJuridica = true;
         String cnpjEmpresa = request.getParameter("cnpjEmpresa");
-        Integer idEmpresa = null;
-        
-        try{
-            Empresa empresaAux = EmpresaServices.buscarEmpresa(Integer.parseInt(cnpjEmpresa));
-            idEmpresa = empresaAux.getIdEmpresa();
-        } catch(Exception e){
-            
-        }
+        String idEmpresa = request.getParameter("idEmpresa");
+        Integer idEmpresaAux = Integer.parseInt(idEmpresa);
+        String idPessoa = request.getParameter("idPessoa");
+        Integer idPessoaAux = Integer.parseInt(idPessoa);
+        String idConvenio = request.getParameter("idConvenio");
+        Integer idConvenioAux = Integer.parseInt(idConvenio);
+        System.out.println("ID EMPRESA: " + idEmpresaAux);
+        System.out.println("ID EMPRESA: " + idPessoaAux);
+        System.out.println("ID EMPRESA: " + idConvenioAux);
+//        try{
+//            Empresa empresaAux = EmpresaServices.buscarEmpresa(Integer.parseInt(cnpjEmpresa));
+//            idEmpresa = empresaAux.getIdEmpresa();
+//        } catch(Exception e){
+//            
+//        }
         
         String nomeEmpresa = request.getParameter("nomeEmpresa");
         String agenteIntegracao = request.getParameter("agenteIntegracao");
-        
         Date dataAssinaturaConvenio = (Date)request.getAttribute("dataAssinaturaConvenioPessoa");
-        Date dataAssinaturaConvenioEmpresa = (Date)request.getAttribute("dataAssinaturaConvenioEmpresa");
-        
         String emailEmpresa = request.getParameter("emailEmpresa");
         String telefoneEmpresa = request.getParameter("telefoneEmpresa");
         String contatoEmpresa = request.getParameter("contatoEmpresa");
+        Date dataAssinaturaConvenioEmpresa = (Date)request.getAttribute("dataAssinaturaConvenioEmpresa");
         
-       
+        //Dados a serem atualizadas em Pessoa Fisica
         String cpfPessoa = request.getParameter("cpfPessoa");
         String nomePessoa = request.getParameter("nomePessoa");
         String emailPessoa = request.getParameter("emailPessoa");
         String telefonePessoa = request.getParameter("telefonePessoa");
-        Long idPessoa = null;
         
-        try{
-            Pessoa pessoaAux = PessoaServices.buscarPessoaByCpf(cpfPessoa);
-            idPessoa = pessoaAux.getIdPessoa();
-        } catch(Exception e){
-            
-        }  
+//        try{
+//            Pessoa pessoaAux = PessoaServices.buscarPessoaByCpf(cpfPessoa);
+//            idPessoa = pessoaAux.getIdPessoa();
+//        } catch(Exception e){
+//            
+//        }  
         
         String convenioAnoPessoa = request.getParameter("convenioAnoPessoa");
         String convenioAnoEmpresa = request.getParameter("convenioAnoEmpresa");
         
         String convenioNumero = request.getParameter("convenioNumero");
         Convenio convenioAux = ConvenioServices.buscarConvenioByNumeroConvenio(convenioNumero);
-        Integer idConvenio = convenioAux.getIdConvenio();
+        //Integer idConvenio = convenioAux.getIdConvenio();
         
         Pessoa pessoa = null;
 
@@ -102,7 +106,7 @@ public class IncluirCadastroAlteradoEmpresaServlet extends HttpServlet {
             empresa.setContatoEmpresa(contatoEmpresa);
             empresa.setEmailEmpresa(emailEmpresa);
             empresa.setTelefoneEmpresa(telefoneEmpresa);
-            empresa.setIdEmpresa(idEmpresa);
+            empresa.setIdEmpresa(idEmpresaAux);
             String msg = "";
             Logger lg = Logger.getLogger(IncluirCadastroAlteradoEmpresaServlet.class);
             try {
@@ -121,7 +125,7 @@ public class IncluirCadastroAlteradoEmpresaServlet extends HttpServlet {
             try {
                 Convenio convenio = new Convenio(convenioAnoEmpresa, convenioNumero, dataAssinaturaConvenioEmpresa, empresa);
                 convenio.setNumeroConvenio();
-                convenio.setIdConvenio(idConvenio);
+                convenio.setIdConvenio(idConvenioAux);
                 ConvenioServices.alterarConvenio(convenio);
                 
                 msg = "Alteração realizada com sucesso!";
@@ -159,7 +163,7 @@ public class IncluirCadastroAlteradoEmpresaServlet extends HttpServlet {
                 
                 Convenio convenio = new Convenio(convenioAnoPessoa, convenioNumero, dataAssinaturaConvenio, pessoa);
                 convenio.setNumeroConvenio();
-                convenio.setIdConvenio(idConvenio);
+                convenio.setIdConvenio(idConvenioAux);
                 ConvenioServices.alterarConvenio(convenio);
                 msg = "Alteração realizada com sucesso!";
                 request.setAttribute("msg", msg);

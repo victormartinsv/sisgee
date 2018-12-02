@@ -31,6 +31,19 @@
 
             <form id="meuForm" action="ValidaAlterarConvenio" method="POST">
                 <fieldset class="form-group">
+                    
+                    <div class="form-group col-md-6">
+                        <input type="hidden" id="idConvenio" name="idConvenio" value="${not empty idConvenio ? idConvenio :'' }"> 
+                        <input type="hidden" id="idEmpresa" name="idEmpresa" value="${not empty idEmpresa ? idEmpresa :''}"> 
+                        <input type="hidden" id="idPessoa" name="idPessoa" value="${not empty idPessoa ? idPessoa : ''}">
+                    </div>
+                    <div class="form-group col-md-6">
+                            <label for="convenioNumero"><fmt:message key = "br.cefetrj.sisgee.resources.form.convenio_numero"/></label>
+                            <input type="text" class="form-control ${ not empty convenioNumeroMsg ? 'is-invalid': 'is-valid' }" id="convenioNumero" name="convenioNumero" maxlength=6 value=${ not empty convenioNumero ? convenioNumero :''  }>
+                            <c:if test="${ not empty convenioNumeroMsg }">
+                                <div class="invalid-feedback">${ convenioNumeroMsg }</div>
+                            </c:if>
+                    </div>     
                             
                     <div class="form-row  " >
                         <div class="form-group col-md-2 mt-2 " >

@@ -32,7 +32,7 @@
                     </div>
                          <div class="form-inline offset-3 alert alert-sucess"  >
                             <label for="numeroConvenioMsg" style="font-family: Tajawal, Helvetica; color: #000; font-size: 20px; font-weight: bolder" ><fmt:message key="br.cefetrj.sisgee.incluir_cadastro_empresa_servlet.msg_convenio_numero_gerado" /></label>
-                            <label for="numeroConvenio" class="ml-3" style="font-family: Tajawal, Helvetica; color: #bd2130; font-size: 30px; font-weight: bolder" >${param.convenioNumero}</label>
+                            <label for="numeroConvenio" class="ml-3" style="font-family: Tajawal, Helvetica; color: #bd2130; font-size: 30px; font-weight: bolder" >${numeroConvenioGerado}</label>
                          </div>
                         <div class="offset-6 mb-5" >
                             <button type="button" class="btn btn-primary " onclick="javascript:location.href = 'index.jsp'">Ok</button>

@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Comparator;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ import javax.persistence.OneToOne;
  *
  */
 @Entity
-public class Convenio implements Serializable {
+public class Convenio implements Serializable, Comparator<Convenio>{
 
     @Id
     @GeneratedValue
@@ -217,6 +218,11 @@ public class Convenio implements Serializable {
     @Override
     public String toString() {
         return numeroConvenio;
+    }
+
+    @Override
+    public int compare(Convenio o1, Convenio o2) {
+        return o2.getNumero().compareTo(o1.getNumero());
     }
 
 }

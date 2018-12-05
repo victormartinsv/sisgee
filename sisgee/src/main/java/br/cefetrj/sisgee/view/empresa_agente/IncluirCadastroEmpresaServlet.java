@@ -146,6 +146,8 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
                 ConvenioServices.incluirConvenio(convenio);
                 msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_empresa_servlet.msg_convenio_cadastrado");
                 request.setAttribute("msg", msg);
+                System.out.println("convenio.getNumero() -> " + convenio.getNumero());
+                System.out.println("convenio.getNumero() -> " + convenio.getNumeroConvenio());
                 request.setAttribute("numeroConvenioGerado", convenio.getNumeroConvenio());
                 request.getRequestDispatcher("/form_empresa_sucesso.jsp").forward(request, response);
 

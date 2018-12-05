@@ -9,6 +9,7 @@ import br.cefetrj.sisgee.control.ConvenioServices;
 import br.cefetrj.sisgee.model.entity.Convenio;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -54,9 +55,13 @@ public class InsereNumeroConvenioServlet extends HttpServlet {
      * @return uma string
      */
     public static String gerarNumeroConvenio(){
-        
+        Convenio comparador = new Convenio();
         List<Convenio> x = ConvenioServices.listarConvenios();
-        String a = String.valueOf(x.size()+1);
+        Collections.sort(x, comparador);
+        System.out.println(x.size());
+        int numConv = Integer.parseInt(x.get(0).getNumero()) + 1;
+        System.out.println("Primeiro da lista: " + String.valueOf(numConv));
+        String a = String.valueOf(numConv);
         return a;
     }
 }

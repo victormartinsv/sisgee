@@ -46,6 +46,8 @@ public class AlterarConvenioAlteradoServlet extends HttpServlet {
         
         Convenio convenio = ConvenioServices.buscarConvenioByNumeroConvenio(numeroConvenio);
         String dataAssinaturaEmpresa;
+        String dataAssinaturaPessoa;
+        
 
               
         if(convenio.getEmpresa()!=null){
@@ -76,8 +78,8 @@ public class AlterarConvenioAlteradoServlet extends HttpServlet {
             request.setAttribute("cpfInicial", convenio.getPessoa().getCpf());
             request.setAttribute("nomePessoaInicial", convenio.getPessoa().getNome());
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            dataAssinaturaEmpresa = format.format(convenio.getDataAssinatura());
-            request.setAttribute("dataAssinaturaConvenioPessoa", dataAssinaturaEmpresa);
+            dataAssinaturaPessoa = format.format(convenio.getDataAssinatura());
+            request.setAttribute("dataAssinaturaConvenioPessoa", dataAssinaturaPessoa);
             request.setAttribute("emailPessoa", convenio.getPessoa().getEmail());
             request.setAttribute("telefonePessoa", convenio.getPessoa().getTelefone());
             request.setAttribute("convenioAnoPessoa", convenio.getAno());
